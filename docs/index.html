@@ -1,0 +1,118 @@
+---
+title: Replication Package
+description: "ANADOCS: Identifying Newcomers Documentation in Open Source Projects"
+layout: default
+---
+<div class="section">
+    <div class="section-title row">
+        <div class="four columns">
+            <hr>
+        </div>
+        <div class="four columns">
+            ABSTRACT
+        </div>
+        <div class="four columns">
+            <hr>
+        </div>
+    </div>
+    <div class="experiment">
+        <p>
+            In this paper, we propose a methodology to identify in documentation files of OSS projects,
+            a set of seven categories that are known to be important for newcomers during the contributing process of OSS projects.
+            First, we applied a survey asking students to identify the seven categories in README and CONTRIBUTING files of real OSS projects.
+            Their analyses were converted into numerical features and labels, used to train a group of machine learning classifiers.
+            We tested the classifiers using four different approaches: One Vs The Rest, Binary Relevance, Classifier Chains, and Label Powerset.
+            For each one of the approaches, we tried a set of well-stablished classifiers, such as Support Vector Machines (SVM) and K-Nearest Neighbors (KNN).
+            We found that (...)
+        </p>
+        <p>
+            In the following sections, we describe each one of the steps executed in our methodology, including scripts, data and results.
+        </p>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title row">
+        <div class="four columns">
+            <hr>
+        </div>
+        <div class="four columns">
+            EXPERIMENT
+        </div>
+        <div class="four columns">
+            <hr>
+        </div>
+    </div>
+    <div class="experiment">
+        <p>
+            First, an experiment was conducted with undergraduate students from two brazilian universities, USP and UFPA.
+            The main goal of the experiment was to identify in snippets of documentation files,
+            seven categories known to be important for newcomers during the contributing process. The seven categories were
+            defined through a deep literature review. We presented a tutorial explaining the experiment for the students, where
+            we asked them to identify the seven categories for a set of OSS projects preliminarily defined by us.
+            A spreadsheet was created for each one of the projects, divided in README and CONTRIBUTING worksheets.
+            The goal of each student was to select one (or more) spreadsheet(s), and mark the snippets with the categories when
+             necessary.
+        </p>
+        <p>
+            At UFPA, due to the number of available computers, most students executed the experiment in pairs.
+            This first execution resulted in 43 spreadsheets. At USP, the students executed the experiment
+            individually, analyzing, each one, exactly five projects. The respective analysis resulted in 75 spreadsheets investigated,
+            a total of 118 spreadsheets analyzed by students from both universities.
+        </p>
+        <p>
+            For this section, we make available below the tutorial used to conduct the experiment (1), a spreadsheet template as the ones
+            used during the execution (2), and the final spreadsheets analyzed by the students from both universities (3).
+        </p>
+        <ul class="list">
+            <b>Archives:</b>
+            <li>
+                <a href="https://fronchetti.com.br/ICSE-2019/experiment" target="__blank">(1) Tutorial <i class="far fa-file-alt"></i></a>
+            </li>
+            <li>
+                <a href="https://github.com/fronchetti/ICSE-2019/blob/master/data/spreadsheet_template.xlsx" target="__blank">(2) Spreadsheet template <i class="far fa-file-alt"></i></a>
+            </li>
+            <li>
+                <a href="https://github.com/fronchetti/ICSE-2019/tree/master/data/analysis" target="__blank">(3) Students spreadsheets <i class="far fa-folder-open"></i></a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title row">
+        <div class="four columns">
+            <hr>
+        </div>
+        <div class="four columns">
+            CLASSIFICATION
+        </div>
+        <div class="four columns">
+            <hr>
+        </div>
+    </div>
+    <div class="classification">
+        <p>
+            The experiment gave us a lot of data to use in machine learning. The first thing we made was to explore the
+            data set.
+            In our methodology
+            we consider the snippets content as features, and the categories assigned to each snippet as labels.
+            Our first step was to parse the snippets from the spreadsheets, exporting them into a dataframe structure.
+            Since machine learning algorithms are made to handle only with numerical data, we transformed the snippets into numerical features using the TF-IDF form.
+
+
+
+            Our main idea was to use the snippets to learn from the available data. To do it, we used four different approaches:
+            One Vs The Rest, Binary Relevance, Classifier Chains, and Label Powerset.
+        </p>
+        <ul class="list">
+            <b>Archives:</b>
+            <li>
+                <a href="https://github.com/fronchetti/ICSE-2019/blob/master/results/csv/raw_dataframe.csv" target="__blank">Dataframe (Raw) <i class="far fa-file-alt"></i></a>
+            </li>
+            <li>
+                <a href="https://github.com/fronchetti/ICSE-2019/tree/master/code/classifier" target="__blank">Scripts <i class="far fa-folder-open"></i></a>
+            </li>
+        </ul>
+    </div>
+</div>

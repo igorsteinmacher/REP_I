@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<header>
+    <title>{{ page.title }}</title>
+    <meta charset="utf-8">
+    <!-- CSS (Default) -->
+    <link rel="shortcut icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" type="text/css" href="css/skeleton.css">
+    <link rel="stylesheet" type="text/css" href="css/default.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <!-- CSS (Custom) -->
+    {% if page.css %}
+    <link rel="stylesheet" href="/css/{{ page.css }}" media="screen" type="text/css">
+    {% endif %}
+</header>
+<body>
+    <div class="header container">
+        <div class="row">
+            {% if page.title %}
+            <div class="name row">
+                {{ page.title }}
+            </div>
+            {% endif %}
+            {% if page.description %}
+            <div class="description row">
+                {{ page.description }}
+            </div>
+            {% endif %}
+            {% if page.university %}
+            <div class="university row">
+                <i class="fas fa-university"></i>
+                {{ page.university }}
+            </div>
+            {% endif %}
+            {% if page.email %}
+            <div class="email row">
+                <i class="far fa-envelope"></i>
+                {{ page.email }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="content container">
+        {{ content }}
+    </div>
+</body>
+</html>

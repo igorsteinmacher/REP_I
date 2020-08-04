@@ -1,0 +1,1 @@
+Telescope is a tool designed to automatically identify documentation that is relevant for new contributors in open source projects. Through the use of machine learning techniques and the extraction of data from GitHub API, this tool provides assistance for newcomers during their first contribution process, potentially overcoming barriers related to the search for information.

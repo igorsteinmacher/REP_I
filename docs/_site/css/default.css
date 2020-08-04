@@ -1,0 +1,49 @@
+body {
+    color: #000000;
+    font-size: 20px;
+    font-weight: lighter;
+    background-color: #efefef;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+a {
+    color: #000000;
+    text-decoration: none;
+}
+
+a:hover {
+    color: red;
+}
+
+.container {
+    padding: 60px 60px;
+}
+
+.header {
+    color: white;
+    background-color: #111111;
+}
+
+.name {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.description {
+    font-size: 25px;
+}
+
+.content {
+    background-color: white;
+}
+
+.section {
+    padding-bottom: 30px;
+}
+
+.section-title {
+    text-align: center;
+    color: #111111;
+    font-weight: normal;
+    font-size: 22px;
+}

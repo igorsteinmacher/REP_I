@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<header>
+    <title>Software Engineering Experiment</title>
+    <meta charset="utf-8">
+    <!-- CSS (Default) -->
+    <link rel="shortcut icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" type="text/css" href="css/skeleton.css">
+    <link rel="stylesheet" type="text/css" href="css/default.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <!-- CSS (Custom) -->
+    
+    <link rel="stylesheet" href="/css/experiment.css" media="screen" type="text/css">
+    
+</header>
+<body>
+    <div class="header container">
+        <div class="row">
+            
+            <div class="name row">
+                Software Engineering Experiment
+            </div>
+            
+            
+            <div class="description row">
+                Finding snippets in open source projects documentation that are relevant to new contributors
+            </div>
+            
+            
+            
+        </div>
+    </div>
+    <div class="content container">
+        <i class="fas fa-language"></i>
+This document is a translation of <a href="experiment-pt.html" style="color: red;">this tutorial</a>,
+available in Portuguese.
+<br>
+<br>
+
+<!--0
+    INTRODUCTION
+-->
+<div class="section">
+    <div class="section-title row">
+        <div class="four columns">
+            <hr>
+        </div>
+        <div class="four columns">
+            INTRODUCTION
+        </div>
+        <div class="four columns">
+            <hr>
+        </div>
+    </div>
+    <div class="introduction">
+    <p>
+        Developers, when attempting to contribute to open source projects, often face a set of barriers that compromise the joining process.
+        These barriers, in turn, may lead such developers to give up contributing to free software, directly affecting the continuity of
+        projects associated with this context.
+    </p>
+    <p>
+        Among the difficulties faced, there are barriers that could be overcome through better documentation for newcomers. However, evidence
+        has not yet been found to qualify open source projects documentation for newcomers, nor have mechanisms been proposed to identify how
+        well this documentation meets the needs of newcomers. Note that the term newcomer, in this context, refers to any developer who aims 
+        to contribute to an open source project.
+    </p>
+    <p>
+        In this experiment, you will be introduced to a set of seven categories already defined as important to newcomers in open source projects,
+        and your goal is to identify such categories in documentation files for a set of projects. Follow the steps below if you agree to participate
+        of this experiment.
+    </p>
+    <!--
+    <p> This is a Software Engineering experiment that aims to identify for Open Source Software (OSS) projects,
+        documentation that is relevant for newcomers during their contribution process. In this context, a newcomer can be defined
+        as any potential contributor willing to contribute with an OSS project.
+    </p>
+    <p> We have a set of seven predefined categories known to be important for new contributors, and we would like to ask
+        you to find these categories for a set of OSS projects. Follow the steps defined below to participate of the experiment.
+    </p>
+    -->
+    </div>
+</div>
+
+<!--
+    MEET THE CATEGORIES
+-->
+<div class="section">
+    <div class="section-title row">
+        <div class="four columns">
+            <hr>
+        </div>
+        <div class="four columns">
+            1. CATEGORIES LIST
+        </div>
+        <div class="four columns">
+            <hr>
+        </div>
+    </div>
+    <div class="meet-the-categories">
+    <p> Before identifying any categories in documentation files, it is important to understand in detail the categories
+        we would like to identify. In the following list, we describe the seven categories proposed for this experiment.
+        Read each one carefully. To understand the categories correctly is essential for  the success of this activity.</p>
+    <ul class="list">
+        <li>
+            <b>CF – Contribution flow:</b>
+            It is not uncommon for newcomers to feel lost and unmotivated when it is not clear how to contribute with an OSS project. For
+            this category, we would like to identify documentation that describes what is the contribution flow of a project. The contribution
+            flow can be defined as a set of steps a newcomer need to follow to develop an acceptable contribution for the project.
+        </li>
+        <li>
+            <b>CT – Choose a task:</b>
+            Many developers are interested in contributing with OSS projects, but most of them don’t know what task they should start with.
+            In this category, we would like to identify sentences describing how newcomers can find a task to contribute with the project.
+        </li>
+        <li>
+            <b>FM – Find a mentor:</b>
+            In most OSS projects, mentors are assigned to help newcomers during their contribution process. For this category, we would like
+            to identify information about how newcomers can find people in the project to act as mentors during their contribution process.
+        </li>
+        <li>
+            <b>TC – Talk to the community:</b>
+            Besides having a mentor, it is also important for newcomers to get in touch with the project’ community itself. For this reason,
+            we would like to identify any information that describes how a newcomer can get in touch with the community members, including links
+            for communication channels, tutorials on how to send a message, communication etiquette, etc.
+        </li>
+        <li>
+            <b>BW – Build local workspace:</b>
+            Newcomers reported in previous studies that they did not find explanations about how they could build their own workspace (build,
+            compile, execute, manage dependencies, etc.) before contributing. We would like to identify sections in documentation that defines
+            the steps on how to build a local workspace.
+        </li>
+        <li>
+            <b>DC – Deal with the code:</b>
+            Many projects have their own code standards, software architectures and practices. In this category, we would like to identify
+            sections in documentation describing how code should be written, organized and documented.
+        </li>
+        <li>
+            <b>SC – Submit the changes:</b>
+            The last step in the contribution process is the submission of  changes. In this category, we would like to identify information
+            about how the change/patch submission should be made.
+        </li>
+    </ul>
+    These categories were defined based on previous experiences reported by newcomers in OSS projects. Your mission in this experiment
+    is to identify these seven categories for a set of OSS projects. In the following section, we explain how the identification must be done.
+    </div>
+</div>
+
+<!--
+    APPLY THE CATEGORIES
+-->
+<div class="section">
+    <div class="section-title row">
+        <div class="four columns">
+            <hr>
+        </div>
+        <div class="four columns">
+            2. CATEGORIES IDENTIFICATION
+        </div>
+        <div class="four columns">
+            <hr>
+        </div>
+    </div>
+    <div class="apply-categories">
+    <p> Now that you have understood the categories, the second step is to identify them in documentation files.
+        For this task, we have a set of spreadsheets containing information from documentation files of OSS projects
+        (<a href="https://drive.google.com/drive/folders/10fIwpDAajCvnobl7nT6_wk7uTJJa9Xnq?usp=sharing" target="__blank" style="color: red;">Click here to have access</a>)
+        You will select five spreadsheets from this set, create your own copy of the spreadsheets you have selected, and try
+        to identify the categories for all of them. Note that the spreadsheets are divided in two pages, README and CONTRIBUTING,
+        please do not forget to do the identification for both of the pages. A brief tutorial about how the identification should
+        be done is defined as follows:
+    </p>
+    <ol type="1" class="list">
+        <h5>Identification Tutorial</h5>
+        <li>
+            For each spreadsheet you have selected/copied, read carefully the paragraphs in the first column.
+        </li>
+        <img src="img/paragraphs.png" alt="Arrow pointing a paragraph in a spreadsheet" style="width: 50%;">
+        <li>
+            If you identify one or more categories in a paragraph, mark an X in the columns of the categories that you
+            have identified, respectively.
+        </li>
+        <img src="img/columns.png" alt="Two arrows pointing X symbols for categories in a spreadsheet" style="width: 50%;">
+        <li>
+            Repeat the same steps for all the spreadsheets, and do not forget to do the identification for either of the
+            two pages in a spreadsheet.
+        </li>
+        <img src="img/pages.png" alt="Two arrows pointing the pages of a spreadsheet" style="width: 50%;">
+        <li>
+            Submit the spreadsheets you have classified following the tutorial of the next section.
+        </li>
+    </ol>
+
+    <div class="observations">
+        If this is your first time doing this kind of analysis, do not be afraid! Here are a few tips that may help you during the experiment:
+        <ul>
+            <li>
+                <b>Use your perspective as newcomer:</b> There is no specific way to identify the categories.
+                If you have understood the categories correctly, feel free to interpret the paragraphs using your
+                own perspective and apply as many categories as you believe for each of them.
+            </li>
+            <li>
+                <b>Paragraphs may or may not contain relevant information:</b> Some of the paragraphs may not contain
+                relevant information for newcomers. Make sure you read the  paragraphs carefully, and feel free to skip
+                the "irrelevant" ones.
+            </li>
+            <li>
+                <b>Restrict your analysis to the spreadsheets:</b> You do not need to open links, subscribe to mailing
+                lists or do something similar during the analysis. Just use the information given to you in the spreadsheets.
+            </li>
+        </ul>
+        If you have any questions, feel free to contact us by email: fronchetti@usp.br. We will answer your questions as soon as possible.
+    </div>
+</div>
+
+<!--
+    APPLY THE CATEGORIES
+-->
+<div class="section">
+        <div class="section-title row">
+            <div class="four columns">
+                <hr>
+            </div>
+            <div class="four columns">
+                3. SUBMISSION
+            </div>
+            <div class="four columns">
+                <hr>
+            </div>
+        </div>
+        <div class="apply-categories">
+        <p> This is the final step. Save the five spreadsheets you have analyzed in a folder, compress the folder,
+            and submit it attached in a email to <a href="mailto:fronchetti@usp.br"><b>fronchetti@usp.br</b></a>.
+            If you used Google Drive to do the analysis, you can just submit the spreadsheets links to the same email
+            (Do not forget to enable the permission to visualize the spreadsheets you have shared). Feel free to also share
+            your opinions around this experiment in the email.
+        </p>
+        <p>
+            Your participation will help us build open source communities more receptive to new contributors.
+            Personal information that individually identifies any participants in this experiment will not be collected,
+            maintained or disclosed. Please let us know by email if you would like to receive updates on the results of
+            this experiment.
+        </p>
+        <p>Thank you very much,</p>
+        <b>
+            <a href="https://fronchetti.com.br/">Luiz Felipe Fronchetti Dias</a>
+        </b>
+        <br>
+        Researcher responsible for the experiment
+</div>
+    </div>
+</body>
+</html>

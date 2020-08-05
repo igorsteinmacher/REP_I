@@ -10,6 +10,10 @@ import json
 import requests
 import logging
 from datetime import datetime
+from urllib3.util.retry import Retry
+from requests.adapters import HTTPAdapter
+
+logging.getLogger("urllib3").setLevel(logging.WARNING)
 
 class Create:
     def __init__(self):
@@ -40,8 +44,11 @@ class Create:
         """
         
         try:
-            auth_values = (os.getenv('GITHUB_USER'), os.getenv('GITHUB_TOKEN'))
-            response = requests.get(url, params=parameters, headers=headers, auth=auth_values)
+            session = requests.Session()
+            session.auth = (os.getenv('GITHUB_USER'), os.getenv('GITHUB_TOKEN'))
+            retries = Retry(total = 10)
+            session.mount('https://', HTTPAdapter(max_retries=retries))
+            response = session.get(url, params=parameters, headers=headers)
 
             self.verify_rate_limit(response.headers)
 
@@ -50,10 +57,15 @@ class Create:
             if file_type == 'text':    
                 return response.text
 
-        except requests.exceptions.RequestException as exception:
+        except requests.exceptions.ConnectionError as connection_error:
+            logging.basicConfig(filename='exceptions.log', level=logging.DEBUG)
+            logging.info('Connection error in api_scraper.py.')
+            logging.exception(connection_error)
+
+        except requests.exceptions.RequestException as request_exception:
             logging.basicConfig(filename='exceptions.log', level=logging.DEBUG)
             logging.info('Exception caught in api_scraper.py')
-            logging.exception(exception)
+            logging.exception(request_exception)
 
     def verify_rate_limit(self, header):
         """Guarantees that there is a limit of requests remaining to the GitHub API.
@@ -75,7 +87,7 @@ class Create:
             datetime_format = '%Y-%m-%d %H:%M:%S'
             reset_time = datetime.fromtimestamp(self.rate_limit_reset).strftime(datetime_format)
             current_time = datetime.now().strftime(datetime_format)
-            remaining_seconds = (datetime.fromtimestamp(self.rate_limit_reset) - datetime.now()).total_seconds() + 1
+            remaining_seconds = (datetime.fromtimestamp(self.rate_limit_reset) - datetime.now()).total_seconds() + 5
             
             print('[API] Requests Remaining: {}'.format(self.rate_limit_remaining))
 

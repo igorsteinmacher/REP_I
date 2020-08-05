@@ -147,20 +147,25 @@ def split_into_paragraphs(content):
 
     return text
 
-def create_repositories_file(repositories, filepath):
-    """Exports information about the repositories to a spreadsheet file.
+def export_to_repositories_file(information, filepath):
+    """Exports information about a repository to a spreadsheet file.
 
     Args:
-        repositories: A list of dictionaries such that each dictionary contains
-            information about a repository.
-        filepath: A string representing the path where the spreadsheet file will
-            be saved.
+        repositories: A dictionary containing information about a repository.
+        filepath: A string representing the path where the spreadsheet file will be saved.
     """
-
-    with open(filepath, 'w', errors='replace') as writer:
-        print("Exporting the spreadsheet `repositories.xlsx` to {}.".format(filepath))
-        fieldnames = repositories[0].keys()
-        dict_writer = csv.DictWriter(writer, fieldnames)
-        dict_writer.writeheader()
-        dict_writer.writerows(repositories)
-        writer.close()
+    if os.path.isfile(filepath):
+        with open(filepath, 'a', errors='replace') as writer:
+            print("Exporting {}/{} to `repositories.xlsx`.".format(information['owner'], information['name']))
+            fieldnames = information.keys()
+            dict_writer = csv.DictWriter(writer, fieldnames)
+            dict_writer.writerow(information)
+            writer.close()
+    else:
+        with open(filepath, 'w', errors='replace') as writer:
+            print("Exporting {}/{} to `repositories.xlsx`.".format(information['owner'], information['name']))
+            fieldnames = information.keys()
+            dict_writer = csv.DictWriter(writer, fieldnames)
+            dict_writer.writeheader()
+            dict_writer.writerow(information)
+            writer.close()    

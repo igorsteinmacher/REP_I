@@ -2,7 +2,7 @@ import os
 import logging
 from datetime import datetime
 from scrap import scrap_documentation_file, scrap_repositories
-from export import create_analysis_file, create_repositories_file
+from export import create_analysis_file, export_to_repositories_file
 from validate import validate_documentation
 
 def scrap_validate_and_export(programming_languages, api_pages, output_dir):
@@ -24,6 +24,8 @@ def scrap_validate_and_export(programming_languages, api_pages, output_dir):
         output_dir: A string representing the directory path where the data and
             files about the extracted repositories will be saved.
     """
+
+    repositories_filepath = os.path.join(output_dir, 'repositories.csv')
 
     # (1) Creates the output directory, if it does not exist.
     if not os.path.isdir(output_dir):
@@ -81,7 +83,7 @@ def scrap_validate_and_export(programming_languages, api_pages, output_dir):
             # necessary information, including the is_valid flag and the possible
             # reasons for invalidation.
 
-            repositories[index] = {
+            repository_information = {
                 'id': repository['id'],
                 'owner': owner,
                 'name': name,
@@ -93,6 +95,13 @@ def scrap_validate_and_export(programming_languages, api_pages, output_dir):
                 'reasons_for_invalidation': reasons_for_invalidation
             }
 
+            repositories[index] = repository_information
+
+            # (9) Export the repository information to the `repositories.csv` spreadsheet,
+            # inside the output folder.
+
+            export_to_repositories_file(repository_information, repositories_filepath)
+
         except Exception as exception:
             # Attention:
             # Sometimes when we scrap GitHub projects it is hard to
@@ -102,14 +111,10 @@ def scrap_validate_and_export(programming_languages, api_pages, output_dir):
             # developer, to investigate it after every execution, as I do.
  
             logging.basicConfig(filename='exceptions.log', level=logging.DEBUG)
-            logging.info('Exception caught in main.py')
+            logging.info('Generic exception caught in main.py')
             logging.exception(exception)
 
-    # (9) Export the repositories information to a `repositories.csv` spreadsheet,
-    # inside the output folder.
-
-    repositories_filepath = os.path.join(output_dir, 'repositories.csv')
-    create_repositories_file(repositories, repositories_filepath)
+    return repositories
 
 if __name__ == '__main__':
     root_dir = os.path.dirname(os.getcwd())
@@ -117,5 +122,5 @@ if __name__ == '__main__':
 
     # Reference to justify why we are using these programming languages: octoverse.github.com
     programming_languages = ['JavaScript', 'Python', 'Java', 'PHP', 'C#', 'C++', 'TypeScript', 'Shell', 'C', 'Ruby']
-    api_pages = [i for i in range(1, 31)]
+    api_pages = [i for i in range(1, 101)]
     scrap_validate_and_export(programming_languages, api_pages, data_dir)

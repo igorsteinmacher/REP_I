@@ -4,6 +4,7 @@
 __author__ =  'Felipe Fronchetti'
 __contact__ = 'fronchetti@usp.br'
 
+import logging
 import api_scraper as scraper
 
 def scrap_repositories(programming_languages, api_pages):
@@ -34,18 +35,26 @@ def scrap_repositories(programming_languages, api_pages):
         for page in api_pages:
             print("Extracting repositories in page {} written in {}.".format(page, language))
             parameters = {'q': 'language:' + language, 'sort': 'stars', 'order': 'desc', 'page': page}
-            response = api_scraper.request(api_repositories_url, parameters)['items']
+            response = api_scraper.request(api_repositories_url, parameters)
 
-            # Some projects received from API have a None value for the language
-            # parameter instead of their respective language, so in such cases
-            # we manually update the repository's language.
+            try:
+                response = response['items']
 
-            for index, repository in enumerate(response):
-                repository['language'] = language
-                response[index] = repository
+                # Some projects received from API have a None value for the language
+                # parameter instead of their respective language, so in such cases
+                # we manually update the repository's language.
 
-            repositories = repositories + response
+                for index, repository in enumerate(response):
+                    repository['language'] = language
+                    response[index] = repository
 
+                repositories = repositories + response
+
+            except:
+                logging.basicConfig(filename='exceptions.log', level=logging.DEBUG)
+                logging.warning('It was impossible to scrap the repositories page {} of {} in scrap.py.'.format(page, language))
+                logging.info('Returned value:\n' + response)
+            
     return repositories
 
 def scrap_documentation_file(owner, name, filename):
@@ -65,35 +74,33 @@ def scrap_documentation_file(owner, name, filename):
     api_scraper = scraper.Create()
     documentation_file = {'filename': filename, 'content': None, 'description': None}
 
-    # The community profile is used to get a documentation file of a repository. 
-    # The definition of community profile is available at the API documentation:
-    # developer.github.com/v3/repos/community. 
-    # Notice that to request the community profile of a project, it is necessary
-    # to add in the request header the flag defined below.
-
-    flag = 'application/vnd.github.black-panther-preview+json'   
-    community_profile_url = 'https://api.github.com/repos/{}/{}/community/profile'.format(owner,name)
-    community_profile = api_scraper.request(community_profile_url, headers={'Accept': flag})
-
     # In some community profiles, the necessary values are missing, and we can
     # not predict it. For this reason, we need to check if all the keys and values
     # exist before performing the scraping of the documentation file.
 
-    if community_profile:
-        if 'files' in community_profile:
-            if filename in community_profile['files']:
-                if community_profile['files'][filename] is not None:
-                    if 'url' in community_profile['files'][filename]:
-                        description_url = community_profile['files'][filename]['url']
-                        description = api_scraper.request(description_url)
-                        documentation_file['description'] = description
+    try:
+        print("Downloading {} file of {}/{}.".format(filename, owner, name))
 
-                        if description:
-                            if 'download_url' in description:
-                                if description['download_url'] is not None:
-                                    print("Downloading documentation files of {}/{}.".format(owner, name))
-                                    download_url = description['download_url']
-                                    content = api_scraper.request(download_url, file_type='text')
-                                    documentation_file['content'] = content
-        
+        # The community profile is used to get a documentation file of a repository. 
+        # The definition of community profile is available at the API documentation:
+        # developer.github.com/v3/repos/community. 
+
+        # Notice that to request the community profile of a project, it is necessary
+        # to add in the request header the flag defined below.
+
+        flag = 'application/vnd.github.black-panther-preview+json'   
+        community_profile_url = 'https://api.github.com/repos/{}/{}/community/profile'.format(owner,name)
+        community_profile = api_scraper.request(community_profile_url, headers={'Accept': flag})
+
+        description_url = community_profile['files'][filename]['url']
+        description = api_scraper.request(description_url)
+        documentation_file['description'] = description
+
+        download_url = description['download_url']
+        content = api_scraper.request(download_url, file_type='text')
+        documentation_file['content'] = content
+    except:
+        logging.basicConfig(filename='exceptions.log', level=logging.DEBUG)
+        logging.warning('Impossible to download the {} documentation file from {}/{} in scrap.py.'.format(filename, owner, name))
+
     return documentation_file

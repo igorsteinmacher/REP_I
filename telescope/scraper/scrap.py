@@ -53,7 +53,7 @@ def scrap_repositories(programming_languages, api_pages):
             except:
                 logging.basicConfig(filename='exceptions.log', level=logging.DEBUG)
                 logging.warning('It was impossible to scrap the repositories page {} of {} in scrap.py.'.format(page, language))
-                logging.info('Returned value:\n' + response)
+                logging.exception(response)
             
     return repositories
 

@@ -108,7 +108,7 @@ def scrap_validate_and_export(programming_languages, api_pages, output_dir):
             # predict what kind of weird data they will return.
             # To prevent the scraping process from stopping, I use this
             # generic try/catch in main.py. However, I highly recommend you,
-            # developer, to investigate it after every execution, as I do.
+            # developer, to review the exceptions.log after every execution.
  
             logging.basicConfig(filename='exceptions.log', level=logging.DEBUG)
             logging.info('Generic exception caught in main.py')
@@ -120,7 +120,7 @@ if __name__ == '__main__':
     root_dir = os.path.dirname(os.getcwd())
     data_dir = os.path.join(root_dir, 'data')
 
-    # Reference to justify why we are using these programming languages: octoverse.github.com
+    # Reference to justify why we are using these programming languages: octoverse.github.com (or see misc/octoverse-top-languages.png)
     programming_languages = ['JavaScript', 'Python', 'Java', 'PHP', 'C#', 'C++', 'TypeScript', 'Shell', 'C', 'Ruby']
-    api_pages = [i for i in range(1, 101)]
+    api_pages = [i for i in range(1, 35)]
     scrap_validate_and_export(programming_languages, api_pages, data_dir)

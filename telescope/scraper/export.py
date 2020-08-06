@@ -156,14 +156,14 @@ def export_to_repositories_file(information, filepath):
     """
     if os.path.isfile(filepath):
         with open(filepath, 'a', errors='replace') as writer:
-            print("Exporting {}/{} to `repositories.xlsx`.".format(information['owner'], information['name']))
+            print("Exporting {}/{} to `repositories.csv`.".format(information['owner'], information['name']))
             fieldnames = information.keys()
             dict_writer = csv.DictWriter(writer, fieldnames)
             dict_writer.writerow(information)
             writer.close()
     else:
         with open(filepath, 'w', errors='replace') as writer:
-            print("Exporting {}/{} to `repositories.xlsx`.".format(information['owner'], information['name']))
+            print("Exporting {}/{} to `repositories.csv`.".format(information['owner'], information['name']))
             fieldnames = information.keys()
             dict_writer = csv.DictWriter(writer, fieldnames)
             dict_writer.writeheader()

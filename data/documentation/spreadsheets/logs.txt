@@ -1,0 +1,6 @@
+We observed a few things during the analysis, which are reported below:
+
+- For some chinese projects (e.g. alibaba/ice), weird versions of common characters appeared. 
+  For example, instead of using ":" they used "：". In some cases, these characters
+  were automatically replaced by the question mark "?", in other cases, the string was broken. 
+  We manually fixed each corrupted paragraph.

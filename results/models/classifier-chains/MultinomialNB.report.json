@@ -1,0 +1,64 @@
+{
+    "BW \u2013 Build local workspace": {
+        "f1-score": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "support": 32
+    },
+    "CF \u2013 Contribution flow": {
+        "f1-score": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "support": 139
+    },
+    "CT \u2013 Choose a task": {
+        "f1-score": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "support": 25
+    },
+    "DC \u2013 Deal with the code": {
+        "f1-score": 0.17073170731707318,
+        "precision": 1.0,
+        "recall": 0.09333333333333334,
+        "support": 75
+    },
+    "SC \u2013 Submit the changes": {
+        "f1-score": 0.7636887608069165,
+        "precision": 0.8493589743589743,
+        "recall": 0.693717277486911,
+        "support": 382
+    },
+    "TC \u2013 Talk to the community": {
+        "f1-score": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "support": 26
+    },
+    "classifier_name": "MultinomialNB",
+    "macro avg": {
+        "f1-score": 0.15573674468733162,
+        "precision": 0.30822649572649574,
+        "recall": 0.13117510180337408,
+        "support": 679
+    },
+    "micro avg": {
+        "f1-score": 0.5450901803607215,
+        "precision": 0.8526645768025078,
+        "recall": 0.4005891016200295,
+        "support": 679
+    },
+    "samples avg": {
+        "f1-score": 0.2863157894736842,
+        "precision": 0.2863157894736842,
+        "recall": 0.2863157894736842,
+        "support": 679
+    },
+    "strategy": "classifier-chains",
+    "weighted avg": {
+        "f1-score": 0.4485036593181482,
+        "precision": 0.5882991578867867,
+        "recall": 0.4005891016200295,
+        "support": 679
+    }
+}

@@ -39,24 +39,22 @@ def check_if_dataframe_copy_exists(results_dir, analysis_dir):
             os.makedirs(csv_dir)
 
         dataframe = parse_spreadsheets(
-            analysis_dir, ['README', 'CONTRIBUTING'], csv_dir)
+            analysis_dir, ['contributing'], csv_dir)
 
     return dataframe
 
 
 def parse_spreadsheets(analysis_dir, desired_worksheets, output_dir):
-    """Parses students spreadsheets from the traning directory for classification.
+    """Parse spreadsheets from the traning directory for classification.
 
     Args:
-        analysis_dir: A string path the to directory where the students
-                        spreadsheets are located.
+        analysis_dir: A string path the to directory where the spreadsheets are located.
         desired_worksheets:  List of worksheet names to be extracted.
         output_dir: A string path to the directory where the resulting dataframe
                      will be saved. If empty, the dataframe will not be exported.
 
     Returns:
-        A dataframe grouping all the students spreadsheets data into a single
-        structure.
+        A dataframe grouping all the spreadsheets data into a single structure.
 
     Notes:
         The subdirectories inside the traning directory must comprehend the
@@ -74,21 +72,15 @@ def parse_spreadsheets(analysis_dir, desired_worksheets, output_dir):
     """
     dataframe_rows = []
 
-    for university in os.listdir(analysis_dir):
-        for author in os.listdir(os.path.join(analysis_dir, university)):
-            for filename in os.listdir(os.path.join(analysis_dir, university, author)):
-                filepath = os.path.join(
-                    analysis_dir, university, author, filename)
-                if os.path.isfile(filepath):
-                    if filename.endswith('.xlsx'):
-                        extra_params = {'University': university,
-                                        'Author': author, 'Filename': filename}
-                        spreadsheet = parse_spreadsheet(
-                            filepath, desired_worksheets, extra_params)
+    for filename in os.listdir(analysis_dir):
+        filepath = os.path.join(analysis_dir, filename)
+        if os.path.isfile(filepath):
+            if filename.endswith('.xlsx'):
+                extra_params = {'Filename': filename}
+                spreadsheet = parse_spreadsheet(filepath, desired_worksheets, extra_params)
 
-                        for worksheet in spreadsheet:
-                            dataframe_rows = dataframe_rows + \
-                                spreadsheet[worksheet]
+                for worksheet in spreadsheet:
+                    dataframe_rows = dataframe_rows + spreadsheet[worksheet]
 
     dataframe = pandas.DataFrame(dataframe_rows)
 

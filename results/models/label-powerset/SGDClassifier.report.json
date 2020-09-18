@@ -1,0 +1,64 @@
+{
+    "BW \u2013 Build local workspace": {
+        "f1-score": 0.4931506849315069,
+        "precision": 0.43902439024390244,
+        "recall": 0.5625,
+        "support": 32
+    },
+    "CF \u2013 Contribution flow": {
+        "f1-score": 0.42570281124497994,
+        "precision": 0.4818181818181818,
+        "recall": 0.381294964028777,
+        "support": 139
+    },
+    "CT \u2013 Choose a task": {
+        "f1-score": 0.28571428571428575,
+        "precision": 0.5,
+        "recall": 0.2,
+        "support": 25
+    },
+    "DC \u2013 Deal with the code": {
+        "f1-score": 0.6967741935483871,
+        "precision": 0.675,
+        "recall": 0.72,
+        "support": 75
+    },
+    "SC \u2013 Submit the changes": {
+        "f1-score": 0.8036175710594315,
+        "precision": 0.7933673469387755,
+        "recall": 0.8141361256544503,
+        "support": 382
+    },
+    "TC \u2013 Talk to the community": {
+        "f1-score": 0.6249999999999999,
+        "precision": 0.6818181818181818,
+        "recall": 0.5769230769230769,
+        "support": 26
+    },
+    "classifier_name": "SGDClassifier",
+    "macro avg": {
+        "f1-score": 0.5549932577497652,
+        "precision": 0.5951713501365069,
+        "recall": 0.542475694434384,
+        "support": 679
+    },
+    "micro avg": {
+        "f1-score": 0.6836581709145427,
+        "precision": 0.6961832061068702,
+        "recall": 0.6715758468335787,
+        "support": 679
+    },
+    "samples avg": {
+        "f1-score": 0.4796491228070175,
+        "precision": 0.48,
+        "recall": 0.47947368421052633,
+        "support": 679
+    },
+    "strategy": "label-powerset",
+    "weighted avg": {
+        "f1-score": 0.6739121450435192,
+        "precision": 0.6847424256530443,
+        "recall": 0.6715758468335787,
+        "support": 679
+    }
+}

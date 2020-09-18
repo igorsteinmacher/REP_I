@@ -5,10 +5,10 @@ __author__ = 'Felipe Fronchetti'
 __contact__ = 'fronchetti@usp.br'
 
 import os
-from classifier.gather_data import check_if_dataframe_copy_exists
-from classifier.prepare_data import shuffle_and_split, vectorize_paragraphs
-from classifier.train_model import train
-from classifier.deploy_model import report_performance, deploy_model
+from gather_data import check_if_dataframe_copy_exists
+from prepare_data import shuffle_and_split, vectorize_paragraphs
+from train_model import train
+from deploy_model import report_performance, deploy_model
 
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
@@ -45,7 +45,6 @@ def classify(classifiers, strategies, report, deploy, results_dir, analysis_dir)
     text_column = 'Paragraph'
     classes = ['CF – Contribution flow',
                'CT – Choose a task',
-               'FM – Find a mentor',
                'TC – Talk to the community',
                'BW – Build local workspace',
                'DC – Deal with the code',
@@ -116,7 +115,7 @@ def classify(classifiers, strategies, report, deploy, results_dir, analysis_dir)
 
 if __name__ == '__main__':
     root_dir = os.path.dirname(os.path.dirname(os.getcwd()))
-    analysis_dir = os.path.join(root_dir, 'data', 'reviews')
+    analysis_dir = os.path.join(root_dir, 'data', 'documentation', 'spreadsheets', 'done')
     results_dir = os.path.join(root_dir, 'results')
 
     kwargs = {

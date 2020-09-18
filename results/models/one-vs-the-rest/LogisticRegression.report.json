@@ -1,0 +1,64 @@
+{
+    "BW \u2013 Build local workspace": {
+        "f1-score": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "support": 32
+    },
+    "CF \u2013 Contribution flow": {
+        "f1-score": 0.08053691275167786,
+        "precision": 0.6,
+        "recall": 0.04316546762589928,
+        "support": 139
+    },
+    "CT \u2013 Choose a task": {
+        "f1-score": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "support": 25
+    },
+    "DC \u2013 Deal with the code": {
+        "f1-score": 0.29473684210526313,
+        "precision": 0.7,
+        "recall": 0.18666666666666668,
+        "support": 75
+    },
+    "SC \u2013 Submit the changes": {
+        "f1-score": 0.7546099290780143,
+        "precision": 0.8235294117647058,
+        "recall": 0.6963350785340314,
+        "support": 382
+    },
+    "TC \u2013 Talk to the community": {
+        "f1-score": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "support": 26
+    },
+    "classifier_name": "LogisticRegression",
+    "macro avg": {
+        "f1-score": 0.18831394732249254,
+        "precision": 0.3539215686274509,
+        "recall": 0.15436120213776625,
+        "support": 679
+    },
+    "micro avg": {
+        "f1-score": 0.5542635658914729,
+        "precision": 0.8101983002832861,
+        "recall": 0.4212076583210604,
+        "support": 679
+    },
+    "samples avg": {
+        "f1-score": 0.30070175438596486,
+        "precision": 0.3005263157894737,
+        "recall": 0.30105263157894735,
+        "support": 679
+    },
+    "strategy": "one-vs-the-rest",
+    "weighted avg": {
+        "f1-score": 0.47358009858347483,
+        "precision": 0.6634583730399376,
+        "recall": 0.4212076583210604,
+        "support": 679
+    }
+}

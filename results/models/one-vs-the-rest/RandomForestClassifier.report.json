@@ -1,0 +1,64 @@
+{
+    "BW \u2013 Build local workspace": {
+        "f1-score": 0.3333333333333333,
+        "precision": 0.5,
+        "recall": 0.25,
+        "support": 32
+    },
+    "CF \u2013 Contribution flow": {
+        "f1-score": 0.26737967914438504,
+        "precision": 0.5208333333333334,
+        "recall": 0.17985611510791366,
+        "support": 139
+    },
+    "CT \u2013 Choose a task": {
+        "f1-score": 0.1935483870967742,
+        "precision": 0.5,
+        "recall": 0.12,
+        "support": 25
+    },
+    "DC \u2013 Deal with the code": {
+        "f1-score": 0.4869565217391304,
+        "precision": 0.7,
+        "recall": 0.37333333333333335,
+        "support": 75
+    },
+    "SC \u2013 Submit the changes": {
+        "f1-score": 0.7542372881355932,
+        "precision": 0.8190184049079755,
+        "recall": 0.6989528795811518,
+        "support": 382
+    },
+    "TC \u2013 Talk to the community": {
+        "f1-score": 0.46153846153846156,
+        "precision": 0.6923076923076923,
+        "recall": 0.34615384615384615,
+        "support": 26
+    },
+    "classifier_name": "RandomForestClassifier",
+    "macro avg": {
+        "f1-score": 0.4161656118312796,
+        "precision": 0.6220265717581669,
+        "recall": 0.3280493623627075,
+        "support": 679
+    },
+    "micro avg": {
+        "f1-score": 0.6028368794326242,
+        "precision": 0.7572383073496659,
+        "recall": 0.5007363770250368,
+        "support": 679
+    },
+    "samples avg": {
+        "f1-score": 0.3568421052631579,
+        "precision": 0.3563157894736842,
+        "recall": 0.35789473684210527,
+        "support": 679
+    },
+    "strategy": "one-vs-the-rest",
+    "weighted avg": {
+        "f1-score": 0.5733601398282576,
+        "precision": 0.7131971487602061,
+        "recall": 0.5007363770250368,
+        "support": 679
+    }
+}

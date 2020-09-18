@@ -1,118 +1,159 @@
 ---
-title: Replication Package
-description: "ANADOCS: Identifying Newcomers Documentation in Open Source Projects"
+title: Software Engineering Experiment
+description: Finding snippets in open source projects documentation that are relevant to new contributors
 layout: default
+css: experiment.css
 ---
+
+<!--
+    INTRODUCTION
+-->
 <div class="section">
     <div class="section-title row">
         <div class="four columns">
             <hr>
         </div>
         <div class="four columns">
-            ABSTRACT
+            INTRODUCTION
         </div>
         <div class="four columns">
             <hr>
         </div>
     </div>
-    <div class="experiment">
+    <div class="introduction">
         <p>
-            In this paper, we propose a methodology to identify in documentation files of OSS projects,
-            a set of seven categories that are known to be important for newcomers during the contributing process of OSS projects.
-            First, we applied a survey asking students to identify the seven categories in README and CONTRIBUTING files of real OSS projects.
-            Their analyses were converted into numerical features and labels, used to train a group of machine learning classifiers.
-            We tested the classifiers using four different approaches: One Vs The Rest, Binary Relevance, Classifier Chains, and Label Powerset.
-            For each one of the approaches, we tried a set of well-stablished classifiers, such as Support Vector Machines (SVM) and K-Nearest Neighbors (KNN).
-            We found that (...)
+            Developers, when attempting to contribute to open source projects, often face a set of barriers that compromise the joining process.
+            These barriers, in turn, may lead such developers to give up contributing to free software, directly affecting the continuity of
+            projects associated with this context.
         </p>
         <p>
-            In the following sections, we describe each one of the steps executed in our methodology, including scripts, data and results.
+            Among the difficulties faced, there are barriers that could be overcomed through better documentation for newcomers. However, evidence
+            has not yet been found to qualify open source projects documentation for newcomers, nor have mechanisms been proposed to identify how
+            well this documentation meets the needs of newcomers. Note that the term newcomer, in this context, refers to any developer who is aiming 
+            to contribute with an open source project.
+        </p>
+        <p>
+            In this experiment, you will be introduced to a set of six categories already defined as important to newcomers in open source projects,
+            and your goal is to identify such categories in documentation files for a set of projects.
         </p>
     </div>
 </div>
 
+<!--
+    MEET THE CATEGORIES
+-->
 <div class="section">
     <div class="section-title row">
         <div class="four columns">
             <hr>
         </div>
         <div class="four columns">
-            EXPERIMENT
+            CATEGORIES LIST
         </div>
         <div class="four columns">
             <hr>
         </div>
     </div>
-    <div class="experiment">
-        <p>
-            First, an experiment was conducted with undergraduate students from two brazilian universities, USP and UFPA.
-            The main goal of the experiment was to identify in snippets of documentation files,
-            seven categories known to be important for newcomers during the contributing process. The seven categories were
-            defined through a deep literature review. We presented a tutorial explaining the experiment for the students, where
-            we asked them to identify the seven categories for a set of OSS projects preliminarily defined by us.
-            A spreadsheet was created for each one of the projects, divided in README and CONTRIBUTING worksheets.
-            The goal of each student was to select one (or more) spreadsheet(s), and mark the snippets with the categories when
-             necessary.
-        </p>
-        <p>
-            At UFPA, due to the number of available computers, most students executed the experiment in pairs.
-            This first execution resulted in 43 spreadsheets. At USP, the students executed the experiment
-            individually, analyzing, each one, exactly five projects. The respective analysis resulted in 75 spreadsheets investigated,
-            a total of 118 spreadsheets analyzed by students from both universities.
-        </p>
-        <p>
-            For this section, we make available below the tutorial used to conduct the experiment (1), a spreadsheet template as the ones
-            used during the execution (2), and the final spreadsheets analyzed by the students from both universities (3).
-        </p>
-        <ul class="list">
-            <b>Archives:</b>
-            <li>
-                <a href="https://fronchetti.com.br/ICSE-2019/experiment" target="__blank">(1) Tutorial <i class="far fa-file-alt"></i></a>
-            </li>
-            <li>
-                <a href="https://github.com/fronchetti/ICSE-2019/blob/master/data/spreadsheet_template.xlsx" target="__blank">(2) Spreadsheet template <i class="far fa-file-alt"></i></a>
-            </li>
-            <li>
-                <a href="https://github.com/fronchetti/ICSE-2019/tree/master/data/analysis" target="__blank">(3) Students spreadsheets <i class="far fa-folder-open"></i></a>
-            </li>
-        </ul>
-    </div>
-</div>
-
-<div class="section">
-    <div class="section-title row">
-        <div class="four columns">
-            <hr>
-        </div>
-        <div class="four columns">
-            CLASSIFICATION
-        </div>
-        <div class="four columns">
-            <hr>
+    <div class="meet-the-categories">
+        <p>Before identifying any categories in documentation files, it is important to understand in detail the categories
+            we would like to identify. In the following list, we describe the six categories proposed for this experiment.
+            Read each one carefully. To understand the categories correctly is essential for  the success of this activity.</p>
+            <ul class="list">
+                <li>
+                    <b>CF – Contribution flow:</b>
+                    It is not uncommon for newcomers to feel lost and unmotivated when it is not clear how to contribute with an OSS project. For
+                    this category, we would like to identify documentation that describes what is the contribution flow of a project. The contribution
+                    flow can be defined as a set of steps a newcomer need to follow to develop an acceptable contribution for the project.
+                </li>
+                <li>
+                    <b>CT – Choose a task:</b>
+                    Many developers are interested in contributing with OSS projects, but most of them don’t know what task they should start with.
+                    In this category, we would like to identify sentences describing how newcomers can find a task to contribute with the project.
+                </li>
+                <li>
+                    <b>TC – Talk to the community:</b>
+                    Besides having a mentor, it is also important for newcomers to get in touch with the project’ community itself. For this reason,
+                    we would like to identify any information that describes how a newcomer can get in touch with the community members, including links
+                    for communication channels, tutorials on how to send a message, communication etiquette, etc.
+                </li>
+                <li>
+                    <b>BW – Build local workspace:</b>
+                    Newcomers reported in previous studies that they did not find explanations about how they could build their own workspace (build,
+                    compile, execute, manage dependencies, etc.) before contributing. We would like to identify sections in documentation that defines
+                    the steps on how to build a local workspace.
+                </li>
+                <li>
+                    <b>DC – Deal with the code:</b>
+                    Many projects have their own code standards, software architectures and practices. In this category, we would like to identify
+                    sections in documentation describing how code should be written, organized and documented.
+                </li>
+                <li>
+                    <b>SC – Submit the changes:</b>
+                    The last step in the contribution process is the submission of  changes. In this category, we would like to identify information
+                    about how the change/patch submission should be made.
+                </li>
+            </ul>
+            These categories were defined based on previous experiences reported by newcomers in OSS projects. Your mission in this analysis
+            is to identify these six categories for a set of OSS projects. In the following section, we explain how the identification must be done.
         </div>
     </div>
-    <div class="classification">
-        <p>
-            The experiment gave us a lot of data to use in machine learning. The first thing we made was to explore the
-            data set.
-            In our methodology
-            we consider the snippets content as features, and the categories assigned to each snippet as labels.
-            Our first step was to parse the snippets from the spreadsheets, exporting them into a dataframe structure.
-            Since machine learning algorithms are made to handle only with numerical data, we transformed the snippets into numerical features using the TF-IDF form.
-
-
-
-            Our main idea was to use the snippets to learn from the available data. To do it, we used four different approaches:
-            One Vs The Rest, Binary Relevance, Classifier Chains, and Label Powerset.
-        </p>
-        <ul class="list">
-            <b>Archives:</b>
-            <li>
-                <a href="https://github.com/fronchetti/ICSE-2019/blob/master/results/csv/raw_dataframe.csv" target="__blank">Dataframe (Raw) <i class="far fa-file-alt"></i></a>
-            </li>
-            <li>
-                <a href="https://github.com/fronchetti/ICSE-2019/tree/master/code/classifier" target="__blank">Scripts <i class="far fa-folder-open"></i></a>
-            </li>
-        </ul>
-    </div>
-</div>
+    
+    <!--
+        APPLY THE CATEGORIES
+    -->
+    <div class="section">
+        <div class="section-title row">
+            <div class="four columns">
+                <hr>
+            </div>
+            <div class="four columns">
+                CATEGORIES IDENTIFICATION
+            </div>
+            <div class="four columns">
+                <hr>
+            </div>
+        </div>
+        <div class="apply-categories">
+            <p> Now that you have understood the categories, the second step is to identify the categories in documentation files.
+                For this task, we have a set of spreadsheets containing information from CONTRIBUTING files of OSS projects.
+                Follow the tutorial below to learn how to analyze each spreadsheet:
+            </p>
+            <ol type="1" class="list">
+                <h5>Identification Tutorial</h5>
+                <li>
+                    Open a spreadsheet and read carefully each paragraph in the first column.
+                </li>
+                <img src="img/paragraphs.png" alt="Arrow pointing a paragraph in a spreadsheet" style="width: 50%;">
+                <li>
+                    If you identify one of the six categories in a paragraph, mark an "x" in the column of the category that you
+                    have identified. DO NOT mark an "x" in more than one category per paragraph.
+                </li>
+                <img src="img/pages.png" alt="Two arrows pointing the pages of a spreadsheet" style="width: 50%;">
+                <li>
+                    Save each spreadsheet analyzed in a folder on your computer. If you find spreadsheets that do not look like documentation files,
+                    just move them to a different folder. Do not delete the irrelevant spreadsheets, we might need to explain why they were discarted.
+                </li>
+            </ol>
+            
+            <div class="observations">
+                If this is your first time doing this kind of analysis, do not be afraid! Here are a few tips that may help you during the analysis:
+                <ul>
+                    <li>
+                        <b>Use your perspective as newcomer:</b> There is no specific way to identify the categories.
+                        If you have understood the categories correctly, feel free to interpret the paragraphs using your
+                        own perspective.
+                    </li>
+                    <li>
+                        <b>Paragraphs may or may not contain relevant information:</b> Some of the paragraphs may not contain
+                        relevant information for newcomers. Make sure you read the paragraphs carefully, and feel free to skip
+                        the "irrelevant" ones.
+                    </li>
+                    <li>
+                        <b>Restrict your analysis to the spreadsheets:</b> You do not need to open links, subscribe to mailing
+                        lists or do something similar during the analysis. Just use the information given to you in the spreadsheets.
+                    </li>
+                </ul>
+                If you have any questions, feel free to contact me by email.
+            </div>
+        </div>
+        

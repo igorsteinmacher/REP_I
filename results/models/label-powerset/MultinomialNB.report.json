@@ -1,64 +1,64 @@
 {
     "BW \u2013 Build local workspace": {
-        "f1-score": 0.0,
-        "precision": 0.0,
-        "recall": 0.0,
-        "support": 32
+        "f1-score": 0.032432432432432434,
+        "precision": 0.6,
+        "recall": 0.016666666666666666,
+        "support": 180
     },
     "CF \u2013 Contribution flow": {
-        "f1-score": 0.1772151898734177,
-        "precision": 0.7368421052631579,
-        "recall": 0.10071942446043165,
-        "support": 139
+        "f1-score": 0.07142857142857144,
+        "precision": 0.7058823529411765,
+        "recall": 0.03761755485893417,
+        "support": 319
     },
     "CT \u2013 Choose a task": {
         "f1-score": 0.0,
         "precision": 0.0,
         "recall": 0.0,
-        "support": 25
+        "support": 54
     },
     "DC \u2013 Deal with the code": {
-        "f1-score": 0.4158415841584159,
-        "precision": 0.8076923076923077,
-        "recall": 0.28,
-        "support": 75
+        "f1-score": 0.43589743589743585,
+        "precision": 0.9340659340659341,
+        "recall": 0.2842809364548495,
+        "support": 299
     },
     "SC \u2013 Submit the changes": {
-        "f1-score": 0.7537154989384288,
-        "precision": 0.6339285714285714,
-        "recall": 0.9293193717277487,
-        "support": 382
+        "f1-score": 0.7002570694087404,
+        "precision": 0.5952797202797203,
+        "recall": 0.850187265917603,
+        "support": 801
     },
     "TC \u2013 Talk to the community": {
-        "f1-score": 0.0,
-        "precision": 0.0,
-        "recall": 0.0,
-        "support": 26
+        "f1-score": 0.023529411764705882,
+        "precision": 1.0,
+        "recall": 0.011904761904761904,
+        "support": 84
     },
     "classifier_name": "MultinomialNB",
     "macro avg": {
-        "f1-score": 0.22446204549504375,
-        "precision": 0.3630771640640062,
-        "recall": 0.21833979936469672,
-        "support": 679
+        "f1-score": 0.21059082015531436,
+        "precision": 0.6392046678811385,
+        "recall": 0.20010953096713588,
+        "support": 1737
     },
     "micro avg": {
-        "f1-score": 0.6074766355140188,
-        "precision": 0.6446280991735537,
-        "recall": 0.5743740795287187,
-        "support": 679
+        "f1-score": 0.5222036727879801,
+        "precision": 0.6216216216216216,
+        "recall": 0.4502014968336212,
+        "support": 1737
     },
     "samples avg": {
-        "f1-score": 0.4105263157894737,
-        "precision": 0.4105263157894737,
-        "recall": 0.4105263157894737,
-        "support": 679
+        "f1-score": 0.2955640050697085,
+        "precision": 0.2973384030418251,
+        "recall": 0.2946768060836502,
+        "support": 1737
     },
     "strategy": "label-powerset",
     "weighted avg": {
-        "f1-score": 0.5062449938126157,
-        "precision": 0.5966991016115114,
-        "recall": 0.5743740795287187,
-        "support": 679
+        "f1-score": 0.4155666486134265,
+        "precision": 0.675464157062755,
+        "recall": 0.4502014968336212,
+        "support": 1737
     }
 }

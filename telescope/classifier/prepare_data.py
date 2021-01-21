@@ -52,6 +52,7 @@ def vectorize_paragraphs(X_train, X_test):
         A matrix of TF-IDF features for training and a matrix of TF-IDF features
         for test.
     """
+
     vect_args = {
         'ngram_range': (1, 2),  # Google recomends: 1-gram + 2-grams
         'strip_accents': 'unicode',
@@ -59,6 +60,7 @@ def vectorize_paragraphs(X_train, X_test):
         'stop_words': 'english',
         'analyzer': 'word',
     }
+
     vectorizer = TfidfVectorizer(**vect_args)
     X_train = vectorizer.fit_transform(X_train)
     X_test = vectorizer.transform(X_test)

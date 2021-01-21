@@ -32,6 +32,7 @@ def check_if_dataframe_copy_exists(results_dir, analysis_dir):
         print("Reading dataframe file for classification.")
         print("Filepath:" + raw_dataframe_filepath)
         dataframe = pandas.read_csv(raw_dataframe_filepath)
+        dataframe.fillna('', inplace=True)
     else:
         print("Parsing spreadsheets for classification.")
 

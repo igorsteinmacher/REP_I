@@ -1,64 +1,64 @@
 {
     "BW \u2013 Build local workspace": {
-        "f1-score": 0.41935483870967744,
-        "precision": 0.43333333333333335,
-        "recall": 0.40625,
-        "support": 32
+        "f1-score": 0.5802047781569966,
+        "precision": 0.7522123893805309,
+        "recall": 0.4722222222222222,
+        "support": 180
     },
     "CF \u2013 Contribution flow": {
-        "f1-score": 0.37383177570093457,
-        "precision": 0.5333333333333333,
-        "recall": 0.28776978417266186,
-        "support": 139
+        "f1-score": 0.34541577825159914,
+        "precision": 0.54,
+        "recall": 0.25391849529780564,
+        "support": 319
     },
     "CT \u2013 Choose a task": {
-        "f1-score": 0.25806451612903225,
-        "precision": 0.6666666666666666,
-        "recall": 0.16,
-        "support": 25
+        "f1-score": 0.3478260869565218,
+        "precision": 0.8,
+        "recall": 0.2222222222222222,
+        "support": 54
     },
     "DC \u2013 Deal with the code": {
-        "f1-score": 0.6212121212121212,
-        "precision": 0.7192982456140351,
-        "recall": 0.5466666666666666,
-        "support": 75
+        "f1-score": 0.7509293680297398,
+        "precision": 0.8451882845188284,
+        "recall": 0.6755852842809364,
+        "support": 299
     },
     "SC \u2013 Submit the changes": {
-        "f1-score": 0.7983870967741934,
-        "precision": 0.8204419889502762,
-        "recall": 0.7774869109947644,
-        "support": 382
+        "f1-score": 0.7543520309477757,
+        "precision": 0.78,
+        "recall": 0.7303370786516854,
+        "support": 801
     },
     "TC \u2013 Talk to the community": {
-        "f1-score": 0.5333333333333333,
-        "precision": 0.631578947368421,
-        "recall": 0.46153846153846156,
-        "support": 26
+        "f1-score": 0.562962962962963,
+        "precision": 0.7450980392156863,
+        "recall": 0.4523809523809524,
+        "support": 84
     },
     "classifier_name": "LinearSVC",
     "macro avg": {
-        "f1-score": 0.500697280309882,
-        "precision": 0.6341087525443442,
-        "recall": 0.4399519705620924,
-        "support": 679
+        "f1-score": 0.556948500884266,
+        "precision": 0.7437497855191743,
+        "recall": 0.4677777091759707,
+        "support": 1737
     },
     "micro avg": {
-        "f1-score": 0.6628664495114006,
-        "precision": 0.7413479052823315,
-        "recall": 0.5994108983799705,
-        "support": 679
+        "f1-score": 0.6566284779050737,
+        "precision": 0.7610015174506829,
+        "recall": 0.5774323546344272,
+        "support": 1737
     },
     "samples avg": {
-        "f1-score": 0.42526315789473684,
-        "precision": 0.4236842105263158,
-        "recall": 0.4284210526315789,
-        "support": 679
+        "f1-score": 0.3759188846641318,
+        "precision": 0.37623574144486693,
+        "recall": 0.37775665399239544,
+        "support": 1737
     },
     "strategy": "one-vs-the-rest",
     "weighted avg": {
-        "f1-score": 0.6439985733279574,
-        "precision": 0.7193577724570012,
-        "recall": 0.5994108983799705,
-        "support": 679
+        "f1-score": 0.6387218472913766,
+        "precision": 0.7431996329612797,
+        "recall": 0.5774323546344272,
+        "support": 1737
     }
 }

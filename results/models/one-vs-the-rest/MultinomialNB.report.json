@@ -3,62 +3,62 @@
         "f1-score": 0.0,
         "precision": 0.0,
         "recall": 0.0,
-        "support": 180
+        "support": 141
     },
     "CF \u2013 Contribution flow": {
-        "f1-score": 0.00625,
+        "f1-score": 0.012121212121212121,
         "precision": 1.0,
-        "recall": 0.003134796238244514,
-        "support": 319
+        "recall": 0.006097560975609756,
+        "support": 328
     },
     "CT \u2013 Choose a task": {
         "f1-score": 0.0,
         "precision": 0.0,
         "recall": 0.0,
-        "support": 54
+        "support": 58
     },
     "DC \u2013 Deal with the code": {
-        "f1-score": 0.10126582278481013,
-        "precision": 0.9411764705882353,
-        "recall": 0.05351170568561873,
-        "support": 299
+        "f1-score": 0.11501597444089458,
+        "precision": 1.0,
+        "recall": 0.061016949152542375,
+        "support": 295
     },
     "SC \u2013 Submit the changes": {
-        "f1-score": 0.6180665610142632,
-        "precision": 0.8459869848156182,
-        "recall": 0.4868913857677903,
-        "support": 801
+        "f1-score": 0.6083530338849488,
+        "precision": 0.8596881959910914,
+        "recall": 0.47073170731707314,
+        "support": 820
     },
     "TC \u2013 Talk to the community": {
         "f1-score": 0.0,
         "precision": 0.0,
         "recall": 0.0,
-        "support": 84
+        "support": 96
     },
     "classifier_name": "MultinomialNB",
     "macro avg": {
-        "f1-score": 0.12093039729984555,
-        "precision": 0.4645272425673089,
-        "recall": 0.09058964794860892,
-        "support": 1737
+        "f1-score": 0.12258170340784258,
+        "precision": 0.4766146993318485,
+        "recall": 0.08964103624087089,
+        "support": 1738
     },
     "micro avg": {
-        "f1-score": 0.36732851985559567,
-        "precision": 0.8496868475991649,
-        "recall": 0.23431203223949337,
-        "support": 1737
+        "f1-score": 0.36792025373810605,
+        "precision": 0.8656716417910447,
+        "recall": 0.2336018411967779,
+        "support": 1738
     },
     "samples avg": {
-        "f1-score": 0.15361216730038021,
-        "precision": 0.15475285171102662,
+        "f1-score": 0.15348542458808617,
+        "precision": 0.1543726235741445,
         "recall": 0.15304182509505704,
-        "support": 1737
+        "support": 1738
     },
     "strategy": "one-vs-the-rest",
     "weighted avg": {
-        "f1-score": 0.30359444236331784,
-        "precision": 0.7357785489598115,
-        "recall": 0.23431203223949337,
-        "support": 1737
+        "f1-score": 0.30883484339555783,
+        "precision": 0.7640646264169706,
+        "recall": 0.2336018411967779,
+        "support": 1738
     }
 }

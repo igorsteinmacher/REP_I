@@ -5,11 +5,9 @@ __author__ = 'Felipe Fronchetti'
 __contact__ = 'fronchetti@usp.br'
 
 import pandas
-from skmultilearn.problem_transform import BinaryRelevance, ClassifierChain, LabelPowerset
+from skmultilearn.problem_transform import ClassifierChain, LabelPowerset
 from sklearn.multiclass import OneVsRestClassifier
-from sklearn.pipeline import Pipeline
 from sklearn.metrics import classification_report
-from sklearn.metrics import f1_score, precision_score, recall_score
 
 def train(classifier, X_train, X_test, y_train, y_test, strategy):
     """Computes a multi-label classification.

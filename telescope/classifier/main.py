@@ -23,7 +23,6 @@ from sklearn.linear_model import SGDClassifier # Scikit-learn Cheat Sheet
 # TO-DO: Tune hyperparameters
 # TO-DO: Apply cross-validation methods
 
-
 def classify(classifiers, strategies, report, deploy, results_dir, analysis_dir):
     """Executes the classification process.
 
@@ -43,12 +42,14 @@ def classify(classifiers, strategies, report, deploy, results_dir, analysis_dir)
     #        START           #
     ##########################
     text_column = 'Paragraph'
+    
     classes = ['CF – Contribution flow',
                'CT – Choose a task',
                'TC – Talk to the community',
                'BW – Build local workspace',
                'DC – Deal with the code',
                'SC – Submit the changes']
+
     classifiers_available = {
         'rf': RandomForestClassifier(),
         'svc': LinearSVC(),
@@ -58,6 +59,7 @@ def classify(classifiers, strategies, report, deploy, results_dir, analysis_dir)
         'mlp': MLPClassifier(),
         'sgd': SGDClassifier(),
     }
+
     strategies_available = {
         'cc': 'classifier-chains',
         'lp': 'label-powerset',
@@ -120,9 +122,9 @@ if __name__ == '__main__':
 
     kwargs = {
         'classifiers': ['sgd', 'rf' , 'svc', 'mnb', 'knn', 'lr', 'mlp'],
-        'strategies': ['ovr', 'cc', 'lp'],
+        'strategies': ['ovr'], # , 'cc', 'lp'
         'report': True,
-        'deploy': False,
+        'deploy': True,
         'results_dir': results_dir,
         'analysis_dir': analysis_dir
     }

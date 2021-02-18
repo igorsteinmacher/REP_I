@@ -1,0 +1,64 @@
+{
+    "BW \u2013 Build local workspace": {
+        "f1-score": 0.5693430656934306,
+        "precision": 0.5864661654135338,
+        "recall": 0.5531914893617021,
+        "support": 141
+    },
+    "CF \u2013 Contribution flow": {
+        "f1-score": 0.3804143126177024,
+        "precision": 0.4975369458128079,
+        "recall": 0.3079268292682927,
+        "support": 328
+    },
+    "CT \u2013 Choose a task": {
+        "f1-score": 0.3373493975903614,
+        "precision": 0.56,
+        "recall": 0.2413793103448276,
+        "support": 58
+    },
+    "DC \u2013 Deal with the code": {
+        "f1-score": 0.6512524084778419,
+        "precision": 0.7544642857142857,
+        "recall": 0.5728813559322034,
+        "support": 295
+    },
+    "SC \u2013 Submit the changes": {
+        "f1-score": 0.7263803680981594,
+        "precision": 0.7308641975308642,
+        "recall": 0.7219512195121951,
+        "support": 820
+    },
+    "TC \u2013 Talk to the community": {
+        "f1-score": 0.41891891891891897,
+        "precision": 0.5961538461538461,
+        "recall": 0.3229166666666667,
+        "support": 96
+    },
+    "classifier_name": "MLPClassifier",
+    "macro avg": {
+        "f1-score": 0.5139430785660691,
+        "precision": 0.6209142401042229,
+        "recall": 0.45337447851431456,
+        "support": 1738
+    },
+    "micro avg": {
+        "f1-score": 0.618524332810047,
+        "precision": 0.6807187284035936,
+        "recall": 0.5667433831990794,
+        "support": 1738
+    },
+    "samples avg": {
+        "f1-score": 0.3673003802281369,
+        "precision": 0.3665399239543726,
+        "recall": 0.37110266159695815,
+        "support": 1738
+    },
+    "strategy": "one-vs-the-rest",
+    "weighted avg": {
+        "f1-score": 0.6056312488028145,
+        "precision": 0.6659782641206567,
+        "recall": 0.5667433831990794,
+        "support": 1738
+    }
+}

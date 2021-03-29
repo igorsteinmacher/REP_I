@@ -1,49 +1,136 @@
 body {
-    color: #000000;
+    font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+    background-color: rgb(245, 245, 245);
+    padding: 0px;
+    margin: 0px;
+}
+
+.container {
+    align-items: stretch;
+    margin-bottom: 20px;
+    min-height: 100vh;
+    display: flex;
+    width: 100%;
+}
+
+.content {
+    box-shadow: 0 0 5px #ccc;
+    background-color: white;
+    border-radius: 1px;
+    text-align: justify;
+    margin-left: 50px;
+    margin-top: 20px;
+    padding-bottom: 20px;
+    padding-right: 40px;
+    padding-left: 40px;
+    padding-top: 20px;
+    width: 60%;
+}
+
+.sidebar {
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 20px;
+    width: 20%;
+}
+
+.sidebar ul {
+    list-style: none;
+    font-size: 15px;
+    padding-left: 1px;
+}
+
+.sidebar li {
+    padding-bottom: 10px;
+}
+
+.active-link {
     font-size: 20px;
-    font-weight: lighter;
-    background-color: #efefef;
-    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: bold !important;
+}
+
+.sidebar a {
+    color: rgb(51, 51, 51);
+    text-decoration: none;
+}
+
+.sidebar a:hover {
+    color: rgb(125, 125, 125);
+}
+
+.toc-fixed-container {
+    position: fixed;
+}
+
+.get-in-touch {
+    display: flex;
+    align-items: center;   
+}
+
+.get-in-touch a {
+    padding-left: 5px;
+}
+
+/* The styles below are mainly used but
+   not restricted to content.html */
+
+table {
+    border-collapse: collapse;
+    word-break: break-word;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+th, td {
+    border: 1px solid rgb(0, 0, 0);
+    padding: 10px;
+}
+
+img {
+    width: 100%;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid rgb(216, 216, 216);
+}
+
+code {
+    padding: 1px;
+    border-radius: 2px;
+    background-color: rgb(236, 236, 236);
 }
 
 a {
-    color: #000000;
+    color: rgb(0, 138, 230);
     text-decoration: none;
 }
 
 a:hover {
-    color: red;
+    color: rgb(125, 125, 125);
 }
 
-.container {
-    padding: 60px 60px;
-}
+/* Specifications to guarantee responsiveness */
 
-.header {
-    color: white;
-    background-color: #111111;
-}
+@media screen and (max-width: 1200px) {
+    .container {
+        flex-wrap: wrap;
+        margin: 0px;
+    }
 
-.name {
-    font-size: 40px;
-    font-weight: bold;
-}
+    .content, .sidebar {
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-bottom: 20px;
+        margin: 0px;
+        width: 100%;
+    }
 
-.description {
-    font-size: 25px;
-}
+    .sidebar {
+        position: relative;
+    }
 
-.content {
-    background-color: white;
-}
-
-.section {
-    padding-bottom: 30px;
-}
-
-.section-title {
-    text-align: center;
-    color: #111111;
-    font-weight: normal;
-    font-size: 22px;
+    .toc-fixed-container {
+        display: none;
+    }
 }

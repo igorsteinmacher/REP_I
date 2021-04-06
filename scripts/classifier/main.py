@@ -45,7 +45,7 @@ def multiclass_classification(preprocessing, classifiers, strategies, analysis_d
     #        SETUP           #
     ##########################
     text_column = 'Paragraph'
-    label_column = 'label'
+    label_column = 'Label'
     
     classes = ['No categories identified.',
                'CF – Contribution flow',
@@ -60,7 +60,8 @@ def multiclass_classification(preprocessing, classifiers, strategies, analysis_d
         'rp': 'remove-punctuations',
         'rs': 'remove-stopwords',
         'st': 'stemming',
-        'lm': 'lemmatization'
+        'lm': 'lemmatization',
+        'slm': 'spacy-lemmatization'
     }
 
     training_strategies_available = {
@@ -98,6 +99,7 @@ def multiclass_classification(preprocessing, classifiers, strategies, analysis_d
     ##########################
     print("Applying preprocessing techniques on text column.")
     dataframe = text_preprocessing(dataframe, text_column, selected_preprocessing_techniques)
+    print(dataframe)
 
     print("Shuffling and splitting dataframe into training and test sets.")
     X_train, X_test, y_train, y_test = shuffle_and_split(
@@ -135,9 +137,10 @@ def multiclass_classification(preprocessing, classifiers, strategies, analysis_d
             }
 
             model, performance = train(**training_args)
+            print(performance)
 
             if report:
-                print("Exporting results of " + classifier_name + " using " + strategy + " strategy.")
+                print("Exporting performance of " + classifier_name + " using " + strategy + " strategy.")
                 report_performance(report=performance, **deployment_args)
 
             if deploy:
@@ -150,7 +153,26 @@ if __name__ == '__main__':
     results_dir = os.path.join(root_dir, 'results')
 
     training_args = {
-        'classifiers': ['svc', 'mnb', 'knn', 'lr'], # 'rf', 'mlp'
+        # Preprocessing Techniques
+        # 'lc' to lowercase,
+        # 'rp' to remove punctuations,
+        # 'rs' to remove stopwords,
+        # 'st' to use stemming (PorterStemmer NLTK),
+        # 'lm' to use lemmatization (WordNetLemmatizer NLTK),
+        # 'slm' to use lemmatization (Spacy).
+        'preprocessing': ['slm'], 
+        # Classification Algorithms:
+        # 'rf' to use RandomForestClassifier,
+        # 'svc' to use LinearSVC,
+        # 'mnb' to use MultinomialNB,
+        # 'knn' to use KNeighborsClassifier,
+        # 'lr' to use LogisticRegression,
+        # 'mlp' to use MLPClassifier,
+        # 'sgd' to use SGDClassifier.
+        'classifiers': ['svc'],
+        # Training Strategies:
+        # 'ovr' to use OneVsRest,
+        # 'ovo' to use OneVsOne.
         'strategies': ['ovo', 'ovr'],
         'analysis_dir': analysis_dir,
         'results_dir': results_dir,

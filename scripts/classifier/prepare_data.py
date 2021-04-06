@@ -5,13 +5,14 @@ __author__ = 'Felipe Fronchetti'
 __contact__ = 'fronchetti@usp.br'
 
 # Preprocessing
+import spacy
 from nltk.stem.porter import PorterStemmer
+from nltk.stem import WordNetLemmatizer 
 from nltk.corpus import stopwords
 import string
 # Preparation
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
-from imblearn.over_sampling import SMOTE
 
 def text_preprocessing(dataframe, text_column, techniques = {}):
     if 'lowercase' in techniques:
@@ -32,6 +33,38 @@ def text_preprocessing(dataframe, text_column, techniques = {}):
             return " ".join([word for word in paragraph.split() if word not in stop_words])
 
         dataframe[text_column] = dataframe[text_column].apply(lambda paragraph: remove_stopwords(paragraph))
+    
+    if 'stemming' in techniques:
+        def stemming(paragraph):
+            stemmer = PorterStemmer()
+            return " ".join([stemmer.stem(word) for word in paragraph.split()])
+
+        dataframe[text_column] = dataframe[text_column].apply(lambda paragraph: stemming(paragraph))
+
+    if 'lemmatization' in techniques:
+        if 'stemming' in techniques:
+            print('Warning: You are using both lemmatization and stemming.')
+
+        def lemmatization(paragraph):
+            lemmatizer = WordNetLemmatizer()
+            return " ".join([lemmatizer.lemmatize(word) for word in paragraph.split()])
+
+        dataframe[text_column] = dataframe[text_column].apply(lambda paragraph: lemmatization(paragraph))
+
+    if 'spacy-lemmatization' in techniques:
+        if 'stemming' in techniques:
+            print('Warning: You are using both lemmatization and stemming.')
+
+        if 'lemmatization' in techniques:
+            print('Warning: You are already using lemmatization.')
+
+        def spacy_lemmatization(paragraph):
+            nlp = spacy.load("en_core_web_sm")
+            lemmatizer = nlp.get_pipe("lemmatizer")
+            doc = nlp(paragraph)
+            return " ".join([token.lemma_ for token in doc])
+
+        dataframe[text_column] = dataframe[text_column].apply(lambda paragraph: spacy_lemmatization(paragraph))
 
     return dataframe
 

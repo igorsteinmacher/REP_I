@@ -5,7 +5,6 @@ __author__ = 'Felipe Fronchetti'
 __contact__ = 'fronchetti@usp.br'
 
 import os
-import xlrd
 import pandas
 
 
@@ -49,7 +48,7 @@ def import_dataframe(analysis_dir, results_dir):
 
     return dataframe
 
-def parse_spreadsheets(analysis_dir, output_dir, desired_worksheets = ['contributing']):
+def parse_spreadsheets(analysis_dir, output_dir):
     """Parses the spreadsheets and exports the dataframe as a unique file.
 
     Args:
@@ -62,21 +61,17 @@ def parse_spreadsheets(analysis_dir, output_dir, desired_worksheets = ['contribu
     Returns:
         A pandas dataframe with all the spreadsheets data into a single dataframe structure.
     """
-    dataframe_rows = []
+    dataframe = pandas.DataFrame()
 
     for filename in os.listdir(analysis_dir):
         filepath = os.path.join(analysis_dir, filename)
 
         if os.path.isfile(filepath):
             # Notice that we consider any spreadsheets (.xlsx files)
-            # inside the folder as valid for training.
+            # inside the folder as valid for use.
             if filename.endswith('.xlsx'):
-                spreadsheet = parse_spreadsheet_file(filepath, desired_worksheets, filename)
-
-                for worksheet in spreadsheet:
-                    dataframe_rows = dataframe_rows + spreadsheet[worksheet]
-
-    dataframe = pandas.DataFrame(dataframe_rows)
+                worksheets = parse_spreadsheet_file(filepath, filename)
+                dataframe = pandas.concat([dataframe, worksheets])
 
     if output_dir:
         # Export as a .csv file:
@@ -88,72 +83,54 @@ def parse_spreadsheets(analysis_dir, output_dir, desired_worksheets = ['contribu
 
     return dataframe
 
-def parse_spreadsheet_file(filepath, desired_worksheets, spreadsheet):
+def parse_spreadsheet_file(filepath, spreadsheet):
     """Extracts the data from a spreadsheet file.
 
     Args:
         filepath: A string representing the path to a spreadsheet.
-        desired_worksheets: A list of worksheets to be parsed from this spreadsheet.
         spreadsheet: A string representing the name of the spreadsheet being analyzed.
 
     Returns:
         A dictionary including all parsed worksheets. The set of rows in each
         worksheet is now represented by a list of dictionaries.
     """
-    spreadsheet = xlrd.open_workbook(filepath)
-    worksheets = {}
+    spreadsheet = pandas.ExcelFile(filepath, engine='openpyxl')
+    dataframe = pandas.DataFrame()
 
-    for worksheet_name in desired_worksheets:
-        worksheet = spreadsheet.sheet_by_name(worksheet_name).get_rows()
-        column_names = next(worksheet)
-        parsed_rows = []
+    for worksheet_name in spreadsheet.sheet_names:
+        worksheet = spreadsheet.parse(worksheet_name)
 
-        for index, row in enumerate(worksheet):
-            # The method below returns the values of each column
-            # as a dictionary of columns
-            row_data = parse_column_values(row, column_names)
-            # We include some extra values for each row that might be used
-            # in the future during the data analysis:
-            row_data['Spreadsheet'] = spreadsheet
-            row_data['Worksheet'] = worksheet_name
-            row_data['Row Index'] = index + 2
+        # Add a new name to the first column
+        worksheet.rename(columns={worksheet.columns[0]: "Paragraph" }, inplace = True)
+        # Replace NaN's with 0's and non NaN's with 1's
+        worksheet['CF – Contribution flow'] = worksheet['CF – Contribution flow'].notnull().astype('int')
+        worksheet['CT – Choose a task'] = worksheet['CT – Choose a task'].notnull().astype('int')
+        worksheet['TC – Talk to the community'] = worksheet['TC – Talk to the community'].notnull().astype('int')
+        worksheet['BW – Build local workspace'] = worksheet['BW – Build local workspace'].notnull().astype('int')
+        worksheet['DC – Deal with the code'] = worksheet['DC – Deal with the code'].notnull().astype('int')
+        worksheet['SC – Submit the changes'] = worksheet['SC – Submit the changes'].notnull().astype('int')
+        worksheet['Label'] = worksheet.apply(lambda row: define_label(row), axis=1)
+        worksheet['Spreadsheet'] = os.path.basename(filepath)
+        worksheet['Worksheet'] = worksheet_name
+        worksheet['Row Index'] = worksheet.index
+        dataframe = pandas.concat([worksheet, dataframe])
 
-            parsed_rows.append(row_data)
+    return dataframe
 
-        worksheets[worksheet_name] = parsed_rows
+def define_label(row):
+        label = 'No categories identified.'
 
-    return worksheets
+        if row['CF – Contribution flow'] == 1:
+            label = 'CF – Contribution flow'
+        if row['CT – Choose a task'] == 1:
+            label = 'CT – Choose a task'
+        if row['TC – Talk to the community'] == 1:
+            label = 'TC – Talk to the community'
+        if row['BW – Build local workspace'] == 1:
+            label = 'BW – Build local workspace'
+        if row['DC – Deal with the code'] == 1:
+            label = 'DC – Deal with the code'
+        if row['SC – Submit the changes'] == 1:
+            label = 'SC – Submit the changes'
 
-def parse_column_values(row, column_names):
-    """Parses the column values of a row and turns it into a dictionary.
-
-    IMPORTANT: Notice that this method is specifically used for spreadsheets following 
-    the standards of our study where each worksheet has six columns such that
-    the first one always contains a paragraph/text, and the remaining five columns
-    contain markers identifying one of the desired categories of our study.
-
-    If you are going to use this code in another study, please modify it as necessary.
-
-    Args:
-        row: A list containing the row values of a worksheet.
-        column_names: A list with the respective classes/categories of this study.
-
-    Returns:
-        The worksheet row in form of dictionary.
-    """
-    
-    row_dict = {}
-    # The first column is always the paragraph
-    row_dict['Paragraph'] = row[0].value
-
-    # The remaining columns represent the classes
-    # to be used in the multiclass classification.
-    for column in range(1, len(column_names)):
-        # If there are any markers in the respective column:
-        if row[column].ctype == 1:
-            row_dict[column_names[column].value] = 1
-            row_dict['label'] = column_names[column].value
-        else:
-            row_dict[column_names[column].value] = 0
-
-    return row_dict
+        return label

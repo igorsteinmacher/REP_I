@@ -5,8 +5,11 @@ __author__ = 'Felipe Fronchetti'
 __contact__ = 'fronchetti@usp.br'
 
 import os
+import scipy
+from scipy.sparse import hstack
 from import_data import import_dataframe
-from prepare_data import shuffle_and_split, text_preprocessing, vectorize_paragraphs
+from prepare_data import shuffle_and_split, text_preprocessing
+from generate_features import create_statistic_features, create_heuristic_features
 from train_model import train
 from deploy_model import report_performance, deploy_model
 
@@ -18,9 +21,9 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.neural_network import MLPClassifier # Google Text Classification Guidelines
 from sklearn.linear_model import SGDClassifier # Scikit-learn Cheat Sheet
 
-# TO-DO: Extract heuristic features.
-# TO-DO: Perform a feature selection for X_train and X_test.
-# TO-DO: Tune hyperparameters.
+# TO-DO: Extract heuristic features. CHECK
+# TO-DO: Perform a feature selection for X_train and X_test. CHECK
+# TO-DO: Tune hyperparameters. 
 # TO-DO: Apply cross-validation methods.
 
 def multiclass_classification(preprocessing, classifiers, strategies, analysis_dir, results_dir, report=True, deploy=True):
@@ -60,8 +63,7 @@ def multiclass_classification(preprocessing, classifiers, strategies, analysis_d
         'rp': 'remove-punctuations',
         'rs': 'remove-stopwords',
         'st': 'stemming',
-        'lm': 'lemmatization',
-        'slm': 'spacy-lemmatization'
+        'lm': 'lemmatization'
     }
 
     training_strategies_available = {
@@ -76,7 +78,7 @@ def multiclass_classification(preprocessing, classifiers, strategies, analysis_d
         'knn': KNeighborsClassifier(),
         'lr': LogisticRegression(),
         'mlp': MLPClassifier(),
-        'sgd': SGDClassifier(),
+        'sgd': SGDClassifier()
     }
 
     selected_preprocessing_techniques = [preprocessing_techniques_available[technique] 
@@ -93,21 +95,25 @@ def multiclass_classification(preprocessing, classifiers, strategies, analysis_d
     #########################
     print("Importing data for classification.")
     dataframe = import_dataframe(analysis_dir, results_dir)
+    X = dataframe[text_column]
+    y = dataframe[label_column]
 
     ##########################
     #     PREPARE DATA       #
     ##########################
     print("Applying preprocessing techniques on text column.")
-    dataframe = text_preprocessing(dataframe, text_column, selected_preprocessing_techniques)
-    print(dataframe)
+    X = text_preprocessing(X, selected_preprocessing_techniques)
+    
+    print("Converting paragraphs into statistic features.")
+    statistic_features = create_statistic_features(X)
+
+    print("Converting paragraphs into heuristic features.")
+    heuristic_features = create_heuristic_features(X)
+
+    X = hstack([statistic_features, heuristic_features])
 
     print("Shuffling and splitting dataframe into training and test sets.")
-    X_train, X_test, y_train, y_test = shuffle_and_split(
-        dataframe, [text_column], label_column)
-        
-    print("Converting paragraphs to statistical features.")
-    X_train, X_test = vectorize_paragraphs(
-        X_train[text_column].tolist(), X_test[text_column].tolist())
+    X_train, X_test, y_train, y_test = shuffle_and_split(X, y)
 
     ###################################
     # TRAIN, REPORT AND DEPLOY MODELS #
@@ -123,21 +129,20 @@ def multiclass_classification(preprocessing, classifiers, strategies, analysis_d
                 'categories': classes,
                 'classifier': classifier,
                 'strategy': strategy,
-                'oversample': True,
+                'oversample': False,
                 'X_train': X_train,
                 'X_test': X_test,
                 'y_train': y_train,
                 'y_test': y_test,
             }
 
+            model, performance = train(**training_args)
+
             deployment_args = {
                 'strategy': strategy,
                 'classifier_name': classifier_name,
                 'results_dir': results_dir,
             }
-
-            model, performance = train(**training_args)
-            print(performance)
 
             if report:
                 print("Exporting performance of " + classifier_name + " using " + strategy + " strategy.")
@@ -159,8 +164,7 @@ if __name__ == '__main__':
         # 'rs' to remove stopwords,
         # 'st' to use stemming (PorterStemmer NLTK),
         # 'lm' to use lemmatization (WordNetLemmatizer NLTK),
-        # 'slm' to use lemmatization (Spacy).
-        'preprocessing': ['slm'], 
+        'preprocessing': ['rs', 'lc', 'rp', 'st'], 
         # Classification Algorithms:
         # 'rf' to use RandomForestClassifier,
         # 'svc' to use LinearSVC,

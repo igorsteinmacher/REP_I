@@ -8,7 +8,7 @@ import os
 import pandas
 
 
-def import_dataframe(analysis_dir, results_dir):
+def import_dataframe(analysis_dir, results_dir, classes):
     """Imports the data that will be used for training as a pandas dataframe.
    
     First of all, it is important to understand that the data used in our study
@@ -44,11 +44,11 @@ def import_dataframe(analysis_dir, results_dir):
     else:
         print("No copies of the dataframe were found.")
         print("Parsing raw spreadsheets and preparing a new copy of the dataframe...")
-        dataframe = parse_spreadsheets(analysis_dir, results_dir)
+        dataframe = parse_spreadsheets(analysis_dir, results_dir, classes)
 
     return dataframe
 
-def parse_spreadsheets(analysis_dir, output_dir):
+def parse_spreadsheets(analysis_dir, output_dir, classes):
     """Parses the spreadsheets and exports the dataframe as a unique file.
 
     Args:
@@ -70,7 +70,7 @@ def parse_spreadsheets(analysis_dir, output_dir):
             # Notice that we consider any spreadsheets (.xlsx files)
             # inside the folder as valid for use.
             if filename.endswith('.xlsx'):
-                worksheets = parse_spreadsheet_file(filepath, filename)
+                worksheets = parse_spreadsheet_file(filepath, filename, classes)
                 dataframe = pandas.concat([dataframe, worksheets])
 
     if output_dir:
@@ -83,7 +83,7 @@ def parse_spreadsheets(analysis_dir, output_dir):
 
     return dataframe
 
-def parse_spreadsheet_file(filepath, spreadsheet):
+def parse_spreadsheet_file(filepath, spreadsheet, classes):
     """Extracts the data from a spreadsheet file.
 
     Args:
@@ -103,13 +103,11 @@ def parse_spreadsheet_file(filepath, spreadsheet):
         # Add a new name to the first column
         worksheet.rename(columns={worksheet.columns[0]: "Paragraph" }, inplace = True)
         # Replace NaN's with 0's and non NaN's with 1's
-        worksheet['CF – Contribution flow'] = worksheet['CF – Contribution flow'].notnull().astype('int')
-        worksheet['CT – Choose a task'] = worksheet['CT – Choose a task'].notnull().astype('int')
-        worksheet['TC – Talk to the community'] = worksheet['TC – Talk to the community'].notnull().astype('int')
-        worksheet['BW – Build local workspace'] = worksheet['BW – Build local workspace'].notnull().astype('int')
-        worksheet['DC – Deal with the code'] = worksheet['DC – Deal with the code'].notnull().astype('int')
-        worksheet['SC – Submit the changes'] = worksheet['SC – Submit the changes'].notnull().astype('int')
-        worksheet['Label'] = worksheet.apply(lambda row: define_label(row), axis=1)
+        for _class in classes:
+            if _class in worksheet:
+                worksheet[_class] = worksheet[_class].notnull().astype('int')
+                
+        worksheet['Label'] = worksheet.apply(lambda row: define_label(row, classes), axis=1)
         worksheet['Spreadsheet'] = os.path.basename(filepath)
         worksheet['Worksheet'] = worksheet_name
         worksheet['Row Index'] = worksheet.index
@@ -117,20 +115,12 @@ def parse_spreadsheet_file(filepath, spreadsheet):
 
     return dataframe
 
-def define_label(row):
+def define_label(row, classes):
         label = 'No categories identified.'
 
-        if row['CF – Contribution flow'] == 1:
-            label = 'CF – Contribution flow'
-        if row['CT – Choose a task'] == 1:
-            label = 'CT – Choose a task'
-        if row['TC – Talk to the community'] == 1:
-            label = 'TC – Talk to the community'
-        if row['BW – Build local workspace'] == 1:
-            label = 'BW – Build local workspace'
-        if row['DC – Deal with the code'] == 1:
-            label = 'DC – Deal with the code'
-        if row['SC – Submit the changes'] == 1:
-            label = 'SC – Submit the changes'
+        for _class in classes:
+            if _class in row:
+                if row[_class] == 1:
+                    label = _class
 
         return label

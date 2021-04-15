@@ -94,7 +94,7 @@ def multiclass_classification(preprocessing, classifiers, strategies, analysis_d
     #      IMPORT DATA      #
     #########################
     print("Importing data for classification.")
-    dataframe = import_dataframe(analysis_dir, results_dir)
+    dataframe = import_dataframe(analysis_dir, results_dir, classes)
     X = dataframe[text_column]
     y = dataframe[label_column]
 

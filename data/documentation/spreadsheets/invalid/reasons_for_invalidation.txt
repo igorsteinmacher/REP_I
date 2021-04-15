@@ -1,0 +1,8 @@
+- Documentation is not in English, but wasn't removed by the
+language detection tool
+
+- The project is not related to software (e.g. awesome lists)
+
+- The documentation file does not contain anything related to 
+code contributions (e.g. the maintainers are only accepting bug reports)
+

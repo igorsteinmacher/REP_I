@@ -19,7 +19,7 @@ def train(classifier, strategy, oversample, categories, X_train, X_test, y_train
     Args:
         classifier: An instance of a scikit-learn classifier.
         strategy: A string defining which strategies will be used for training.
-        oversample: A boolean defining if SMOTE oversampling should be applied or not.
+        oversample: A boolean variable that defines if SMOTE oversampling should be applied or not.
         X_train: A matrix containing features for training.
         X_test: A matrix containing features for testing.
         y_train: A column containing labels for training.

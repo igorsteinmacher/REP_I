@@ -36,13 +36,13 @@ def multiclass_classification(preprocessing, classifiers, strategies, analysis_d
         preprocessing: A list of preprocessing techniques to be applied.
         classifiers: A list of classifiers to train.
         strategies: A list of strategies to use during training.
-        analysis_dir: A string representing the path to directory where raw spreadsheets 
+        analysis_dir: A string representing the path to directory where the raw spreadsheets 
                     are available. In this context, raw spreadsheets are the data used
                     to train the classifier.
         results_dir: A string representing the path to directory where dataframes, 
                     models and performances should be saved.
-        report: Boolean value used to define if models peformances should be reported.
-        deploy: Boolean value used to define if models trained objects should be deployed.
+        report: Boolean variable used to define if models peformances should be reported.
+        deploy: Boolean variable used to define if models objects should be deployed.
     """
     ##########################
     #        SETUP           #
@@ -129,7 +129,7 @@ def multiclass_classification(preprocessing, classifiers, strategies, analysis_d
                 'categories': classes,
                 'classifier': classifier,
                 'strategy': strategy,
-                'oversample': False,
+                'oversample': True,
                 'X_train': X_train,
                 'X_test': X_test,
                 'y_train': y_train,
@@ -137,6 +137,8 @@ def multiclass_classification(preprocessing, classifiers, strategies, analysis_d
             }
 
             model, performance = train(**training_args)
+            performance['preprocessing_args'] = selected_preprocessing_techniques
+            performance['training_args'] = training_args
 
             deployment_args = {
                 'strategy': strategy,
@@ -173,7 +175,7 @@ if __name__ == '__main__':
         # 'lr' to use LogisticRegression,
         # 'mlp' to use MLPClassifier,
         # 'sgd' to use SGDClassifier.
-        'classifiers': ['svc'],
+        'classifiers': ['svc', 'rf', 'mnb', 'knn', 'lr', 'mlp', 'sgd'],
         # Training Strategies:
         # 'ovr' to use OneVsRest,
         # 'ovo' to use OneVsOne.

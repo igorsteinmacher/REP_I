@@ -15,13 +15,13 @@ def import_dataframe(analysis_dir, results_dir, classes):
     is primarily represented by a folder of spreadsheets which were manually analyzed
     by software engineering researchers. These spreadsheets follow a same standard:
     each contains a single worksheet named as `contributing` with seven pre-defined columns
-    and a variable number of rows.
+    and a different number of rows.
 
-    To avoid parsing all these spreadsheets in every execution (which takes time and memory),
-    we parse the spreadsheets at the first execution and save a xlsx copy of the dataframe 
+    To avoid parsing all the spreadsheets in every execution (which takes time and memory),
+    we parse the spreadsheets at the first execution and save a .xlsx copy of the dataframe 
     inside the `results_dir` directory.
 
-    If this copy already exists, the xlsx file is directly converted to a pandas dataframe. 
+    If this copy already exists, the .xlsx file is directly converted to a pandas dataframe. 
     Otherwise, the parsing methods are executed on the spreadsheets available inside the
     `analysis_dir` and a new copy of the dataframe is prepared.
 
@@ -29,7 +29,9 @@ def import_dataframe(analysis_dir, results_dir, classes):
         analysis_dir: A string representing a path to the directory containing the 
                       spreadsheets used during the qualitative analysis.
         results_dir: A string representing a path to the directory where the 
-                     dataframe is/will be saved.
+                     dataframe may be saved.
+        classes: A list of strings containing the columns that should be extracted from each spreadsheet
+            as classes of the classifier.
 
     Returns:
         A dataframe containing spreadsheets data for classification.
@@ -52,11 +54,12 @@ def parse_spreadsheets(analysis_dir, output_dir, classes):
     """Parses the spreadsheets and exports the dataframe as a unique file.
 
     Args:
-        analysis_dir: A string representing the path to the directory where the raw spreadsheets 
+        analysis_dir: A string representing the path to the directory where the spreadsheets 
                       are located.
         output_dir: A string representing the path to the directory where the dataframe
                      will be saved. If `output_dir` is empty, the dataframe will not be exported.
-        desired_worksheets:  List of worksheet names to be extracted. The default is ['contributing'].
+        classes: A list of strings containing the columns that should be extracted from each spreadsheet
+            as classes of the classifier.
 
     Returns:
         A pandas dataframe with all the spreadsheets data into a single dataframe structure.
@@ -83,16 +86,16 @@ def parse_spreadsheets(analysis_dir, output_dir, classes):
 
     return dataframe
 
-def parse_spreadsheet_file(filepath, spreadsheet, classes):
-    """Extracts the data from a spreadsheet file.
+def parse_spreadsheet_file(filepath, classes):
+    """Extracts the data from one spreadsheet file.
 
     Args:
         filepath: A string representing the path to a spreadsheet.
-        spreadsheet: A string representing the name of the spreadsheet being analyzed.
+        classes: A list of strings containing the columns that should be extracted from the spreadsheet
+            as classes of the classifier.
 
     Returns:
-        A dictionary including all parsed worksheets. The set of rows in each
-        worksheet is now represented by a list of dictionaries.
+        A pandas dataframe including the data from all worksheets inside the spreadsheet.
     """
     spreadsheet = pandas.ExcelFile(filepath, engine='openpyxl')
     dataframe = pandas.DataFrame()
@@ -116,11 +119,27 @@ def parse_spreadsheet_file(filepath, spreadsheet, classes):
     return dataframe
 
 def define_label(row, classes):
-        label = 'No categories identified.'
+    """Identifies which label should be assigned to a row in a spreadsheet
 
-        for _class in classes:
-            if _class in row:
-                if row[_class] == 1:
-                    label = _class
+    This study solves a multiclass classification problem. For this reason, a column
+    named as `label` is created for each row in a spreadsheet file. This method identifies
+    which one of the columns representing classes of the problem is the one that should be assigned
+    as a label for the respective respective row. 
 
-        return label
+    Args:
+        row: A pandas dataframe row. 
+        classes: A list of strings containing the columns that represent the classes of the classifier
+        in the dataframe.
+    
+    Returns:
+        A string representing the label for the respective row. Notice that this string must be one
+        of the strings contained in the classes parameter or the 'No categories identified.' string.
+    """
+    label = 'No categories identified.'
+
+    for _class in classes:
+        if _class in row:
+            if row[_class] == 1:
+                label = _class
+
+    return label

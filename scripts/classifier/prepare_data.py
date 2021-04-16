@@ -14,6 +14,8 @@ import string
 from sklearn.model_selection import train_test_split
 
 def text_preprocessing(X, techniques = {}):
+    """Applies text processing techniques to a dataframe column of strings.
+    """
     def lowercase(paragraph):
         return paragraph.lower()
 

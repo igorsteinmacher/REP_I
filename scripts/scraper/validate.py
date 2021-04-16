@@ -8,7 +8,7 @@ import os
 from langdetect import detect
 
 def validate_documentation(document):
-    """Checks if the documentation file of a project meet our set of requirements.
+    """Checks if the documentation file of a project meets the research set of requirements.
 
     To avoid files that may not be valid for qualitative analysis, a set of
     filters are applied in the documentation files of each project. In other 

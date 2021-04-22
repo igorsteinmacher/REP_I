@@ -73,7 +73,7 @@ def parse_spreadsheets(analysis_dir, output_dir, classes):
             # Notice that we consider any spreadsheets (.xlsx files)
             # inside the folder as valid for use.
             if filename.endswith('.xlsx'):
-                worksheets = parse_spreadsheet_file(filepath, filename, classes)
+                worksheets = parse_spreadsheet_file(filepath, classes)
                 dataframe = pandas.concat([dataframe, worksheets])
 
     if output_dir:

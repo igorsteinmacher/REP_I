@@ -1,59 +1,59 @@
 {
     "BW \u2013 Build local workspace": {
-        "f1-score": 0.6975308641975309,
-        "precision": 0.5975961538461538,
-        "recall": 0.8376010781671159,
-        "support": 1484
+        "f1-score": 0.6666666666666666,
+        "precision": 0.6832986832986833,
+        "recall": 0.6508250825082508,
+        "support": 1515
     },
     "CF \u2013 Contribution flow": {
-        "f1-score": 0.29772329246935203,
-        "precision": 0.6115107913669064,
-        "recall": 0.19675925925925927,
-        "support": 432
+        "f1-score": 0.39397741530740277,
+        "precision": 0.4067357512953368,
+        "recall": 0.3819951338199513,
+        "support": 411
     },
     "CT \u2013 Choose a task": {
-        "f1-score": 0.2857142857142857,
-        "precision": 0.5161290322580645,
-        "recall": 0.19753086419753085,
-        "support": 81
+        "f1-score": 0.2838709677419355,
+        "precision": 0.28205128205128205,
+        "recall": 0.2857142857142857,
+        "support": 77
     },
     "DC \u2013 Deal with the code": {
-        "f1-score": 0.7301707779886148,
-        "precision": 0.6920863309352518,
-        "recall": 0.7726907630522089,
-        "support": 1245
+        "f1-score": 0.7167487684729063,
+        "precision": 0.7051696284329564,
+        "recall": 0.7287145242070117,
+        "support": 1198
     },
     "No categories identified.": {
-        "f1-score": 0.47413793103448276,
-        "precision": 0.6432748538011696,
-        "recall": 0.37542662116040953,
-        "support": 293
+        "f1-score": 0.5778443113772455,
+        "precision": 0.5361111111111111,
+        "recall": 0.6266233766233766,
+        "support": 308
     },
     "SC \u2013 Submit the changes": {
-        "f1-score": 0.5410628019323671,
-        "precision": 0.8,
-        "recall": 0.40875912408759124,
-        "support": 137
+        "f1-score": 0.5525291828793774,
+        "precision": 0.5966386554621849,
+        "recall": 0.5144927536231884,
+        "support": 138
     },
     "TC \u2013 Talk to the community": {
-        "f1-score": 0.5560053981106612,
-        "precision": 0.7744360902255639,
-        "recall": 0.4336842105263158,
-        "support": 475
+        "f1-score": 0.6217008797653959,
+        "precision": 0.6080305927342257,
+        "recall": 0.636,
+        "support": 500
     },
-    "accuracy": 0.64576802507837,
+    "accuracy": 0.6317820110923559,
     "classifier_name": "RandomForestClassifier",
     "macro avg": {
-        "f1-score": 0.5117636216353277,
-        "precision": 0.6621476074904443,
-        "recall": 0.46035027435006165,
+        "f1-score": 0.5447625988872756,
+        "precision": 0.5454336720551114,
+        "recall": 0.5463378794994378,
         "support": 4147
     },
     "strategy": "one-vs-one",
     "weighted avg": {
-        "f1-score": 0.620474637645281,
-        "precision": 0.6559913100618214,
-        "recall": 0.64576802507837,
+        "f1-score": 0.6311847894531605,
+        "precision": 0.6318665820119691,
+        "recall": 0.6317820110923559,
         "support": 4147
     }
 }

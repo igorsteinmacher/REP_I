@@ -1,59 +1,59 @@
 {
     "BW \u2013 Build local workspace": {
-        "f1-score": 0.6735246345425013,
-        "precision": 0.56289592760181,
-        "recall": 0.8382749326145552,
-        "support": 1484
+        "f1-score": 0.6252397391637897,
+        "precision": 0.7463369963369964,
+        "recall": 0.5379537953795379,
+        "support": 1515
     },
     "CF \u2013 Contribution flow": {
-        "f1-score": 0.23747680890538034,
-        "precision": 0.5981308411214953,
-        "recall": 0.14814814814814814,
-        "support": 432
+        "f1-score": 0.39811542991755006,
+        "precision": 0.3858447488584475,
+        "recall": 0.41119221411192214,
+        "support": 411
     },
     "CT \u2013 Choose a task": {
-        "f1-score": 0.1348314606741573,
-        "precision": 0.75,
-        "recall": 0.07407407407407407,
-        "support": 81
+        "f1-score": 0.32499999999999996,
+        "precision": 0.2392638036809816,
+        "recall": 0.5064935064935064,
+        "support": 77
     },
     "DC \u2013 Deal with the code": {
-        "f1-score": 0.7269260106788711,
-        "precision": 0.6920842411038489,
-        "recall": 0.7654618473895582,
-        "support": 1245
+        "f1-score": 0.6831203173204055,
+        "precision": 0.7236227824463118,
+        "recall": 0.6469115191986644,
+        "support": 1198
     },
     "No categories identified.": {
-        "f1-score": 0.4395604395604395,
-        "precision": 0.6172839506172839,
-        "recall": 0.3412969283276451,
-        "support": 293
+        "f1-score": 0.5869262865090403,
+        "precision": 0.51338199513382,
+        "recall": 0.685064935064935,
+        "support": 308
     },
     "SC \u2013 Submit the changes": {
-        "f1-score": 0.3502824858757062,
-        "precision": 0.775,
-        "recall": 0.22627737226277372,
-        "support": 137
+        "f1-score": 0.6054421768707482,
+        "precision": 0.5705128205128205,
+        "recall": 0.644927536231884,
+        "support": 138
     },
     "TC \u2013 Talk to the community": {
-        "f1-score": 0.4986072423398327,
-        "precision": 0.7366255144032922,
-        "recall": 0.37684210526315787,
-        "support": 475
+        "f1-score": 0.560790273556231,
+        "precision": 0.4522058823529412,
+        "recall": 0.738,
+        "support": 500
     },
-    "accuracy": 0.6214130696889317,
+    "accuracy": 0.5948878707499398,
     "classifier_name": "LogisticRegression",
     "macro avg": {
-        "f1-score": 0.4373155832252698,
-        "precision": 0.6760029249782472,
-        "recall": 0.39576791543998746,
+        "f1-score": 0.540662031905395,
+        "precision": 0.5187384327603313,
+        "recall": 0.5957919294972072,
         "support": 4147
     },
     "strategy": "one-vs-one",
     "weighted avg": {
-        "f1-score": 0.5863668001412101,
-        "precision": 0.6397543469911483,
-        "recall": 0.6214130696889317,
+        "f1-score": 0.6026009742247802,
+        "precision": 0.6360167620916192,
+        "recall": 0.5948878707499398,
         "support": 4147
     }
 }

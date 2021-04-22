@@ -137,8 +137,8 @@ def multiclass_classification(preprocessing, classifiers, strategies, analysis_d
             }
 
             model, performance = train(**training_args)
-            performance['preprocessing_args'] = selected_preprocessing_techniques
-            performance['training_args'] = training_args
+            # performance['preprocessing_args'] = selected_preprocessing_techniques
+            # performance['training_args'] = training_args
 
             deployment_args = {
                 'strategy': strategy,
@@ -166,7 +166,7 @@ if __name__ == '__main__':
         # 'rs' to remove stopwords,
         # 'st' to use stemming (PorterStemmer NLTK),
         # 'lm' to use lemmatization (WordNetLemmatizer NLTK),
-        'preprocessing': ['rs', 'lc', 'rp', 'st'], 
+        'preprocessing': ['rs', 'lc', 'rp', 'st'],
         # Classification Algorithms:
         # 'rf' to use RandomForestClassifier,
         # 'svc' to use LinearSVC,

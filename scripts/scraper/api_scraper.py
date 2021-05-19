@@ -17,6 +17,7 @@ logging.getLogger("urllib3").setLevel(logging.WARNING)
 
 class Create:
     def __init__(self):
+        
         self.rate_limit_remaining = 0 # Number of requests remaining
         self.rate_limit_reset = None # Datetime when new requests will be available
 

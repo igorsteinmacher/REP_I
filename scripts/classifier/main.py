@@ -11,8 +11,8 @@ from import_data import import_dataframe
 from prepare_data import shuffle_and_split, text_preprocessing
 from generate_features import create_statistic_features, create_heuristic_features
 from train_model import train
-from deploy_model import report_performance, deploy_model
-
+from deploy_model import report_performance, report_cross_validation, deploy_model
+from cross_validation import k_fold_cross_validation
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import LinearSVC
@@ -21,12 +21,12 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.neural_network import MLPClassifier # Google Text Classification Guidelines
 from sklearn.linear_model import SGDClassifier # Scikit-learn Cheat Sheet
 
-# TO-DO: Extract heuristic features. CHECK
-# TO-DO: Perform a feature selection for X_train and X_test. CHECK
-# TO-DO: Tune hyperparameters. 
 # TO-DO: Apply cross-validation methods.
+# Plot confusion matrix: https://scikit-learn.org/stable/modules/generated/sklearn.metrics.confusion_matrix.html
+# Usefulness of features (most important features)
+# TO-DO: Tune hyperparameters. 
 
-def multiclass_classification(preprocessing, classifiers, strategies, analysis_dir, results_dir, report=True, deploy=True):
+def multiclass_classification(preprocessing, classifiers, strategies, analysis_dir, results_dir, oversample=True, cross_validation=True, report=True, deploy=True):
     """Executes the multiclass classification process.
 
     The multiclass classification process is defined by a sequence of steps:
@@ -112,47 +112,65 @@ def multiclass_classification(preprocessing, classifiers, strategies, analysis_d
 
     X = hstack([statistic_features, heuristic_features])
 
-    print("Shuffling and splitting dataframe into training and test sets.")
-    X_train, X_test, y_train, y_test = shuffle_and_split(X, y)
-
     ###################################
     # TRAIN, REPORT AND DEPLOY MODELS #
     ###################################
     for strategy in selected_training_strategies:
         print("Executing " + strategy + " classification strategy.")
 
-        for classifier in selected_classifiers:
-            classifier_name = type(classifier).__name__
-            print("Training " + classifier_name + " using " + strategy + " strategy.")
+        for oversample_status in oversample:
+            print("SMOTE oversampling will be applied.")
 
-            training_args = {
-                'categories': classes,
-                'classifier': classifier,
-                'strategy': strategy,
-                'oversample': True,
-                'X_train': X_train,
-                'X_test': X_test,
-                'y_train': y_train,
-                'y_test': y_test,
-            }
+            for classifier in selected_classifiers:
+                classifier_name = type(classifier).__name__
+                print("Training " + classifier_name + " using " + strategy + " strategy.")
 
-            model, performance = train(**training_args)
-            # performance['preprocessing_args'] = selected_preprocessing_techniques
-            # performance['training_args'] = training_args
+                deployment_args = {
+                    'strategy': strategy,
+                    'classifier_name': classifier_name,
+                    'oversample_status': 'smote_' + str(oversample_status).lower(),
+                    'results_dir': results_dir,
+                }
 
-            deployment_args = {
-                'strategy': strategy,
-                'classifier_name': classifier_name,
-                'results_dir': results_dir,
-            }
+                if cross_validation:
+                    cross_val_args = {
+                        'classifier': classifier,
+                        'strategy': strategy,
+                        'oversample': oversample_status,
+                        'X': X,
+                        'y': y
+                    }
 
-            if report:
-                print("Exporting performance of " + classifier_name + " using " + strategy + " strategy.")
-                report_performance(report=performance, **deployment_args)
+                    f1_scores = k_fold_cross_validation(**cross_val_args)
 
-            if deploy:
-                print("Deploying model of " + classifier_name + " using " + strategy + " strategy.")
-                deploy_model(model=model, **deployment_args)
+                    if report:
+                        print("Exporting K-folding scores of " + classifier_name + " using " + strategy + " strategy.")
+                        report_cross_validation(f1_scores=f1_scores, **deployment_args)
+
+                else:
+                    print("Shuffling and splitting dataframe into training and test sets.")
+                    X_train, X_test, y_train, y_test = shuffle_and_split(X, y)
+
+                    training_args = {
+                        'categories': classes,
+                        'classifier': classifier,
+                        'strategy': strategy,
+                        'oversample': oversample_status,
+                        'X_train': X_train,
+                        'X_test': X_test,
+                        'y_train': y_train,
+                        'y_test': y_test,
+                    }
+
+                    model, performance = train(**training_args)
+
+                    if report:
+                        print("Exporting performance of " + classifier_name + " using " + strategy + " strategy.")
+                        report_performance(report=performance, **deployment_args)
+
+                    if deploy:
+                        print("Deploying model of " + classifier_name + " using " + strategy + " strategy.")
+                        deploy_model(model=model, **deployment_args)
 
 if __name__ == '__main__':
     root_dir = os.path.dirname(os.path.dirname(os.getcwd()))
@@ -166,7 +184,7 @@ if __name__ == '__main__':
         # 'rs' to remove stopwords,
         # 'st' to use stemming (PorterStemmer NLTK),
         # 'lm' to use lemmatization (WordNetLemmatizer NLTK),
-        'preprocessing': ['rs', 'lc', 'rp', 'st'],
+        'preprocessing': ['rs', 'st'], # 'rs', 'lc', 'rp', 'st'
         # Classification Algorithms:
         # 'rf' to use RandomForestClassifier,
         # 'svc' to use LinearSVC,
@@ -180,8 +198,13 @@ if __name__ == '__main__':
         # 'ovr' to use OneVsRest,
         # 'ovo' to use OneVsOne.
         'strategies': ['ovo', 'ovr'],
+        # SMOTE Strategy: 
+        # True to use oversampling
+        # False to not use oversampling
+        'oversample': [True, False],
         'analysis_dir': analysis_dir,
         'results_dir': results_dir,
+        'cross_validation': True,
         'report': True,
         'deploy': False,
     }

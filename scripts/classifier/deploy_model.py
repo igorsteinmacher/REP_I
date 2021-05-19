@@ -26,7 +26,17 @@ def deploy_model(model, strategy, classifier_name, results_dir):
 
     joblib.dump(model, os.path.join(output_dir, model_filename))
 
-def report_performance(report, strategy, classifier_name, results_dir):
+def report_cross_validation(f1_scores, strategy, classifier_name, oversample_status, results_dir):
+    output_dir = os.path.join(results_dir, 'cross-validation', strategy, oversample_status)
+    report_filename = classifier_name + '.txt'
+
+    if not os.path.isdir(output_dir):
+        os.makedirs(output_dir)
+
+    with open(os.path.join(output_dir, report_filename), 'w') as file:
+        file.write(str(f1_scores))
+
+def report_performance(report, strategy, classifier_name, oversample_status, results_dir):
     """Reports the performance of a classification model as a JSON for analysis
 
     Args:
@@ -40,7 +50,7 @@ def report_performance(report, strategy, classifier_name, results_dir):
     report['classifier_name'] = classifier_name
     report_filename = classifier_name + '.report.json'
 
-    output_dir = os.path.join(results_dir, 'models', strategy)
+    output_dir = os.path.join(results_dir, 'models', strategy, oversample_status)
 
     if not os.path.isdir(output_dir):
         os.makedirs(output_dir)

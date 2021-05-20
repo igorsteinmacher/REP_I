@@ -34,7 +34,18 @@ def report_cross_validation(f1_scores, strategy, classifier_name, oversample_sta
         os.makedirs(output_dir)
 
     with open(os.path.join(output_dir, report_filename), 'w') as file:
-        file.write(str(f1_scores))
+        file.write('F1 Weighted Score (ten-fold): ' + str(f1_scores) + '\n')
+        file.write('Mean: ' + str(f1_scores.mean()))
+
+def report_parameters(best_params, strategy, classifier_name, oversample_status, results_dir):
+    output_dir = os.path.join(results_dir, 'hyper-parameters', strategy, oversample_status)
+    report_filename = classifier_name + '.txt'
+
+    if not os.path.isdir(output_dir):
+        os.makedirs(output_dir)
+
+    with open(os.path.join(output_dir, report_filename), 'w') as file:
+        file.write('Best parameters: ' + str(best_params))
 
 def report_performance(report, strategy, classifier_name, oversample_status, results_dir):
     """Reports the performance of a classification model as a JSON for analysis

@@ -1,0 +1,59 @@
+{
+    "BW \u2013 Build local workspace": {
+        "f1-score": 0.7289081885856079,
+        "precision": 0.6660997732426304,
+        "recall": 0.8047945205479452,
+        "support": 1460
+    },
+    "CF \u2013 Contribution flow": {
+        "f1-score": 0.36928104575163406,
+        "precision": 0.5280373831775701,
+        "recall": 0.28391959798994976,
+        "support": 398
+    },
+    "CT \u2013 Choose a task": {
+        "f1-score": 0.35593220338983045,
+        "precision": 0.65625,
+        "recall": 0.2441860465116279,
+        "support": 86
+    },
+    "DC \u2013 Deal with the code": {
+        "f1-score": 0.7606737171954563,
+        "precision": 0.7457757296466974,
+        "recall": 0.7761790567545963,
+        "support": 1251
+    },
+    "No categories identified.": {
+        "f1-score": 0.6134301270417423,
+        "precision": 0.6733067729083665,
+        "recall": 0.5633333333333334,
+        "support": 300
+    },
+    "SC \u2013 Submit the changes": {
+        "f1-score": 0.6122448979591837,
+        "precision": 0.6637168141592921,
+        "recall": 0.5681818181818182,
+        "support": 132
+    },
+    "TC \u2013 Talk to the community": {
+        "f1-score": 0.6720484359233098,
+        "precision": 0.7070063694267515,
+        "recall": 0.6403846153846153,
+        "support": 520
+    },
+    "accuracy": 0.6889317578972751,
+    "classifier_name": "LinearSVC",
+    "macro avg": {
+        "f1-score": 0.5875026594066808,
+        "precision": 0.6628846917944725,
+        "recall": 0.5544255698148409,
+        "support": 4147
+    },
+    "strategy": "one-vs-rest",
+    "weighted avg": {
+        "f1-score": 0.6770444544418699,
+        "precision": 0.6822554735158859,
+        "recall": 0.6889317578972751,
+        "support": 4147
+    }
+}

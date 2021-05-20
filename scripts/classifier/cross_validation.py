@@ -8,8 +8,7 @@ from sklearn.multiclass import OneVsRestClassifier
 from sklearn.multiclass import OneVsOneClassifier
 from sklearn.model_selection import StratifiedKFold, cross_val_score
 from imblearn.over_sampling import SMOTE
-from sklearn.metrics import recall_score, precision_score, f1_score
-from imblearn.pipeline import Pipeline, make_pipeline
+from imblearn.pipeline import Pipeline
 
 
 def k_fold_cross_validation(classifier, strategy, oversample, X, y):

@@ -8,10 +8,11 @@ import os
 import scipy
 from scipy.sparse import hstack
 from import_data import import_dataframe
-from prepare_data import shuffle_and_split, text_preprocessing
+from prepare_data import text_preprocessing
 from generate_features import create_statistic_features, create_heuristic_features
 from train_model import train
-from deploy_model import report_performance, report_cross_validation, deploy_model
+from tune_parameters import hyperparameters_tuning
+from deploy_model import report_performance, report_cross_validation, report_parameters, deploy_model
 from cross_validation import k_fold_cross_validation
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
@@ -24,9 +25,13 @@ from sklearn.linear_model import SGDClassifier # Scikit-learn Cheat Sheet
 # TO-DO: Apply cross-validation methods.
 # Plot confusion matrix: https://scikit-learn.org/stable/modules/generated/sklearn.metrics.confusion_matrix.html
 # Usefulness of features (most important features)
-# TO-DO: Tune hyperparameters. 
+# TO-DO: Tune hyperparameters.
 
-def multiclass_classification(preprocessing, classifiers, strategies, analysis_dir, results_dir, oversample=True, cross_validation=True, report=True, deploy=True):
+def multiclass_classification(preprocessing, classifiers, strategies, analysis_dir, 
+                              results_dir, oversample=True, cross_validation=True, 
+                              training=True, tune_parameters=True,
+                              report=True, deploy=True):
+
     """Executes the multiclass classification process.
 
     The multiclass classification process is defined by a sequence of steps:
@@ -116,60 +121,58 @@ def multiclass_classification(preprocessing, classifiers, strategies, analysis_d
     # TRAIN, REPORT AND DEPLOY MODELS #
     ###################################
     for strategy in selected_training_strategies:
-        print("Executing " + strategy + " classification strategy.")
+        print("Multiclass strategy: " + strategy )
 
         for oversample_status in oversample:
-            print("SMOTE oversampling will be applied.")
+            print("Oversampling: " + str(oversample_status))
 
             for classifier in selected_classifiers:
                 classifier_name = type(classifier).__name__
-                print("Training " + classifier_name + " using " + strategy + " strategy.")
+                print("Classifier: " + classifier_name)
+
+                training_args = {
+                    'classifier': classifier,
+                    'strategy': strategy,
+                    'oversample': oversample_status,
+                    'X': X,
+                    'y': y
+                }
 
                 deployment_args = {
                     'strategy': strategy,
                     'classifier_name': classifier_name,
-                    'oversample_status': 'smote_' + str(oversample_status).lower(),
+                    'oversample_status': 'smote_' + str(oversample_status),
                     'results_dir': results_dir,
                 }
 
                 if cross_validation:
-                    cross_val_args = {
-                        'classifier': classifier,
-                        'strategy': strategy,
-                        'oversample': oversample_status,
-                        'X': X,
-                        'y': y
-                    }
-
-                    f1_scores = k_fold_cross_validation(**cross_val_args)
+                    print("Running cross-validation")
+                    scores = k_fold_cross_validation(**training_args)
 
                     if report:
-                        print("Exporting K-folding scores of " + classifier_name + " using " + strategy + " strategy.")
-                        report_cross_validation(f1_scores=f1_scores, **deployment_args)
+                        print("Exporting cross-validation scores")
+                        report_cross_validation(f1_scores=scores, **deployment_args)
 
-                else:
-                    print("Shuffling and splitting dataframe into training and test sets.")
-                    X_train, X_test, y_train, y_test = shuffle_and_split(X, y)
+                if tune_parameters:
+                    print("Tuning hyper-parameters")
+                    best_params = hyperparameters_tuning(**training_args)
 
-                    training_args = {
-                        'categories': classes,
-                        'classifier': classifier,
-                        'strategy': strategy,
-                        'oversample': oversample_status,
-                        'X_train': X_train,
-                        'X_test': X_test,
-                        'y_train': y_train,
-                        'y_test': y_test,
-                    }
+                    if report:
+                        print("Exporting best parameters set")
+                        report_parameters(best_params=best_params, **deployment_args)
 
+                if training:
+                    print("Training classifier")
+                    training_args['categories'] = classes
                     model, performance = train(**training_args)
+                    del training_args['categories']
 
                     if report:
-                        print("Exporting performance of " + classifier_name + " using " + strategy + " strategy.")
+                        print("Exporting classification model performance")
                         report_performance(report=performance, **deployment_args)
 
                     if deploy:
-                        print("Deploying model of " + classifier_name + " using " + strategy + " strategy.")
+                        print("Exporting classification model")
                         deploy_model(model=model, **deployment_args)
 
 if __name__ == '__main__':
@@ -193,18 +196,19 @@ if __name__ == '__main__':
         # 'lr' to use LogisticRegression,
         # 'mlp' to use MLPClassifier,
         # 'sgd' to use SGDClassifier.
-        'classifiers': ['svc', 'rf', 'mnb', 'knn', 'lr', 'mlp', 'sgd'],
+        'classifiers': ['svc'], # 'rf', 'mnb', 'knn', 'lr', 'mlp', 'sgd'
         # Training Strategies:
-        # 'ovr' to use OneVsRest,
+        # 'ovr' to use OneVsRest/OneVsAll,
         # 'ovo' to use OneVsOne.
-        'strategies': ['ovo', 'ovr'],
-        # SMOTE Strategy: 
-        # True to use oversampling
-        # False to not use oversampling
-        'oversample': [True, False],
+        'strategies': ['ovr'], # 'ovo'
+        # Oversampling: 
+        # True to use oversampling, False otherwise.
+        'oversample': [False], # , True
         'analysis_dir': analysis_dir,
         'results_dir': results_dir,
-        'cross_validation': True,
+        'cross_validation': False,
+        'tune_parameters': True,
+        'training': False,
         'report': True,
         'deploy': False,
     }

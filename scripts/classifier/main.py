@@ -10,44 +10,45 @@ from scipy.sparse import hstack
 from import_data import import_dataframe
 from prepare_data import text_preprocessing
 from generate_features import create_statistic_features, create_heuristic_features
-from train_model import train
-from tune_parameters import hyperparameters_tuning
-from deploy_model import report_performance, report_cross_validation, report_parameters, deploy_model
-from cross_validation import k_fold_cross_validation
+from model_evaluation import get_models_performance
+from tune_hyperparameters import hyperparameters_tuning
+from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import LinearSVC
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.linear_model import LogisticRegression
-from sklearn.neural_network import MLPClassifier # Google Text Classification Guidelines
-from sklearn.linear_model import SGDClassifier # Scikit-learn Cheat Sheet
 
-# TO-DO: Apply cross-validation methods.
-# Plot confusion matrix: https://scikit-learn.org/stable/modules/generated/sklearn.metrics.confusion_matrix.html
-# Usefulness of features (most important features)
-# TO-DO: Tune hyperparameters.
+# Plot ROC, AUC and MCC curves and values
+# Update images 
+# 
 
-def multiclass_classification(preprocessing, classifiers, strategies, analysis_dir, 
-                              results_dir, oversample=True, cross_validation=True, 
-                              training=True, tune_parameters=True,
-                              report=True, deploy=True):
+def multiclass_training(preprocessing, classifiers, strategies, oversample, analysis_dir, results_dir):
 
-    """Executes the multiclass classification process.
+    """Executes the multiclass training process.
 
-    The multiclass classification process is defined by a sequence of steps:
-        Import Data ➜ Prepare Data ➜ Train Models ➜ Deploy Models and Performances
+    Our multiclass training process is defined by the sequence of steps:
+    Import paragraphs
+    ↳ Preprocess paragraphs 
+     ↳ Extract heuristic and statistic features
+      ↳ Split data in training and test sets
+       ↳ Train a classification model using the training set
+         ↳ Evaluate the performance of the model using the test set
+    
+    In the training stage, we:
+    * Use nested ten-fold cross-validation to identify the classification
+      algorithm that best fits our problem;
+    * For the selected algorithm, use Gridsearch to tune the hyperparameters;
+    * Train a final model using information from the two steps above.
 
     Args:
-        preprocessing: A list of preprocessing techniques to be applied.
-        classifiers: A list of classifiers to train.
-        strategies: A list of strategies to use during training.
-        analysis_dir: A string representing the path to directory where the raw spreadsheets 
-                    are available. In this context, raw spreadsheets are the data used
-                    to train the classifier.
-        results_dir: A string representing the path to directory where dataframes, 
-                    models and performances should be saved.
-        report: Boolean variable used to define if models peformances should be reported.
-        deploy: Boolean variable used to define if models objects should be deployed.
+        preprocessing: A list of strings containing preprocessing techniques.
+        classifiers: A list of strings containing classifiers to train.
+        strategies: A list of strings containing multiclass strategies to use.
+        analysis_dir: A string representing the path to the directory where the 
+                    annotated spreadsheets are.
+        results_dir: A string representing the path to the directory where
+                    dataframes, models and performances should be saved.
     """
     ##########################
     #        SETUP           #
@@ -82,9 +83,27 @@ def multiclass_classification(preprocessing, classifiers, strategies, analysis_d
         'mnb': MultinomialNB(),
         'knn': KNeighborsClassifier(),
         'lr': LogisticRegression(),
-        'mlp': MLPClassifier(),
-        'sgd': SGDClassifier()
     }
+
+    hyperparameters_available = {
+        'rf': {'max_depth': [None, 10, 100, 1000],
+               'n_estimators': [10, 100, 1000],
+               'min_samples_split': [1, 2, 5, 10],
+               'min_samples_leaf': [1, 2, 5, 10],
+               'max_features': ['auto', 'sqrt', 'log2'],
+               'max_leaf_nodes': [None, 10, 100, 1000]},
+        'svc': {'tol': [1e-3, 1e-4, 1e-5],
+                'C': [1, 10, 100],
+                'max_iter': [50, 100, 500, 1000]},
+        'mnb': {'alpha': [0.5, 1, 2, 5],
+                'fit_prior': [True, False]},
+        'knn': {'n_neighbors': [1, 2, 5, 10],
+                'metric': ['minkowski', 'euclidean', 'manhattan']},
+        'lr': {'tol': [1e-3, 1e-4, 1e-5],
+                'C': [1, 10, 100],
+                'max_iter': [50, 100, 500, 1000]},
+    }
+
 
     selected_preprocessing_techniques = [preprocessing_techniques_available[technique] 
                                          for technique in preprocessing]
@@ -93,6 +112,9 @@ def multiclass_classification(preprocessing, classifiers, strategies, analysis_d
                                     for strategy in strategies]
 
     selected_classifiers = [classifiers_available[classifier]
+                            for classifier in classifiers]
+
+    selected_hyperparameters = [hyperparameters_available[classifier]
                             for classifier in classifiers]
 
     #########################
@@ -117,63 +139,24 @@ def multiclass_classification(preprocessing, classifiers, strategies, analysis_d
 
     X = hstack([statistic_features, heuristic_features])
 
-    ###################################
-    # TRAIN, REPORT AND DEPLOY MODELS #
-    ###################################
-    for strategy in selected_training_strategies:
-        print("Multiclass strategy: " + strategy )
+    print("Splitting dataframe into training and test sets.")
+    X_train, X_test, y_train, y_test = train_test_split(X, y, stratify=y, test_size=0.2)
 
-        for oversample_status in oversample:
-            print("Oversampling: " + str(oversample_status))
+    ####################
+    # TRAIN & VALIDATE #
+    ####################
+    print("Accessing models performance through nested cross-validation.")
+    models_performance = get_models_performance(selected_classifiers, 
+                                                selected_hyperparameters,
+                                                selected_training_strategies,
+                                                oversample,
+                                                X_train,
+                                                y_train)
 
-            for classifier in selected_classifiers:
-                classifier_name = type(classifier).__name__
-                print("Classifier: " + classifier_name)
+    print("Tuning hyperparameters for the best classification model.")
+    best_model_configuration = max(models_performance, key=models_performance.get)
+    best_model_params = hyperparameters_tuning(best_model_configuration)                             
 
-                training_args = {
-                    'classifier': classifier,
-                    'strategy': strategy,
-                    'oversample': oversample_status,
-                    'X': X,
-                    'y': y
-                }
-
-                deployment_args = {
-                    'strategy': strategy,
-                    'classifier_name': classifier_name,
-                    'oversample_status': 'smote_' + str(oversample_status),
-                    'results_dir': results_dir,
-                }
-
-                if cross_validation:
-                    print("Running cross-validation")
-                    scores = k_fold_cross_validation(**training_args)
-
-                    if report:
-                        print("Exporting cross-validation scores")
-                        report_cross_validation(f1_scores=scores, **deployment_args)
-
-                if tune_parameters:
-                    print("Tuning hyper-parameters")
-                    best_params = hyperparameters_tuning(**training_args)
-
-                    if report:
-                        print("Exporting best parameters set")
-                        report_parameters(best_params=best_params, **deployment_args)
-
-                if training:
-                    print("Training classifier")
-                    training_args['categories'] = classes
-                    model, performance = train(**training_args)
-                    del training_args['categories']
-
-                    if report:
-                        print("Exporting classification model performance")
-                        report_performance(report=performance, **deployment_args)
-
-                    if deploy:
-                        print("Exporting classification model")
-                        deploy_model(model=model, **deployment_args)
 
 if __name__ == '__main__':
     root_dir = os.path.dirname(os.path.dirname(os.getcwd()))
@@ -196,21 +179,16 @@ if __name__ == '__main__':
         # 'lr' to use LogisticRegression,
         # 'mlp' to use MLPClassifier,
         # 'sgd' to use SGDClassifier.
-        'classifiers': ['svc'], # 'rf', 'mnb', 'knn', 'lr', 'mlp', 'sgd'
+        'classifiers': ['svc', 'rf', 'mnb', 'knn', 'lr'], # 'mlp', 'sgd'
         # Training Strategies:
         # 'ovr' to use OneVsRest/OneVsAll,
         # 'ovo' to use OneVsOne.
-        'strategies': ['ovr'], # 'ovo'
+        'strategies': ['ovr', 'ovo'], 
         # Oversampling: 
         # True to use oversampling, False otherwise.
-        'oversample': [False], # , True
+        'oversample': [True, False],
         'analysis_dir': analysis_dir,
         'results_dir': results_dir,
-        'cross_validation': False,
-        'tune_parameters': True,
-        'training': False,
-        'report': True,
-        'deploy': False,
     }
 
-    multiclass_classification(**training_args)
+    multiclass_training(**training_args)

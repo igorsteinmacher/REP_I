@@ -10,6 +10,8 @@ from sklearn.metrics import classification_report
 from imblearn.over_sampling import SMOTE
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 from prepare_data import shuffle_and_split
+import matplotlib.pyplot as plt
+from sklearn.metrics import plot_confusion_matrix
 
 def train(classifier, strategy, oversample, categories, X, y):
     """Computes a multiclass classification.
@@ -45,8 +47,9 @@ def train(classifier, strategy, oversample, categories, X, y):
 
     y_pred = model.predict(X_test)
     report = classification_report(y_test, y_pred, output_dict=True, target_names=categories)
-    # c_matrix = confusion_matrix(y_test, y_pred, labels=model.classes_)
-    # c_matrix_img = ConfusionMatrixDisplay(confusion_matrix=c_matrix, display_labels=model.classes_)
-    # c_matrix_img.plot()
+
+    labels = [category[:2] for category in categories]
+    plot_confusion_matrix(model, X_test, y_test,display_labels=labels, cmap=plt.cm.Blues)
+    plt.show()
 
     return model, report

@@ -10,8 +10,7 @@ from scipy.sparse import hstack
 from import_data import import_dataframe
 from prepare_data import text_preprocessing
 from generate_features import create_statistic_features, create_heuristic_features
-from model_evaluation import get_models_performance
-from tune_hyperparameters import hyperparameters_tuning
+from evaluate_models import get_models_performance, hyperparameters_tuning
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
@@ -86,24 +85,23 @@ def multiclass_training(preprocessing, classifiers, strategies, oversample, anal
     }
 
     hyperparameters_available = {
-        'rf': {'max_depth': [None, 10, 100, 1000],
-               'n_estimators': [10, 100, 1000],
-               'min_samples_split': [1, 2, 5, 10],
-               'min_samples_leaf': [1, 2, 5, 10],
-               'max_features': ['auto', 'sqrt', 'log2'],
-               'max_leaf_nodes': [None, 10, 100, 1000]},
-        'svc': {'tol': [1e-3, 1e-4, 1e-5],
-                'C': [1, 10, 100],
-                'max_iter': [50, 100, 500, 1000]},
-        'mnb': {'alpha': [0.5, 1, 2, 5],
-                'fit_prior': [True, False]},
-        'knn': {'n_neighbors': [1, 2, 5, 10],
-                'metric': ['minkowski', 'euclidean', 'manhattan']},
-        'lr': {'tol': [1e-3, 1e-4, 1e-5],
-                'C': [1, 10, 100],
-                'max_iter': [50, 100, 500, 1000]},
+        'rf': {'clf__estimator__max_depth': [None, 10, 100, 1000],
+               'clf__estimator__n_estimators': [10, 100, 1000],
+               'clf__estimator__min_samples_split': [1, 2, 5, 10],
+               'clf__estimator__min_samples_leaf': [1, 2, 5, 10],
+               'clf__estimator__max_features': ['auto', 'sqrt', 'log2'],
+               'clf__estimator__max_leaf_nodes': [None, 10, 100, 1000]},
+        'svc': {'clf__estimator__tol': [1e-3, 1e-4, 1e-5],
+                'clf__estimator__C': [1, 10, 100],
+                'clf__estimator__max_iter': [100, 500, 1000]},
+        'mnb': {'clf__estimator__alpha': [0.5, 1, 2, 5],
+                'clf__estimator__fit_prior': [True, False]},
+        'knn': {'clf__estimator__n_neighbors': [1, 2, 5, 10],
+                'clf__estimator__metric': ['minkowski', 'euclidean', 'manhattan']},
+        'lr': {'clf__estimator__tol': [1e-3, 1e-4, 1e-5],
+               'clf__estimator__C': [1, 10, 100],
+               'clf__estimator__max_iter': [100, 500, 1000]},
     }
-
 
     selected_preprocessing_techniques = [preprocessing_techniques_available[technique] 
                                          for technique in preprocessing]
@@ -155,7 +153,8 @@ def multiclass_training(preprocessing, classifiers, strategies, oversample, anal
 
     print("Tuning hyperparameters for the best classification model.")
     best_model_configuration = max(models_performance, key=models_performance.get)
-    best_model_params = hyperparameters_tuning(best_model_configuration)                             
+    best_model_configuration['hyperparameters'] = hyperparameters_tuning(**best_model_configuration)
+    print(best_model_configuration)
 
 
 if __name__ == '__main__':
@@ -179,7 +178,7 @@ if __name__ == '__main__':
         # 'lr' to use LogisticRegression,
         # 'mlp' to use MLPClassifier,
         # 'sgd' to use SGDClassifier.
-        'classifiers': ['svc', 'rf', 'mnb', 'knn', 'lr'], # 'mlp', 'sgd'
+        'classifiers': ['svc'], # 'rf', 'mnb', 'knn', 'lr', 'mlp', 'sgd'
         # Training Strategies:
         # 'ovr' to use OneVsRest/OneVsAll,
         # 'ovo' to use OneVsOne.

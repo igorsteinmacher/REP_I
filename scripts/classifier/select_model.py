@@ -23,7 +23,7 @@ def get_models_performance(classifiers, hyperparameters, strategies, oversample,
             print("Multiclass strategy: " + strategy )
 
             for oversample_condition in oversample:
-                print("Oversampling: " + oversample_condition)
+                print("Oversampling: " + str(oversample_condition).lower())
 
                 training_args = {
                     'classifier': classifier,
@@ -39,7 +39,7 @@ def get_models_performance(classifiers, hyperparameters, strategies, oversample,
     
     return models_performance
 
-def nested_cross_validation(classifier, hyperparameters, strategy, oversample, X, y):
+def nested_cross_validation(classifier, hyperparameters, strategy, oversample, X_train, y_train):
     """Computes a multiclass nested ten-fold cross-validation.
 
     To better evaluate how each algorithm performs in our data,
@@ -75,6 +75,28 @@ def nested_cross_validation(classifier, hyperparameters, strategy, oversample, X
     outer_cv = StratifiedKFold(n_splits=10)
 
     inner_estimator = GridSearchCV(pipeline, hyperparameters, cv=inner_cv)
-    outer_results = cross_val_score(inner_estimator, X, y, scoring='f1_weighted', cv=outer_cv)
+    outer_results = cross_val_score(inner_estimator, X_train, y_train, scoring='f1_weighted', cv=outer_cv)
 
     return outer_results.mean()
+
+def hyperparameters_tuning(classifier, hyperparameters, strategy, oversample, X_train, y_train):
+    pipeline_args = []
+
+    if oversample:
+        oversample = ('smt', SMOTE())
+        pipeline_args.append(oversample)
+
+    if strategy == 'one-vs-rest':
+        strategy = ('clf', OneVsRestClassifier(classifier))
+
+    if strategy == 'one-vs-one':
+        strategy = ('clf', OneVsOneClassifier(classifier))
+
+    pipeline_args.append(strategy)
+    pipeline = Pipeline(pipeline_args)
+
+    cross_validation = StratifiedKFold(n_splits=10)
+    model = GridSearchCV(classifier, hyperparameters, scoring="f1_weighted", cv=cross_validation)
+    model.fit(X_train, y_train)
+
+    return model.best_params_

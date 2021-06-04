@@ -11,17 +11,17 @@ from imblearn.over_sampling import SMOTE
 from imblearn.pipeline import Pipeline
 from sklearn.model_selection import GridSearchCV
 
-def hyperparameters_tuning(classifier, hyperparameters, strategy, oversample, X_train, y_train):
+def tune_hyperparameters(classifier, hyperparameters, strategy, oversample, X_train, y_train):
     pipeline_args = []
 
     if oversample:
         oversample = ('smt', SMOTE())
         pipeline_args.append(oversample)
 
-    if strategy == 'one-vs-rest':
+    if strategy == 'one_vs_rest':
         strategy = ('clf', OneVsRestClassifier(classifier))
 
-    if strategy == 'one-vs-one':
+    if strategy == 'one_vs_one':
         strategy = ('clf', OneVsOneClassifier(classifier))
 
     pipeline_args.append(strategy)
@@ -31,4 +31,4 @@ def hyperparameters_tuning(classifier, hyperparameters, strategy, oversample, X_
     model = GridSearchCV(pipeline, hyperparameters, scoring="f1_weighted", cv=cross_validation)
     model.fit(X_train, y_train)
 
-    return model.best_params_
+    return model

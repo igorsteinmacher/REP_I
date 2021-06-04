@@ -1,0 +1,2 @@
+estimator,f1_mean
+estimator_linearsvc_strategy_one_vs_rest_smote_true,0.6540997374015747

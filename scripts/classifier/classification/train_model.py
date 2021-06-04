@@ -27,9 +27,9 @@ def train(classifier, hyperparameters, strategy, oversample, classes, X_train, y
         A classification model and its performance report
     """
 
-    if strategy == 'one-vs-rest':
+    if strategy == 'one_vs_rest':
         model = OneVsRestClassifier(classifier)
-    if strategy == 'one-vs-one':
+    if strategy == 'one_vs_one':
         model = OneVsOneClassifier(classifier)
 
     if oversample:

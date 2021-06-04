@@ -12,8 +12,11 @@ from imblearn.pipeline import Pipeline
 from sklearn.model_selection import GridSearchCV
 
 
-def estimators_performance(classifiers, hyperparameters, strategies, oversample, X_train, y_train):
+def evaluate_estimators_performance(classifiers, hyperparameters, strategies,
+                                    oversample, X_train, y_train):
+                                    
     estimators_performance = {}
+    best_estimator = {'identifier': None, 'f1_mean': 0.0, 'args': None}
 
     for classifier, hyperparameters in zip(classifiers, hyperparameters):
         classifier_name = type(classifier).__name__
@@ -42,8 +45,13 @@ def estimators_performance(classifiers, hyperparameters, strategies, oversample,
 
                 estimators_performance[estimator_identifier] = {'f1_mean': f1_mean,
                                                                 'args': training_args}
+                
+                if f1_mean > best_estimator['f1_mean']:
+                    best_estimator['estimator'] = estimator_identifier
+                    best_estimator['f1_mean'] = f1_mean
+                    best_estimator['args'] = training_args
     
-    return estimators_performance
+    return best_estimator, estimators_performance
 
 def nested_cross_validation(classifier, hyperparameters, strategy, oversample, X_train, y_train):
     """Computes a multiclass nested ten-fold cross-validation.
@@ -68,10 +76,10 @@ def nested_cross_validation(classifier, hyperparameters, strategy, oversample, X
         oversample = ('smt', SMOTE())
         pipeline_args.append(oversample)
 
-    if strategy == 'one-vs-rest':
+    if strategy == 'one_vs_rest':
         strategy = ('clf', OneVsRestClassifier(classifier))
 
-    if strategy == 'one-vs-one':
+    if strategy == 'one_vs_one':
         strategy = ('clf', OneVsOneClassifier(classifier))
 
     pipeline_args.append(strategy)

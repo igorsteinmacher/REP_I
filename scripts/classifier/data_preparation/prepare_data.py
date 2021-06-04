@@ -12,8 +12,8 @@ from .preprocess_text import text_preprocessing
 from .generate_features import create_statistic_features, create_heuristic_features
 from .transform_data import transform_spreadsheets_in_dataframe
 
-def create_sets_as_csv(spreadsheets_dir, text_column, classes_columns,
-                       label_column, export_dir):
+def create_train_and_test_sets(spreadsheets_dir, text_column, classes_columns,
+                               label_column, export_dir):
 
     dataframe = transform_spreadsheets_in_dataframe(spreadsheets_dir,
                                                     text_column,
@@ -33,7 +33,7 @@ def create_sets_as_csv(spreadsheets_dir, text_column, classes_columns,
     train_data.to_csv(train_filepath, index=False, encoding='utf-8-sig')
     test_data.to_csv(test_filepath, index=False, encoding='utf-8-sig')
 
-def import_set_as_dataframe(csv_filepath, text_column, label_column):
+def import_set(csv_filepath, text_column, label_column):
     data = pandas.read_csv(csv_filepath)
     X, y = data[text_column], data[label_column]
 

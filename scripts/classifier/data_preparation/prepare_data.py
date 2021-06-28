@@ -33,20 +33,25 @@ def create_train_and_test_sets(spreadsheets_dir, text_column, classes_columns,
     train_data.to_csv(train_filepath, index=False, encoding='utf-8-sig')
     test_data.to_csv(test_filepath, index=False, encoding='utf-8-sig')
 
-def import_set(csv_filepath, text_column, label_column):
-    data = pandas.read_csv(csv_filepath)
-    X, y = data[text_column], data[label_column]
+def import_sets(train_filepath, test_filepath, text_column, label_column):
+    train_data = pandas.read_csv(train_filepath)
+    X_train, y_train = train_data[text_column], train_data[label_column]
+
+    test_data = pandas.read_csv(test_filepath)
+    X_test, y_test = test_data[text_column], test_data[label_column]
 
     print("Applying preprocessing techniques on paragraphs column.")
     preprocessing_techniques = ['remove-stopwords', 'lemmatization']
-    X = text_preprocessing(X, preprocessing_techniques)
+    X_train = text_preprocessing(X_train, preprocessing_techniques)
+    X_test = text_preprocessing(X_test, preprocessing_techniques)
     
     print("Converting paragraphs into statistic features.")
-    statistic_features = create_statistic_features(X)
+    train_statistic_features, test_statistic_features = create_statistic_features(X_train, X_test)
 
     print("Converting paragraphs into heuristic features.")
-    heuristic_features = create_heuristic_features(X)
+    train_heuristic_features, test_heuristic_features = create_heuristic_features(X_train, X_test)
 
-    X = hstack([statistic_features, heuristic_features])
+    X_train = hstack([train_statistic_features, train_heuristic_features])
+    X_test = hstack([test_statistic_features, test_heuristic_features])
 
-    return X, y
+    return X_train, y_train, X_test, y_test

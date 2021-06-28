@@ -1,0 +1,5 @@
+F1 Weighted (Mean): 0.6318565830866572
+Best parameters: {'clf__estimator__C': 0.5, 'clf__estimator__max_iter': 500, 'clf__estimator__tol': 0.0001}
+Best estimator: Pipeline(steps=[('smt', SMOTE()),
+                ('clf',
+                 OneVsOneClassifier(estimator=LinearSVC(C=0.5, max_iter=500)))])

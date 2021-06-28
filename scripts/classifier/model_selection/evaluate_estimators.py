@@ -4,33 +4,83 @@
 __author__ = 'Felipe Fronchetti'
 __contact__ = 'fronchetti@usp.br'
 
-from sklearn.multiclass import OneVsRestClassifier
-from sklearn.multiclass import OneVsOneClassifier
-from sklearn.model_selection import StratifiedKFold, cross_val_score
-from imblearn.over_sampling import SMOTE
+import os
 from imblearn.pipeline import Pipeline
+
+# Cross-validation
+from sklearn.model_selection import StratifiedKFold, cross_val_score
 from sklearn.model_selection import GridSearchCV
 
+# Oversampling techniques
+from imblearn.over_sampling import SMOTE
 
-def evaluate_estimators_performance(classifiers, hyperparameters, strategies,
-                                    oversample, X_train, y_train):
-                                    
-    estimators_performance = {}
-    best_estimator = {'identifier': None, 'f1_mean': 0.0, 'args': None}
+# Training strategies
+from sklearn.multiclass import OneVsRestClassifier
+from sklearn.multiclass import OneVsOneClassifier
 
-    for classifier, hyperparameters in zip(classifiers, hyperparameters):
+# Classification Algorithms
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.svm import LinearSVC
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.linear_model import LogisticRegression
+
+def evaluate_estimators_performance(classifiers, strategies, oversample, 
+                                    X_train, y_train, results_dir):
+
+    classifiers_available = {
+        'rf': RandomForestClassifier(),
+        'svc': LinearSVC(),
+        'mnb': MultinomialNB(),
+        'knn': KNeighborsClassifier(),
+        'lr': LogisticRegression(),
+    }
+
+    hyperparameters_available = {
+        'rf': {'clf__estimator__max_depth': [None, 50, 100],
+               'clf__estimator__n_estimators': [50, 100, 150]},
+        'svc': {'clf__estimator__tol': [1e-3, 1e-4, 1e-5],
+                'clf__estimator__C': [0.5, 1, 1.5],
+                'clf__estimator__max_iter': [500, 1000, 1500]},
+        'mnb': {'clf__estimator__alpha': [0.5, 1, 1.5],
+                'clf__estimator__fit_prior': [True, False]},
+        'knn': {'clf__estimator__n_neighbors': [3, 5, 7]},
+        'lr': {'clf__estimator__tol': [1e-3, 1e-4, 1e-5],
+               'clf__estimator__C': [0.5, 1, 1.5],
+               'clf__estimator__max_iter': [50, 100, 150]},
+    }
+
+    strategies_available = {
+        'ovr': 'one_vs_rest',
+        'ovo': 'one_vs_one'
+    }
+
+    selected_classifiers = [classifiers_available[classifier]
+                            for classifier in classifiers]
+
+    selected_hyperparameters = [hyperparameters_available[classifier]
+                                for classifier in classifiers]
+
+    selected_strategies = [strategies_available[strategy]
+                            for strategy in strategies]
+
+    for classifier, hyperparameters in zip(selected_classifiers, selected_hyperparameters):
         classifier_name = type(classifier).__name__
         print("Classifier: " + classifier_name)
 
-        for strategy in strategies:
-            print("Multiclass strategy: " + strategy )
+        for strategy in selected_strategies:
+            print("Multiclass strategy: " + strategy)
 
             for oversample_condition in oversample:
-                oversample_name = str(oversample_condition).lower()
-                print("Oversampling: " + oversample_name)
+                oversample_bool = str(oversample_condition).lower()
+                print("Oversampling: " + oversample_bool)
+
+                identifier = 'estimator_' + classifier_name + '_strategy_'\
+                             + strategy + '_smote_' + oversample_bool
 
                 training_args = {
                     'classifier': classifier,
+                    'identifier': identifier,
                     'hyperparameters': hyperparameters,
                     'strategy': strategy,
                     'oversample': oversample_condition,
@@ -38,22 +88,10 @@ def evaluate_estimators_performance(classifiers, hyperparameters, strategies,
                     'y_train': y_train
                 }
 
-                f1_mean = nested_cross_validation(**training_args)
-                
-                estimator_identifier = 'estimator_' + classifier_name + '_strategy_'\
-                                       + strategy + '_smote_' + oversample_name
-
-                estimators_performance[estimator_identifier] = {'f1_mean': f1_mean,
-                                                                'args': training_args}
-                
-                if f1_mean > best_estimator['f1_mean']:
-                    best_estimator['estimator'] = estimator_identifier
-                    best_estimator['f1_mean'] = f1_mean
-                    best_estimator['args'] = training_args
+                nested_cross_validation(**training_args, results_dir=results_dir)
     
-    return best_estimator, estimators_performance
-
-def nested_cross_validation(classifier, hyperparameters, strategy, oversample, X_train, y_train):
+def nested_cross_validation(classifier, identifier, hyperparameters, strategy, 
+                            oversample, X_train, y_train, results_dir):
     """Computes a multiclass nested ten-fold cross-validation.
 
     To better evaluate how each algorithm performs in our data,
@@ -91,4 +129,12 @@ def nested_cross_validation(classifier, hyperparameters, strategy, oversample, X
     inner_estimator = GridSearchCV(pipeline, hyperparameters, cv=inner_cv)
     outer_results = cross_val_score(inner_estimator, X_train, y_train, scoring='f1_weighted', cv=outer_cv)
 
-    return outer_results.mean()
+    performance_filepath = os.path.join(results_dir, identifier)
+    
+    with open(performance_filepath, 'w') as performance_file:
+        cross_val_score_mean = outer_results.mean()
+        performance_file.write('F1 Weighted (Mean): ' + str(cross_val_score_mean) + '\n')
+
+        inner_estimator.fit(X_train, y_train)
+        performance_file.write('Best parameters: ' + str(inner_estimator.best_params_) + '\n')
+        performance_file.write('Best estimator: ' + str(inner_estimator.best_estimator_) + '\n')

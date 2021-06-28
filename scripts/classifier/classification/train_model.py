@@ -6,12 +6,10 @@ __contact__ = 'fronchetti@usp.br'
 
 from sklearn.multiclass import OneVsRestClassifier
 from sklearn.multiclass import OneVsOneClassifier
-from sklearn.metrics import classification_report
 from imblearn.over_sampling import SMOTE
-import matplotlib.pyplot as plot
-from sklearn.metrics import plot_confusion_matrix
 
-def train(classifier, hyperparameters, strategy, oversample, classes, X_train, y_train, X_test, y_test):
+
+def train_classifier(classifier, strategy, oversample, X_train, y_train):
     """Computes a multiclass classification.
 
     Args:
@@ -38,11 +36,4 @@ def train(classifier, hyperparameters, strategy, oversample, classes, X_train, y
     else:
         model.fit(X_train, y_train)
 
-    y_pred = model.predict(X_test)
-    report = classification_report(y_test, y_pred, output_dict=True, target_names=classes)
-
-    labels = [category[:2] for category in classes]
-    plot_confusion_matrix(model, X_test, y_test, display_labels=labels, cmap=plot.cm.Blues)
-    plot.show()
-
-    return model, report
+    return model

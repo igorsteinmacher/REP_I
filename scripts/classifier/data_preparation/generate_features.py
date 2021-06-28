@@ -1,4 +1,5 @@
 import os
+from numpy import select
 import pandas
 # Heuristic
 from spacy.lang.en import English
@@ -6,7 +7,7 @@ from sklearn.feature_selection import VarianceThreshold
 # Statistic
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-def create_statistic_features(X):
+def create_statistic_features(X_train, X_test):
     """Converts paragraphs into TF-IDF features.
 
     Note that in this study, the TF-IDF features are mentioned
@@ -29,11 +30,12 @@ def create_statistic_features(X):
     }
     
     vectorizer = TfidfVectorizer(**vect_args)
-    statistic_features = vectorizer.fit_transform(X)
+    train_statistic_features = vectorizer.fit_transform(X_train)
+    test_statistic_features = vectorizer.transform(X_test)
 
-    return statistic_features
+    return train_statistic_features, test_statistic_features
 
-def create_heuristic_features(X):
+def create_heuristic_features(X_train, X_test):
     """Creates a set of features using a rule-based matching approach over paragraphs.
 
     To improve the performance of the classification models, a set of rule-based features were
@@ -59,19 +61,30 @@ def create_heuristic_features(X):
     jsonl_filepath = os.path.join(os.getcwd(), 'data_preparation', 'patterns.jsonl')
     ruler = nlp.add_pipe("entity_ruler").from_disk(jsonl_filepath)
 
-    heuristic_features = pandas.DataFrame()
-    heuristic_features['Paragraph'] = X
+    train_heuristic_features = pandas.DataFrame()
+    train_heuristic_features['Paragraph'] = X_train
+
+    test_heuristic_features = pandas.DataFrame()
+    test_heuristic_features['Paragraph'] = X_test
 
     for heuristic in ruler.patterns:
-        heuristic_features[heuristic['id']] = 0
+        train_heuristic_features[heuristic['id']] = 0
+        test_heuristic_features[heuristic['id']] = 0
 
-    for index, row in heuristic_features.iterrows():
+    for index, row in train_heuristic_features.iterrows():
         doc = nlp(row['Paragraph'])
 
         for heuristic in doc.ents:
-            heuristic_features.at[index, heuristic.ent_id_] = 1
+            train_heuristic_features.at[index, heuristic.ent_id_] = 1
 
-    heuristic_features.drop('Paragraph', axis=1, inplace=True)
+    for index, row in test_heuristic_features.iterrows():
+        doc = nlp(row['Paragraph'])
+
+        for heuristic in doc.ents:
+            test_heuristic_features.at[index, heuristic.ent_id_] = 1
+
+    train_heuristic_features.drop('Paragraph', axis=1, inplace=True)
+    test_heuristic_features.drop('Paragraph', axis=1, inplace=True)
 
     # The VarianceThreshold is a feature selection algorithm that
     # removes all low-variance features. Features with variance
@@ -79,6 +92,8 @@ def create_heuristic_features(X):
     # was manually selected.
     # Learn more at: scikit-learn.org/stable/modules/feature_selection.html
     selector = VarianceThreshold(threshold=(.95 * (1 - .95)))
-    heuristic_features = selector.fit_transform(heuristic_features)
+    train_heuristic_features = selector.fit_transform(train_heuristic_features)
+    test_heuristic_features = selector.transform(test_heuristic_features)
 
-    return heuristic_features
+
+    return train_heuristic_features, test_heuristic_features

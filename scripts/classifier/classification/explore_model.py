@@ -3,9 +3,10 @@ import os
 import json
 import matplotlib.pyplot as plot
 from sklearn.metrics import plot_confusion_matrix
+from sklearn.metrics import plot_roc_curve
 from sklearn.metrics import classification_report
 
-def report_classification(model, X_test, y_test, results_dir):
+def export_classification_report(model, X_test, y_test, results_dir):
     classes = ['No categories identified.',
                'CF – Contribution flow',
                'CT – Choose a task',
@@ -22,7 +23,7 @@ def report_classification(model, X_test, y_test, results_dir):
     with open(report_filepath, 'w') as report_file:
         json.dump(report, report_file)
 
-def plot_confusion_matrix(model, X_test, y_test):
+def export_confusion_matrix(model, X_test, y_test):
     classes = ['No categories identified.',
                'CF – Contribution flow',
                'CT – Choose a task',
@@ -34,4 +35,9 @@ def plot_confusion_matrix(model, X_test, y_test):
     labels = [category[:2] for category in classes]
     plot_confusion_matrix(model, X_test, y_test, display_labels=labels, cmap=plot.cm.Blues)
     plot.show()
+
+def export_roc_curve(model, X_test, y_test):
+    plot_roc_curve(model, X_test, y_test)
+    plot.show()
+
 

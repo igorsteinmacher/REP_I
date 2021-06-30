@@ -22,7 +22,7 @@ def import_data_for_classification(spreadsheets_dir, data_dir):
 
     if not os.path.exists(train_filepath) or not os.path.exists(test_filepath):
         create_train_and_test_sets(spreadsheets_dir, text_column, 
-                                   classes_columns, label_column,
-                                   data_dir)
+                                   classes_columns, train_filepath, test_filepath,
+                                   label_column, data_dir)
 
     return import_sets(train_filepath, test_filepath, text_column, label_column)

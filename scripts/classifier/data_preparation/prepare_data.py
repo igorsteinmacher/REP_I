@@ -13,7 +13,7 @@ from .generate_features import create_statistic_features, create_heuristic_featu
 from .transform_data import transform_spreadsheets_in_dataframe
 
 def create_train_and_test_sets(spreadsheets_dir, text_column, classes_columns,
-                               label_column, export_dir):
+                               train_filepath, test_filepath, label_column, data_dir):
 
     dataframe = transform_spreadsheets_in_dataframe(spreadsheets_dir,
                                                     text_column,
@@ -24,16 +24,15 @@ def create_train_and_test_sets(spreadsheets_dir, text_column, classes_columns,
     y = dataframe[label_column]
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, stratify=y, test_size=0.2)
+
     train_data = pandas.concat([X_train, y_train], axis=1)
     test_data = pandas.concat([X_test, y_test], axis=1)
-
-    train_filepath = os.path.join(export_dir, 'train.csv')
-    test_filepath = os.path.join(export_dir, 'test.csv')
 
     train_data.to_csv(train_filepath, index=False, encoding='utf-8-sig')
     test_data.to_csv(test_filepath, index=False, encoding='utf-8-sig')
 
 def import_sets(train_filepath, test_filepath, text_column, label_column):
+    print("Importing training and test sets.")
     train_data = pandas.read_csv(train_filepath)
     X_train, y_train = train_data[text_column], train_data[label_column]
 

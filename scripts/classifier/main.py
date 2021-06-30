@@ -10,7 +10,9 @@ from sklearn.svm import LinearSVC
 from data_preparation.import_data import import_data_for_classification
 from model_selection.evaluate_estimators import evaluate_estimators_performance
 from classification.train_model import train_classifier
-from classification.explore_model import report_classification
+from classification.explore_model import export_classification_report
+from classification.explore_model import export_confusion_matrix
+from classification.explore_model import export_roc_curve
 
 def run_classification_method(estimator_selection, classification):
     # Folders used during the classification process:
@@ -58,11 +60,10 @@ def run_classification_method(estimator_selection, classification):
             'y_train': y_train
         }
 
-        print(X_train)
-        print(X_test)
-
         model = train_classifier(**training_args)
-        report_classification(model, X_test, y_test, results_dir)
+        export_classification_report(model, X_test, y_test, results_dir)
+        # export_confusion_matrix(model, X_test, y_test)
+        # export_roc_curve(model, X_test, y_test)
 
 if __name__ == '__main__':
-    run_classification_method(False, True)
+    run_classification_method(True, True)

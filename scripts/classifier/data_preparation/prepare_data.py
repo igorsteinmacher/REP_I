@@ -4,7 +4,6 @@
 __author__ = 'Felipe Fronchetti'
 __contact__ = 'fronchetti@usp.br'
 
-import os
 import pandas
 from scipy.sparse import hstack
 from sklearn.model_selection import train_test_split
@@ -13,7 +12,22 @@ from .generate_features import create_statistic_features, create_heuristic_featu
 from .transform_data import transform_spreadsheets_in_dataframe
 
 def create_train_and_test_sets(spreadsheets_dir, text_column, classes_columns,
-                               train_filepath, test_filepath, label_column, data_dir):
+                               train_filepath, test_filepath, label_column):
+    """Create the train and test sets from the spreadsheets analyzed
+
+    Args:
+        spreadsheets_dir: A string representing the path to the spreadsheets folder
+        text_column: A string representing what is the column containing the paragraphs
+            in each spreadsheet
+        classes_columns: A list of strings representing what are the columns representing
+            classes in each spreadsheet
+        train_filepath: A string representing the filepath where the train set should be
+            saved as a .csv file
+        test_filepath: A string representing the filepath where the test set should be
+            saved as a .csv file
+        label_column: A string representing the label that will be given to a new column that
+            will be used to represent the label of each paragraph.
+    """
 
     dataframe = transform_spreadsheets_in_dataframe(spreadsheets_dir,
                                                     text_column,

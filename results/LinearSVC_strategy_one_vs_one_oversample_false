@@ -1,0 +1,12 @@
+Estimator: LinearSVC
+Strategy: one_vs_one
+Oversample: false
+
+Inner GridSearchCV
+Best parameters: {'clf__estimator__C': 1.5, 'clf__estimator__max_iter': 500, 'clf__estimator__tol': 0.001}
+Best estimator: Pipeline(steps=[('clf',
+                 OneVsOneClassifier(estimator=LinearSVC(C=1.5, max_iter=500,
+                                                        tol=0.001)))])
+
+Outer cross_val_score
+F1 Weighted Mean: 0.6621927986502161

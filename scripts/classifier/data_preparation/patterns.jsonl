@@ -109,7 +109,6 @@
 {"label": "CODE", "pattern": [{"LOWER": "psr"}], "id": "coding-convention"}
 {"label": "CODE", "pattern": [{"LOWER": "psr"}, {"IS_PUNCT": true}, {"IS_DIGIT": true}], "id": "coding-convention"}
 
-
 {"label": "SETUP", "pattern": [{"LOWER": "tool"}], "id": "tool"}
 {"label": "SETUP", "pattern": [{"LOWER": "run"}], "id": "run"}
 {"label": "SETUP", "pattern": [{"LOWER": "package"}], "id": "package"}

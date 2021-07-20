@@ -1,5 +1,4 @@
 import os
-from numpy import select
 import pandas
 # Heuristic
 from spacy.lang.en import English

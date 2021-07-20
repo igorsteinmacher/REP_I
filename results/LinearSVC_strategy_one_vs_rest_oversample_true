@@ -1,0 +1,11 @@
+Estimator: LinearSVC
+Strategy: one_vs_rest
+Oversample: true
+
+Inner GridSearchCV
+Best parameters: {'clf__estimator__C': 0.5, 'clf__estimator__max_iter': 1000, 'clf__estimator__tol': 0.0001}
+Best estimator: Pipeline(steps=[('smt', SMOTE()),
+                ('clf', OneVsRestClassifier(estimator=LinearSVC(C=0.5)))])
+
+Outer cross_val_score
+F1 Weighted Mean: 0.6548818763236582

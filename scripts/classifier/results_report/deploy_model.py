@@ -5,7 +5,6 @@ __author__ = 'Felipe Fronchetti'
 __contact__ = 'fronchetti@usp.br'
 
 import os
-import json
 import joblib
 
 def deploy_model(model, strategy, classifier_name, results_dir):

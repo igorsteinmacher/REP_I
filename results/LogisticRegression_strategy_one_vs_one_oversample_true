@@ -1,0 +1,13 @@
+Estimator: LogisticRegression
+Strategy: one_vs_one
+Oversample: true
+
+Inner GridSearchCV
+Best parameters: {'clf__estimator__C': 1.5, 'clf__estimator__max_iter': 100, 'clf__estimator__tol': 0.001}
+Best estimator: Pipeline(steps=[('smt', SMOTE()),
+                ('clf',
+                 OneVsOneClassifier(estimator=LogisticRegression(C=1.5,
+                                                                 tol=0.001)))])
+
+Outer cross_val_score
+F1 Weighted Mean: 0.6343975120489402

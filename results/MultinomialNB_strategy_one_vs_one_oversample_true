@@ -1,0 +1,12 @@
+Estimator: MultinomialNB
+Strategy: one_vs_one
+Oversample: true
+
+Inner GridSearchCV
+Best parameters: {'clf__estimator__alpha': 0.5, 'clf__estimator__fit_prior': True}
+Best estimator: Pipeline(steps=[('smt', SMOTE()),
+                ('clf',
+                 OneVsOneClassifier(estimator=MultinomialNB(alpha=0.5)))])
+
+Outer cross_val_score
+F1 Weighted Mean: 0.6182857873034997

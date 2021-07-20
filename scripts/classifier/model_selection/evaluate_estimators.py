@@ -37,8 +37,7 @@ def evaluate_estimators_performance(classifiers, strategies, oversample,
     }
 
     hyperparameters_available = {
-        'rf': {'clf__estimator__max_depth': [None, 25, 50],
-               'clf__estimator__n_estimators': [75, 100, 125]},
+        'rf': {'clf__estimator__n_estimators': [75, 100, 125]},
         'svc': {'clf__estimator__tol': [1e-3, 1e-4, 1e-5],
                 'clf__estimator__C': [0.5, 1, 1.5],
                 'clf__estimator__max_iter': [500, 1000, 1500]},

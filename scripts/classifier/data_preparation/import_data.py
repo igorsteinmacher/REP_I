@@ -2,6 +2,8 @@ import os
 from data_preparation.prepare_data import create_train_and_test_sets, import_sets
 
 def import_data_for_classification(spreadsheets_dir, data_dir):
+    """Import and verify if train and test sets exists as files, if not create them.
+    """
     # Spreadsheets headers
     text_column = 'Paragraph'   
     classes_columns = ['No categories identified.',

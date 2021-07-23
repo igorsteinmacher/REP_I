@@ -10,9 +10,46 @@ from model_selection.evaluate_estimators import evaluate_estimators_performance
 from classification.train_model import train_classifier
 from classification.explore_model import export_classification_report
 from classification.explore_model import export_confusion_matrix 
-from classification.explore_model import export_roc_curve
+from classification.explore_model import export_learning_curve 
+from sklearn.svm import LinearSVC
 
-def run_classification_method(estimator_selection, classification):
+def estimator_selection(X_train, y_train, results_dir):
+    # Classifiers available:
+    # 'svc' for Support Vector Classifier
+    # 'mnb' for Multinomial Naive Bayes
+    # 'knn' for K-nearest Neighbors
+    # 'lr' for Logistic Regression
+    # 'rf' for Random Forest
+    classifiers = ['svc'] # 'mnb', 'knn', 'lr', 'rf`
+    # Strategies available:
+    # 'ovr' for OneVsRest
+    # 'ovo' for OneVsOne
+    strategies = ['ovr', 'ovo']
+    # Oversampling:
+    # True to apply SMOTE
+    # False to not apply SMOTE
+    oversample = [True, False]
+
+    evaluate_estimators_performance(classifiers, strategies, oversample,
+                                    X_train, y_train, results_dir)
+
+def final_training(X_train, y_train, X_test, y_test, results_dir):
+    selected_classifier = LinearSVC(tol=0.001, C=1, max_iter=500)
+
+    training_args = {
+        'classifier': selected_classifier,
+        'strategy': 'one_vs_rest',
+        'oversample': False,
+        'X_train': X_train,
+        'y_train': y_train
+    }
+
+    model = train_classifier(**training_args)
+    export_classification_report(model, X_test, y_test, results_dir)
+    export_confusion_matrix(model, X_test, y_test)
+    export_learning_curve(**training_args)
+
+if __name__ == '__main__':
     # Folders used during the classification process:
     # repository/scripts/classifier/
     classifier_dir = os.getcwd()
@@ -29,41 +66,5 @@ def run_classification_method(estimator_selection, classification):
 
     X_train, y_train, X_test, y_test = import_data_for_classification(spreadsheets_dir, data_dir)
 
-    if estimator_selection:
-        # Classifiers available:
-        # 'svc' for Support Vector Classifier
-        # 'mnb' for Multinomial Naive Bayes
-        # 'knn' for K-nearest Neighbors
-        # 'lr' for Logistic Regression
-        # 'rf' for Random Forest
-        classifiers = ['rf'] # 'svc', 'mnb', 'knn', 'lr', 
-        # Strategies available:
-        # 'ovr' for OneVsRest
-        # 'ovo' for OneVsOne
-        strategies = ['ovr', 'ovo']
-        # Oversampling:
-        # True to apply SMOTE
-        # False to not apply SMOTE
-        oversample = [True, False]
-
-        evaluate_estimators_performance(classifiers, strategies, oversample,
-                                        X_train, y_train, results_dir)
-
-    if classification:
-        from sklearn.svm import LinearSVC
-
-        training_args = {
-            'classifier': LinearSVC(tol=0.001, C=1, max_iter=500),
-            'strategy': 'one_vs_rest',
-            'oversample': False,
-            'X_train': X_train,
-            'y_train': y_train
-        }
-
-        model = train_classifier(**training_args)
-        export_classification_report(model, X_test, y_test, results_dir)
-        export_confusion_matrix(model, X_test, y_test)
-        export_roc_curve(model, X_test, y_test)
-
-if __name__ == '__main__':
-    run_classification_method(True, False)
+    # estimator_selection(X_train, y_train, results_dir)
+    final_training(X_train, y_train, X_test, y_test, results_dir)

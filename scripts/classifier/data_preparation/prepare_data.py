@@ -7,9 +7,11 @@ __contact__ = 'fronchetti@usp.br'
 import pandas
 from scipy.sparse import hstack
 from sklearn.model_selection import train_test_split
-from .preprocess_text import text_preprocessing
+
 from .generate_features import create_statistic_features, create_heuristic_features
 from .transform_data import transform_spreadsheets_in_dataframe
+from .preprocess_text import text_preprocessing
+from .select_features import select_features
 
 def create_train_and_test_sets(spreadsheets_dir, text_column, classes_columns,
                                train_filepath, test_filepath, label_column):
@@ -54,7 +56,7 @@ def import_sets(train_filepath, test_filepath, text_column, label_column):
     X_test, y_test = test_data[text_column], test_data[label_column]
 
     print("Applying preprocessing techniques on paragraphs column.")
-    preprocessing_techniques = ['remove-stopwords', 'lemmatization']
+    preprocessing_techniques = ['remove-stopwords', 'remove_punctuations', 'lemmatization']
     X_train = text_preprocessing(X_train, preprocessing_techniques)
     X_test = text_preprocessing(X_test, preprocessing_techniques)
     
@@ -66,5 +68,7 @@ def import_sets(train_filepath, test_filepath, text_column, label_column):
 
     X_train = hstack([train_statistic_features, train_heuristic_features])
     X_test = hstack([test_statistic_features, test_heuristic_features])
+
+    X_train, X_test = select_features(X_train, y_train, X_test)
 
     return X_train, y_train, X_test, y_test

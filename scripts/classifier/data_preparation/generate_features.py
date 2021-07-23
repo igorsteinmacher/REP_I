@@ -85,14 +85,4 @@ def create_heuristic_features(X_train, X_test):
     train_heuristic_features.drop('Paragraph', axis=1, inplace=True)
     test_heuristic_features.drop('Paragraph', axis=1, inplace=True)
 
-    # The VarianceThreshold is a feature selection algorithm that
-    # removes all low-variance features. Features with variance
-    # lower than 0.95 are removed in this study. This threshold 
-    # was manually selected.
-    # Learn more at: scikit-learn.org/stable/modules/feature_selection.html
-    selector = VarianceThreshold(threshold=(.95 * (1 - .95)))
-    train_heuristic_features = selector.fit_transform(train_heuristic_features)
-    test_heuristic_features = selector.transform(test_heuristic_features)
-
-
     return train_heuristic_features, test_heuristic_features

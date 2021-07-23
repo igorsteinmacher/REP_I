@@ -15,7 +15,8 @@ from .select_features import select_features
 
 def create_train_and_test_sets(spreadsheets_dir, text_column, classes_columns,
                                train_filepath, test_filepath, label_column):
-    """Create the train and test sets from the spreadsheets analyzed
+    """Creates the train and test sets based on the spreadsheets from the 
+        qualitative analysis.
 
     Args:
         spreadsheets_dir: A string representing the path to the spreadsheets folder
@@ -48,6 +49,18 @@ def create_train_and_test_sets(spreadsheets_dir, text_column, classes_columns,
     test_data.to_csv(test_filepath, index=False, encoding='utf-8-sig')
 
 def import_sets(train_filepath, test_filepath, text_column, label_column):
+    """Imports train and test sets and applies the text preprocessing techniques when necessary
+    
+    Args:
+        text_column: A string representing what is the column containing the paragraphs
+        in each spreadsheet
+        train_filepath: A string representing the filepath where the train set should be
+            saved as a .csv file
+        test_filepath: A string representing the filepath where the test set should be
+            saved as a .csv file
+        label_column: A string representing the label that will be given to a new column that
+            will be used to represent the label of each paragraph.
+    """
     print("Importing training and test sets.")
     train_data = pandas.read_csv(train_filepath)
     X_train, y_train = train_data[text_column], train_data[label_column]
@@ -56,7 +69,7 @@ def import_sets(train_filepath, test_filepath, text_column, label_column):
     X_test, y_test = test_data[text_column], test_data[label_column]
 
     print("Applying preprocessing techniques on paragraphs column.")
-    preprocessing_techniques = ['remove-stopwords', 'remove_punctuations', 'lemmatization']
+    preprocessing_techniques = ['remove-stopwords', 'remove-punctuations', 'lemmatization']
     X_train = text_preprocessing(X_train, preprocessing_techniques)
     X_test = text_preprocessing(X_test, preprocessing_techniques)
     
@@ -69,6 +82,7 @@ def import_sets(train_filepath, test_filepath, text_column, label_column):
     X_train = hstack([train_statistic_features, train_heuristic_features])
     X_test = hstack([test_statistic_features, test_heuristic_features])
 
+    print("Selecting features with SelectPercentile (chi2).")
     X_train, X_test = select_features(X_train, y_train, X_test)
 
     return X_train, y_train, X_test, y_test

@@ -13,14 +13,29 @@ from classification.explore_model import export_confusion_matrix
 from classification.explore_model import export_learning_curve 
 from sklearn.svm import LinearSVC
 
-def estimator_selection(X_train, y_train, results_dir):
+# Pega a tabela com os resultados de cada classificador
+# Divide os algoritmos entre com oversampling e sem oversampling
+# Pra cada algoritmo (melhor configuracao ja definida), roda ele no conjunto de teste usando predict_proba
+# Cria uma tabela onde as colunas sao os algoritmos (OvA, OvO) e as linhas sao os samples/paragrafos
+# Cada linha contem o valor da probabilidade da classe que seria correta (nao da classe predita/majoritaria) pro respectivo algoritmo na coluna
+
+#               RandomForest (OvO) RandomForest (OvA) LinearSVC (OvO) LinearSVC(OvA)
+# Paragrafo A
+# Paragrafo B
+# Paragrafo C
+# Paragrafo D
+# Paragrafo E
+
+def estimator_selection(X_train, y_train, X_test, y_test, results_dir):
     # Classifiers available:
     # 'svc' for Support Vector Classifier
     # 'mnb' for Multinomial Naive Bayes
     # 'knn' for K-nearest Neighbors
     # 'lr' for Logistic Regression
     # 'rf' for Random Forest
-    classifiers = ['svc'] # 'mnb', 'knn', 'lr', 'rf`
+    # 'dmr' for Dummy Classifier (Random)
+    # 'dmf' for Dummy Classifier (Always the most frequent)
+    classifiers = [] # 'svc', 'mnb', 'knn', 'lr', 'rf', 'dmr', 'dmf' 
     # Strategies available:
     # 'ovr' for OneVsRest
     # 'ovo' for OneVsOne
@@ -66,5 +81,5 @@ if __name__ == '__main__':
 
     X_train, y_train, X_test, y_test = import_data_for_classification(spreadsheets_dir, data_dir)
 
-    # estimator_selection(X_train, y_train, results_dir)
-    final_training(X_train, y_train, X_test, y_test, results_dir)
+    estimator_selection(X_train, y_train, X_test, y_test, results_dir)
+    # final_training(X_train, y_train, X_test, y_test, results_dir)

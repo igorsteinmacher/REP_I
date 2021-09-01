@@ -1,6 +1,7 @@
 install.packages("ScottKnottESD")
 library(ScottKnottESD)
+library(readxl)
+performances <- read_excel("GitHub/nemenyi/performances.xlsx")
 
-help(sk_esd)
-sk <- sk_esd(estimators_performance, version="np")
+sk <- sk_esd(performances, version="np")
 plot(sk)

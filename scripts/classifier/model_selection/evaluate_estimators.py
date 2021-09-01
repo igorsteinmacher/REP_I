@@ -169,4 +169,7 @@ def export_estimator_results(estimator_args, internal_evaluation, f1_weighted_sc
         results.write('Best estimator: ' + str(internal_evaluation.best_estimator_) + '\n')
         # Model selection report 
         results.write('External Cross Validation (cross_val_score)\n')
-        results.write('F1 weighted scores (averages): ' + str(f1_weighted_scores_means) + '\n')
+        results.write('F1 weighted scores (averages): \n')
+
+        for mean in f1_weighted_scores_means:
+            results.write(str(mean) + '\n')

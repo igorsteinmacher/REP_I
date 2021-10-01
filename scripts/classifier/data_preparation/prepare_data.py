@@ -48,7 +48,7 @@ def create_train_and_test_sets(spreadsheets_dir, text_column, classes_columns,
     train_data.to_csv(train_filepath, index=False, encoding='utf-8-sig')
     test_data.to_csv(test_filepath, index=False, encoding='utf-8-sig')
 
-def import_sets(train_filepath, test_filepath, text_column, label_column):
+def import_sets(train_filepath, test_filepath, text_column, label_column, is_predict = False):
     """Imports train and test sets and applies the text preprocessing techniques when necessary
     
     Args:
@@ -63,9 +63,11 @@ def import_sets(train_filepath, test_filepath, text_column, label_column):
     """
     print("Importing training and test sets.")
     train_data = pandas.read_csv(train_filepath)
+    train_text_column = train_data[text_column]
     X_train, y_train = train_data[text_column], train_data[label_column]
 
     test_data = pandas.read_csv(test_filepath)
+    test_text_column = test_data[text_column]
     X_test, y_test = test_data[text_column], test_data[label_column]
 
     print("Applying preprocessing techniques on paragraphs column.")
@@ -74,7 +76,7 @@ def import_sets(train_filepath, test_filepath, text_column, label_column):
     X_test = text_preprocessing(X_test, preprocessing_techniques)
     
     print("Converting paragraphs into statistic features.")
-    train_statistic_features, test_statistic_features = create_statistic_features(X_train, X_test)
+    train_statistic_features, test_statistic_features = create_statistic_features(X_train, X_test, is_predict)
 
     print("Converting paragraphs into heuristic features.")
     train_heuristic_features, test_heuristic_features = create_heuristic_features(X_train, X_test)
@@ -83,6 +85,6 @@ def import_sets(train_filepath, test_filepath, text_column, label_column):
     X_test = hstack([test_statistic_features, test_heuristic_features])
 
     print("Selecting features with SelectPercentile (chi2).")
-    X_train, X_test = select_features(X_train, y_train, X_test)
+    X_train, X_test = select_features(X_train, y_train, X_test, is_predict)
 
-    return X_train, y_train, X_test, y_test
+    return X_train, y_train, X_test, y_test, train_text_column, test_text_column

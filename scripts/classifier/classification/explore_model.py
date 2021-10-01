@@ -45,18 +45,28 @@ def export_learning_curve(classifier, strategy, oversample, X_train, y_train):
     plt.figure()
 
     if strategy == 'one_vs_rest':
-        model = OneVsRestClassifier(classifier)
+        estimator = OneVsRestClassifier(classifier)
     if strategy == 'one_vs_one':
-        model = OneVsOneClassifier(classifier)
+        estimator = OneVsOneClassifier(classifier)
 
     if oversample:
         X_train, y_train = SMOTE().fit_resample(X_train, y_train)
 
-    train_sizes, train_scores, test_scores = learning_curve(model, X_train, y_train, train_sizes=np.linspace(0.1, 1, 10, 20), cv=10)
-    plt.plot(train_sizes, -test_scores.mean(1), 'o-', color="r",
-            label="LinearSVC")
-    plt.xlabel("Train size")
-    plt.ylabel("Mean Squared Error")
-    plt.title('Learning curves')
+    train_sizes, train_scores, test_scores = learning_curve(estimator, X_train, y_train, cv=10, train_sizes=np.linspace(0.1, 1.0, 10), n_jobs=1)
+    train_mean = np.mean(train_scores, axis=1)
+    train_std = np.std(train_scores, axis=1)
+    test_mean = np.mean(test_scores, axis=1)
+    test_std = np.std(test_scores, axis=1)
+
+    plt.plot(train_sizes, train_mean, color="blue", marker="o", markersize=5, label="Training Accuracy")
+    plt.fill_between(train_sizes, train_mean + train_std, train_mean - train_std, alpha=0.15, color='blue')
+
+    plt.plot(train_sizes, test_mean, color='green', marker='+', markersize=5, linestyle='--', label='Validation Accuracy')
+    plt.fill_between(train_sizes, test_mean + test_std, test_mean - test_std, alpha=0.15, color='green')
+
+    plt.xlabel("Trainining Data Size")
+    plt.ylabel("Model Accuracy")
+    plt.title('Learning Curve')
+    plt.grid()
     plt.legend(loc="best")
     plt.show()

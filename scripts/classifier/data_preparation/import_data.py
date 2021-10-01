@@ -2,7 +2,7 @@ import os
 from data_preparation.prepare_data import create_train_and_test_sets, import_sets
 
 def import_data_for_classification(spreadsheets_dir, data_dir):
-    """Import and verify if train and test sets exists as files, if not create them.
+    """Imports spreadsheets and verify if train and test sets exists as files, if not create them.
     """
     # Spreadsheets headers
     text_column = 'Paragraph'   
@@ -27,3 +27,31 @@ def import_data_for_classification(spreadsheets_dir, data_dir):
                                    label_column)
 
     return import_sets(train_filepath, test_filepath, text_column, label_column)
+
+def import_data_for_prediction(spreadsheets_dir, data_dir):
+    """Imports spreadsheets for prediction.
+    """
+
+    # Spreadsheets headers
+    text_column = 'Paragraph'   
+    classes_columns = ['No categories identified.',
+                       'CT – Choose a task',
+                       'TC – Talk to the community',
+                       'BW – Build local workspace',
+                       'DC – Deal with the code',
+                       'SC – Submit the changes']
+
+    # Label for a new column header that will merge
+    # classes_columns into a single column
+    label_column = 'Label'
+
+    # Filepaths where the train and test sets are saved
+    train_filepath = os.path.join(data_dir, 'train_predict.csv')
+    test_filepath = os.path.join(data_dir, 'test_predict.csv')
+
+    if not os.path.exists(train_filepath) or not os.path.exists(test_filepath):
+        create_train_and_test_sets(spreadsheets_dir, text_column, 
+                                   classes_columns, train_filepath, test_filepath,
+                                   label_column)
+
+    return import_sets(train_filepath, test_filepath, text_column, label_column, True)

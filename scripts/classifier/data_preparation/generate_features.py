@@ -1,4 +1,5 @@
 import os
+import pickle
 import pandas
 # Heuristic
 from spacy.lang.en import English
@@ -6,7 +7,7 @@ from sklearn.feature_selection import VarianceThreshold
 # Statistic
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-def create_statistic_features(X_train, X_test):
+def create_statistic_features(X_train, X_test, is_predict = False):
     """Converts paragraphs into TF-IDF features.
 
     Note that in this study, the TF-IDF features are mentioned
@@ -27,10 +28,16 @@ def create_statistic_features(X_train, X_test):
         'stop_words': 'english',
         'analyzer': 'word',
     }
-    
-    vectorizer = TfidfVectorizer(**vect_args)
-    train_statistic_features = vectorizer.fit_transform(X_train)
-    test_statistic_features = vectorizer.transform(X_test)
+
+    if is_predict:
+        vectorizer = pickle.load(open('tf-idf.sav', 'rb'))
+        train_statistic_features = vectorizer.transform(X_train)
+        test_statistic_features = vectorizer.transform(X_test)   
+    else:
+        vectorizer = TfidfVectorizer(**vect_args)
+        train_statistic_features = vectorizer.fit_transform(X_train)
+        test_statistic_features = vectorizer.transform(X_test)
+        pickle.dump(vectorizer, open('tf-idf.sav', 'wb'))
 
     return train_statistic_features, test_statistic_features
 

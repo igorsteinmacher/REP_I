@@ -25,6 +25,9 @@ def text_preprocessing(X, techniques):
         The dataframe column of strings updated with the values formated by the preprocessing
          techniques desired.
     """
+
+    X = X.dropna()
+
     def lowercase(paragraph):
         # Transform uppercase characters into lowercase
         return paragraph.lower()

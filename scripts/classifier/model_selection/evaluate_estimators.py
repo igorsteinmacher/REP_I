@@ -141,10 +141,16 @@ def nested_cross_validation(classifier, hyperparameters, strategy,
 
     # We perform the external cross-validation `num` times to 
     # mitigate wrong assumptions of the average scores of each model.
-    num_times = 10
 
-    for i in range(0, num_times):
-        print('Running model selection cross-validation (' + str(i + 1) + ' out of ' + str(num_times) + ')')
+    num_times = 0
+
+    if strategy == 'one_vs_rest':
+        num_times = 50
+    elif strategy == 'one_vs_one':
+        num_times = 1
+
+    for times in range(0, num_times):
+        print('Running model selection cross-validation (' + str(times + 1) + ' out of ' + str(num_times) + ')')
         # Notice that the variable `internal_evaluation` represents 
         # the classification model with the best hyperparameters.
         f1_weighted_scores = cross_val_score(internal_evaluation, X_train, y_train, scoring='f1_weighted', cv=external_cv)
@@ -158,6 +164,18 @@ def export_estimator_results(estimator_args, internal_evaluation, f1_weighted_sc
 
     filepath = os.path.join(results_dir, filename)
     
+    if os.path.exists(filepath):
+        num_attempts = 1
+
+        while True:
+            new_filepath = filepath + ' (' + num_attempts + ')'
+
+            if not os.path.exists(new_filepath):
+                filepath = new_filepath
+                break
+            else:
+                num_attempts = num_attempts + 1
+
     with open(filepath, 'w') as results:
         # Estimator settings
         results.write('Estimator: ' + type(estimator_args['classifier']).__name__ + '\n')

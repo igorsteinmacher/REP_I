@@ -5,6 +5,8 @@ __author__ = 'Felipe Fronchetti'
 __contact__ = 'fronchetti@usp.br'
 
 import os
+import random
+import shutil
 from matplotlib.pyplot import text
 
 import pandas
@@ -73,8 +75,18 @@ def train_final_estimator(X_train, y_train, X_test, y_test):
     model = train_classifier(**training_args)
     pickle.dump(model, open('final_estimator.sav', 'wb'))
 
-def predict_using_final_estimator(data_dir):
-    predict_spreadsheets_dir = os.path.join(data_dir, 'documentation', 'spreadsheets', 'prediction')
+def predict_using_final_estimator(spreadsheets_dir, predict_spreadsheets_dir, results_dir, n_samples):
+
+    for i in range(0, n_samples):
+        while True:
+            filename = random.choice(os.listdir(spreadsheets_dir))
+            filepath = os.path.join(spreadsheets_dir, filename)
+            copy_filepath = os.path.join(predict_spreadsheets_dir, filename)
+
+            if os.path.isfile(filepath) and not os.path.exists(copy_filepath):
+                shutil.copyfile(filepath, copy_filepath)
+                break
+            
     X_train, _, X_test, _, train_text_column, test_text_column = import_data_for_prediction(predict_spreadsheets_dir, data_dir)
     X_predict = vstack((X_train, X_test))
     text_column = pandas.concat([train_text_column, test_text_column], ignore_index = True)
@@ -82,9 +94,30 @@ def predict_using_final_estimator(data_dir):
     model = pickle.load(open('final_estimator.sav', 'rb'))
     y_predict = model.predict(X_predict)
 
-    for i in range(len(text_column)):
-        print("\nText = %s\nClass Predicted = %s\n" % (text_column[i], y_predict[i]))
-    
+    with open(os.path.join(results_dir, 'predictions.csv'), 'w') as predictions_file:
+
+        classes = ['No categories identified.',
+                    'CF - Contribution flow',
+                    'CT – Choose a task',
+                    'TC – Talk to the community',
+                    'BW – Build local workspace',
+                    'DC – Deal with the code',
+                    'SC – Submit the changes']
+        
+        for predicted_class in classes:
+            predictions_file.write('Paragraph, Predicted Class\n')
+
+            samples_per_class = 5
+            instances = [i for i, item in enumerate(y_predict) if item.startswith(predicted_class[:2])]
+
+            if len(instances) < samples_per_class:
+                print("Insufficient items for class: " + predicted_class)
+
+            for i in range(0, samples_per_class):
+                predictions_file.write("\"%s\", %s\n" % (text_column[instances[i]], y_predict[instances[i]]))
+
+            predictions_file.write('\n')
+
 if __name__ == '__main__':
     # Folders used during the classification process:
     # repository/scripts/classifier/
@@ -97,12 +130,16 @@ if __name__ == '__main__':
     data_dir = os.path.join(repository_dir, 'data')
     # repository/results/
     results_dir = os.path.join(repository_dir, 'results') 
+    # repository/data/documentation/spreadsheets/
+    spreadsheets_dir = os.path.join(data_dir, 'documentation', 'spreadsheets')
     # repository/data/documentation/spreadsheets/valid
-    spreadsheets_dir = os.path.join(data_dir, 'documentation', 'spreadsheets', 'valid')
+    valid_spreadsheets_dir = os.path.join(spreadsheets_dir, 'valid')
+    # repository/data/documentation/spreadsheets/for-prediction
+    predict_spreadsheets_dir = os.path.join(spreadsheets_dir, 'for-prediction')
 
-    X_train, y_train, X_test, y_test, _, _ = import_data_for_classification(spreadsheets_dir, data_dir)
+    X_train, y_train, X_test, y_test, _, _ = import_data_for_classification(valid_spreadsheets_dir, data_dir)
 
-    # find_best_estimator(X_train, y_train, X_test, y_test, results_dir)
-    # evaluate_final_estimator_on_unseen_data(X_train, y_train, X_test, y_test, results_dir)
+    find_best_estimator(X_train, y_train, results_dir)
+    evaluate_final_estimator_on_unseen_data(X_train, y_train, X_test, y_test, results_dir)
     train_final_estimator(X_train, y_train, X_test, y_test)
-    predict_using_final_estimator(data_dir)
+    predict_using_final_estimator(spreadsheets_dir, predict_spreadsheets_dir, results_dir, 75)

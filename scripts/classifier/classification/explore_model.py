@@ -14,6 +14,7 @@ from imblearn.over_sampling import SMOTE
 
 def export_classification_report(model, X_test, y_test, results_dir):
     classes = ['No categories identified.',
+               'CF - Contribution flow',
                'CT – Choose a task',
                'TC – Talk to the community',
                'BW – Build local workspace',
@@ -30,6 +31,7 @@ def export_classification_report(model, X_test, y_test, results_dir):
 
 def export_confusion_matrix(model, X_test, y_test):
     classes = ['No categories identified.',
+                'CF - Contribution flow',
                'CT – Choose a task',
                'TC – Talk to the community',
                'BW – Build local workspace',

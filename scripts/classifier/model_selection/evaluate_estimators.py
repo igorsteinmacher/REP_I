@@ -50,8 +50,7 @@ def evaluate_estimators_performance(classifiers, strategies, oversample,
                 'clf__estimator__fit_prior': [True, False]},
         'knn': {'clf__estimator__n_neighbors': [3, 5, 7]},
         'lr': {'clf__estimator__tol': [1e-3, 1e-4, 1e-5],
-               'clf__estimator__C': [0.5, 1, 1.5],
-               'clf__estimator__max_iter': [50, 100, 150]},
+               'clf__estimator__C': [0.5, 1, 1.5]},
         'dmr': {}, # This is a dummy classifier
         'dmf': {}  # This is a dummy classifier
     }
@@ -121,11 +120,11 @@ def nested_cross_validation(classifier, hyperparameters, strategy,
         pipeline_args.append(oversample)
 
     if strategy == 'one_vs_rest':
-        strategy = ('clf', OneVsRestClassifier(classifier))
-        pipeline_args.append(strategy)
+        strategy_arg = ('clf', OneVsRestClassifier(classifier))
+        pipeline_args.append(strategy_arg)
     elif strategy == 'one_vs_one':
-        strategy = ('clf', OneVsOneClassifier(classifier))
-        pipeline_args.append(strategy)
+        strategy_arg = ('clf', OneVsOneClassifier(classifier))
+        pipeline_args.append(strategy_arg)
 
     pipeline = Pipeline(pipeline_args)
 

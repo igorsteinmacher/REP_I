@@ -29,7 +29,7 @@ def find_best_estimator(X_train, y_train, results_dir):
     # 'rf' for Random Forest
     # 'dmr' for Dummy Classifier (Random)
     # 'dmf' for Dummy Classifier (Always the most frequent)
-    classifiers = ['dmf','svc', 'mnb', 'knn', 'lr', 'dmr', 'rf'] # 'svc', 'mnb', 'knn', 'lr', 'rf', 'dmr', 'dmf' 
+    classifiers = ['dmr', 'lr', 'knn',  'rf'] # 'svc', 'mnb', 'knn', 'lr', 'rf', 'dmr', 'dmf' 
     # Strategies available:
     # 'ovr' for OneVsRest
     # 'ovo' for OneVsOne
@@ -140,6 +140,6 @@ if __name__ == '__main__':
     X_train, y_train, X_test, y_test, _, _ = import_data_for_classification(valid_spreadsheets_dir, data_dir)
 
     find_best_estimator(X_train, y_train, results_dir)
-    evaluate_final_estimator_on_unseen_data(X_train, y_train, X_test, y_test, results_dir)
-    train_final_estimator(X_train, y_train, X_test, y_test)
-    predict_using_final_estimator(spreadsheets_dir, predict_spreadsheets_dir, results_dir, 75)
+    # evaluate_final_estimator_on_unseen_data(X_train, y_train, X_test, y_test, results_dir)
+    # train_final_estimator(X_train, y_train, X_test, y_test)
+    # predict_using_final_estimator(spreadsheets_dir, predict_spreadsheets_dir, results_dir, 75)

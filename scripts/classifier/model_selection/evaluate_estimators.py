@@ -32,7 +32,7 @@ def evaluate_estimators_performance(classifiers, strategies, oversample,
                                     X_train, y_train, results_dir):
 
     classifiers_available = {
-        'rf': RandomForestClassifier(),
+        'rf': RandomForestClassifier(n_jobs=-1),
         'svc': LinearSVC(),
         'mnb': MultinomialNB(),
         'knn': KNeighborsClassifier(),

@@ -29,7 +29,7 @@ def find_best_estimator(X_train, y_train, results_dir):
     # 'rf' for Random Forest
     # 'dmr' for Dummy Classifier (Random)
     # 'dmf' for Dummy Classifier (Always the most frequent)
-    classifiers = ['rf'] # 'svc', 'mnb', 'knn', 'lr', 'rf', 'dmr', 'dmf' 
+    classifiers = ['dmr', 'svc', 'mnb', 'knn', 'lr', 'rf', 'dmf'] # 
     # Strategies available:
     # 'ovr' for OneVsRest
     # 'ovo' for OneVsOne

@@ -9,4 +9,4 @@ Best estimator: Pipeline(steps=[('smt', SMOTE()),
                  OneVsOneClassifier(estimator=KNeighborsClassifier(n_neighbors=3)))])
 External Cross Validation (cross_val_score)
 F1 weighted scores (averages): 
-0.6163288103416169
+0.5663217864379503

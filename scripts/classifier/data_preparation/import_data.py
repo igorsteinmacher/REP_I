@@ -7,7 +7,7 @@ def import_data_for_classification(spreadsheets_dir, data_dir):
     # Spreadsheets headers
     text_column = 'Paragraph'   
     classes_columns = ['No categories identified.',
-                       'CF - Contribution flow',
+                       'CF – Contribution flow',
                        'CT – Choose a task',
                        'TC – Talk to the community',
                        'BW – Build local workspace',

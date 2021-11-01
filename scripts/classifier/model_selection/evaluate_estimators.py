@@ -141,10 +141,10 @@ def nested_cross_validation(classifier, hyperparameters, strategy,
     # We perform the external cross-validation `num` times to 
     # mitigate wrong assumptions of the average scores of each model.
 
-    num_times = 0
+    num_times = 1
 
     if strategy == 'one_vs_rest':
-        num_times = 50
+        num_times = 1
     elif strategy == 'one_vs_one':
         num_times = 1
 

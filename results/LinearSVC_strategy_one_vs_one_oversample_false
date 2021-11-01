@@ -9,4 +9,4 @@ Best estimator: Pipeline(steps=[('clf',
                                                         tol=0.001)))])
 External Cross Validation (cross_val_score)
 F1 weighted scores (averages): 
-0.684509769566
+0.6467399732350887

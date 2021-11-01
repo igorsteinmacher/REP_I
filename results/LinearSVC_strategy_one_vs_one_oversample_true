@@ -3,10 +3,11 @@ Strategy: one_vs_one
 Oversample: True
 
 Internal Cross Validation (GridSearch)
-Best parameters: {'clf__estimator__C': 1.5, 'clf__estimator__max_iter': 1000, 'clf__estimator__tol': 0.001}
+Best parameters: {'clf__estimator__C': 1.5, 'clf__estimator__max_iter': 1500, 'clf__estimator__tol': 1e-05}
 Best estimator: Pipeline(steps=[('smt', SMOTE()),
                 ('clf',
-                 OneVsOneClassifier(estimator=LinearSVC(C=1.5, tol=0.001)))])
+                 OneVsOneClassifier(estimator=LinearSVC(C=1.5, max_iter=1500,
+                                                        tol=1e-05)))])
 External Cross Validation (cross_val_score)
 F1 weighted scores (averages): 
-0.6704452391444103
+0.6348478116860153

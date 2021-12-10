@@ -1,0 +1,712 @@
+﻿Paragraph,Label
+To check that your contributions match the project coding style make sure yarn test passes.,No categories identified.
+"- chore: Changes to the build process or auxiliary tools and libraries such as documentation
+generation",No categories identified.
+"We use semantic-release, so we have very precise rules over how our git commit messages can be formatted.",No categories identified.
+Commenting,No categories identified.
+The master branch of the repository should be kept releasable at any time. This way we can continuously deploy fixes and improvements without costly managing of different branches and issues will be noticed and fixed quickly. This also ensures other contributors can check out the latest version from GitHub and work on it with minimal disruption from other features in progress.,No categories identified.
+"- If you want to raise an issue such as a defect or an enhancement request,
+please open a GitHub issue for the appropriate project. Please keep the
+following in mind:",No categories identified.
+Contributions Are Welcome!,No categories identified.
+"If you have improvements or bugfixes to make to iperf3, we'd love to
+hear from you.  We prefer changes to be submitted in the form of pull
+requests on GitHub, although we can (probably) accept simple patches
+as well.  If in doubt, ask.",No categories identified.
+- Document any change in behaviour - Make sure the README.md and any other relevant documentation are kept up-to-date.,No categories identified.
+"| Types         | Description |
+| ------------- |-------------|
+| BREAKING      | Changes including breaking changes. |
+| build         | New build version. |
+| chore         | Changes to the build process or auxiliary tools such as changelog generation. No production code change. |
+| docs          | Documentation only changes. |
+| feat          | A new feature. |
+| fix           | A big fix. |
+| perf          | A code change that improves performance. |
+| refactor      | A code change that neither fixes a bug nor adds a feature. |
+| style         | Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc.). |
+| test          | Adding missing or correcting existing tests. |",No categories identified.
+"- If the acronym comes at the start of the field or parameter name, use lowercase for the
+entire acronym -- for example, String url;.",No categories identified.
+"# Clone the repository
+git clone https://github.com/leon-ai/leon.git leon",No categories identified.
+"The simplest thing that you can do to help us is by filing good bug reports, so here we go:",No categories identified.
+Submitting an Issue,No categories identified.
+Trivial Exemption Policy,No categories identified.
+- Insert a blank line before at-clauses/tags.,No categories identified.
+"In order to keep a clear roadmap, milestones are used to track what is happening and what needs to be done. Milestones are used to classify problems by:",No categories identified.
+"- config (JUL: CONFIG, Log4J: CONFIG): information related to configuration of the system (Example: ServiceLoaderTestEngineRegistry logs IDs of discovered engines)",No categories identified.
+Tips For Bug Patching,No categories identified.
+"To lint the JavaScript and CSS, as well as build the Demos, run grunt:",No categories identified.
+"- #activity contains notifications from the various platforms that we use to keep the Libraries.io project turning. Including notifications from GitHub, Twitter and our servers.",No categories identified.
+"- error (JUL: SEVERE, Log4J: ERROR): extra information (in addition to an Exception) about errors that will halt execution",No categories identified.
+$ composer global require squizlabs/php_codesniffer,No categories identified.
+Contributing,No categories identified.
+When submitting a pull request for review there are a few important steps you have to take to ensure that it gets reviewed quickly and increase the chances that it will be merged:,No categories identified.
+Naming Public Item,No categories identified.
+"If you find a bug in the source code, you can help us by
+submitting an issue to our GitHub Repository. Even better, you can
+submit a Pull Request with a fix.",No categories identified.
+Tests,No categories identified.
+"Hi! Thanks for your interest in contributing to NLTK.
+:-) You'll be joining a long list of contributors.
+In this document we'll try to summarize everything that you need to know to
+do a good job.",No categories identified.
+"- Before creating a pull request, run the unit tests to make sure they all pass.",No categories identified.
+"The remote upstream branch links your fork of Lean with our master copy, so when you perform a git pull --rebase you'll be getting updates from our repository.",No categories identified.
+Microsoft Windows [Version 10.0.18900.1001],No categories identified.
+How can I talk to other contributors?,No categories identified.
+- Load function arguments into local variables for readability:,No categories identified.
+"8.  Other relevant information, e.g. using Apache Cordova",No categories identified.
+- Place <p> on the same line as the first line in a new paragraph and precede <p> with a blank line.,No categories identified.
+- Rebase your branch and force push to your GitHub repository (this will update your Pull Request):,No categories identified.
+127.0.0.1 v2.bucket.localhost,No categories identified.
+"- When manipulating strings, use Python's new-style
+formatting
+('{} = {}'.format(a, b) instead of '%s = %s' % (a, b));",No categories identified.
+- Check that the issue has not already been reported.,No categories identified.
+"If we find a contribution to be in violation of copyright, it will be immediately removed.  We will bar that contributor from the MonoGame project.",No categories identified.
+Testing with your app,No categories identified.
+- docs: Documentation only changes,No categories identified.
+General,No categories identified.
+Javadoc,No categories identified.
+"- ci: Any changes to our CI configuration files and scripts (Travis, Circle CI, BrowserStack, SauceLabs)",No categories identified.
+"When ready, the branch should be squashed-merged (guide) into develop (or hotfix if it doesn't introduce a breaking change).",No categories identified.
+"- should not be ""This""",No categories identified.
+... or in Windows PowerShell,No categories identified.
+- Commit Message Guidelines,No categories identified.
+The easiest and best way to contribute code changes to the project is through pull requests on Github.,No categories identified.
+4.  Run tests: yarn test.,No categories identified.
+"3.  Run your project's entry point with typewiz-node, e.g. yarn typewiz-node index.ts",No categories identified.
+Contributions are welcome and will be fully credited.,No categories identified.
+Google Hangouts is our preferred tool for video chat. We operate an open hangout for anyone to jump into at any time to discuss issues face to face.,No categories identified.
+2.  clone it git clone https://github.com/<your-username>/grommet.git,No categories identified.
+"Here are few examples about how you could help on Leon, by:",No categories identified.
+a) Launch Extension - Client Side,No categories identified.
+"To enable the Black formatting git hook, run the following from within your virtual
+environment.",No categories identified.
+- don't capitalize first letter,No categories identified.
+You can install PHP Code Sniffer globally with composer.,No categories identified.
+Issues are tagged to represent the feature or category it refers to. We also have some special tags to help organize issues. These includes:,No categories identified.
+After your pull request is merged,No categories identified.
+npm install,No categories identified.
+"At the top right arrow it will say Set Target Platform, select that and continue.",No categories identified.
+1.  Fork the repository and create a feature branch. (Existing contributors can create feature branches without forking. Prefix the branch name with @your-github-username/.),No categories identified.
+Releases,No categories identified.
+"- Create a new branch off of develop with a descriptive name (for example:
+feature/portuguese-sentiment-analysis, hotfix/bug-on-downloader). You can
+do it switching to develop branch (git checkout develop) and then
+creating a new branch (git checkout -b name-of-the-new-branch);",No categories identified.
+- Things we probably will not do soon,No categories identified.
+"5.  Share as much information as possible. Include operating system and
+version, browser and version, version of Hammer.js, customized or vanilla build,
+etc. where appropriate. Also include steps to reproduce the bug.",No categories identified.
+- We LOVE detailed repro steps! What steps do we need to take to reproduce the issue? Assume we love to read repro steps. As much detail as you can stand is probably barely enough detail for us!,No categories identified.
+Subject,No categories identified.
+"To maintain a clear history of progress on each milestone, milestones must be closed when completed and the corresponding version released. A new milestone must then be created for the next release. In addition, the milestone version must be updated when new versions are released.",No categories identified.
+"- Do not use verbs in third person form (e.g. use ""Discover tests..."" instead of ""Discovers tests..."")
+in the first sentence describing a method.",No categories identified.
+"Note: the optional commit -a command line option will automatically ""add"" and ""rm"" edited files.",No categories identified.
+- What build of Windows your device is running,No categories identified.
+run local server with webpack-dev-server and watch.,No categories identified.
+- Video,No categories identified.
+DO THIS (but change the branch name),No categories identified.
+Technical Writing Tips,No categories identified.
+"Accepted coverage for new contributions is 80%. Any contribution not satisfying this requirement
+won't be merged.",No categories identified.
+"- Options for Ruby specific ./configure options. You can pass additional
+configuration options like so:",No categories identified.
+The resulting documentation will be available in api/.,No categories identified.
+"Everyone is permitted to copy and distribute verbatim copies of this
+license document, but changing it is not allowed.",No categories identified.
+The code of conduct is described in CODE_OF_CONDUCT.md,No categories identified.
+"- the extras = all dependencies in needed to emulate pip install nltk[all], see https://tox.readthedocs.io/en/latest/config.html#confval-extras=MULTI-LINE-LIST",No categories identified.
+Naming Conventions,No categories identified.
+Running Tests,No categories identified.
+"There are also tags for the utilities upon which UserFrosting depends, such as Composer and Git.",No categories identified.
+6.  Push your branch: git push -u origin your-branch-name.,No categories identified.
+"- What tools and apps you're using (e.g. VS 2019, VSCode, etc.)",No categories identified.
+"We strongly suggest that before filing an issue, you search through the existing issues to see
+if it has already been filed by someone else.",No categories identified.
+- Submit a pull request for review to the maintainer,No categories identified.
+Please carefully read this page to make the code review process go as smoothly as possible and to maximize the likelihood of your contribution being merged.,No categories identified.
+- Wait for comments.,No categories identified.
+"2)  Now we need to use Tycho to download the dependencies,
+this will get rid of the errors.",No categories identified.
+"Fork, Clone, Branch and Create your PR",No categories identified.
+"if   [[ ""$foo"" == ""bar"" ]]; then command
+elif [[ ""$foo"" == ""baz"" ]]; then other_command
+fi",No categories identified.
+"Contributing translations does not have a workflow like with code. You don't
+need to create an issue, pull request will be enough.",No categories identified.
+"When changing the API documentation, here are some rules to keep in mind.",No categories identified.
+$ ~/.composer/vendor/bin/phpcs,No categories identified.
+Contributing,No categories identified.
+Example,No categories identified.
+"# Run the development web app
+npm run dev:app",No categories identified.
+Code Style,No categories identified.
+- Public or private harassment,No categories identified.
+Useful tools,No categories identified.
+Continuous Integration,No categories identified.
+"- You will only Submit Contributions to which You have the necessary rights. This means
+that if You are employed You have received the necessary permissions from Your employer
+to make the Contributions.",No categories identified.
+Documentation,No categories identified.
+"Any line of the commit message cannot be longer 74 characters! This allows the message to be easier
+to read on GitHub as well as in various git tools.",No categories identified.
+"After an issue is created or a pull request is submitted, contributors and/or
+maintainers will offer feedback. If the pull request passes review, a maintainer
+will accept it with a comment.",No categories identified.
+Found a Bug?,No categories identified.
+"- To build everything and minify it, run npm run build",No categories identified.
+Pull Requests,No categories identified.
+"- trace (JUL: FINER, Log4J: TRACE)",No categories identified.
+$pure_enable_git_async = false,No categories identified.
+"? It is important to follow the spec templates and complete the requested information. The available spec templates will help ensure that specs contain the minimum information & decisions necessary to permit development to begin. In particular, specs require you to confirm that you've already discussed the issue/idea with the team in an issue and that you provide the issue ID for reference.",No categories identified.
+Build summernote,No categories identified.
+- Make reference to possible issues on PR comment,No categories identified.
+Testing,No categories identified.
+Any member of the deployers team are able to redeploy the site. If you require a deployment then you might find one of them in our #general chat channel on Slack.,No categories identified.
+"- All #TODO comments should be turned into issues (use our
+GitHub issue system);",No categories identified.
+Merging,No categories identified.
+Don't be afraid to often use highlighting! It is very valuable when you need to focus the reader's attention on a particular detail that's easy to miss.,No categories identified.
+pytest  packages/python/plotly/plotly/tests/test_core/,No categories identified.
+"If tests are failing and you don't know why, it might be that the
+pre-generated app has become inconsistent in some way. In that case the
+best solution is to purge it with rm -rf test/apps/* and then run the
+acceptance tests again, which will generate a new app.",No categories identified.
+Testing. Writting test cases,No categories identified.
+3)  Wait till the bottom right is done loading:,No categories identified.
+- test file: my_tool.test.fish,No categories identified.
+Versioning,No categories identified.
+This means any new feature MUST target v6 (master branch).,No categories identified.
+- Run npm install to make sure your development dependencies are up-to-date,No categories identified.
+Happy hacking! (;,No categories identified.
+"2.  Report any errors in detail.  Vague issues like ""it doesn't work when I do this"" are not helpful.  Show that you have put some effort into identifying the cause of the error.",No categories identified.
+"We want Marionette to provide a great experience to developers and help you
+write great applications using it. To help us achieve this goal, please follow
+these guidelines when submitting your patches.",No categories identified.
+- Follow the coding guidelines,No categories identified.
+This includes:,No categories identified.
+4.  Expected outcome,No categories identified.
+2.  Install frida on your device and host machine.,No categories identified.
+Rules for contributing,No categories identified.
+- Delete the remote branch on GitHub either through the GitHub web UI or your local shell as follows:,No categories identified.
+- Ensure tests pass before making a pull request. (You can read the Testing section below for how to set up your development environment and run tests),No categories identified.
+"Copyright (C) 2004, 2006 The Linux Foundation and its contributors. 660
+York Street, Suite 102, San Francisco, CA 94110 USA",No categories identified.
+"You can use Chrome, ChromeCanary, Firefox, Opera, Safari, PhantomJS and IE beside PhantomJS.
+Once you run yarn test, it will watch all JavaScript file. Therefore karma runs tests every time you change code.",No categories identified.
+"- Code coverage and unit-testing is an important process of development.
+A pre-commit hook exists which runs the test suite and aborts the commit if
+any fail. To manually run tests, you should run yarn test. If you need to
+update snapshots then run yarn test-update.",No categories identified.
+- Example test classes that should not be picked up by the build must end with a TestCase suffix.,No categories identified.
+"Note: the optional commit -a command line option will automatically ""add"" and ""rm"" edited files.",No categories identified.
+- Make sure to add tests for it. This is important so I don't break it in a future version unintentionally. You can also test your version of pronto locally with the help of gem build and gem install.,No categories identified.
+Contributing,No categories identified.
+The signature key is used to sign requests.,No categories identified.
+2.  A summary of the proposed solution,No categories identified.
+"If you want to contribute but do not have a specific topic in mind, review the list of open bug reports and other issues that are in need of attention.",No categories identified.
+- test file: pure_my_public_file.test.fish,No categories identified.
+- Whatever content You Contribute will be provided under the Project License(s).,No categories identified.
+The errors should now be gone.,No categories identified.
+Who is Libraries.io For?,No categories identified.
+Breaking Changes should start with the word BREAKING CHANGE: with a space or two newlines. The rest of the commit message is then used for this.,No categories identified.
+"If the commit reverts a previous commit, it should begin with revert: , followed by the header of the reverted commit. In the body it should say: This reverts commit <hash>., where the hash is the SHA of the commit being reverted.",No categories identified.
+Pull Request Guidelines,No categories identified.
+- All logging must be performed via the internal Logger faLoggerFactory.,No categories identified.
+2.  This is the second step,No categories identified.
+Getting Started,No categories identified.
+"C:\> $PSVersionTable.OS
+Microsoft Windows 10.0.18909",No categories identified.
+"We want to make contributing to BOLT as easy and transparent as
+possible.",No categories identified.
+- Don't understand how to do something? File an issue/Community Guidance Request,No categories identified.
+feature-*,No categories identified.
+Rebasing,No categories identified.
+Feature Flag's Variable,No categories identified.
+"We welcome community contributions to the SVT-AV1 Encoder. Thank you for your time! By contributing to the project, you agree to the license and copyright terms in the OSI-approved BSD+Patent license and to the release of your contribution under these terms. See LICENSE for details.",No categories identified.
+To Spec or not to Spec,No categories identified.
+npm install,No categories identified.
+Share your videos with us,No categories identified.
+"- For a Major Feature, first open an issue and outline your proposal so that it can be discussed.
+This will also allow us to better coordinate our efforts, prevent duplication of work, and help you to craft the change so that it is successfully accepted into the project.",No categories identified.
+"Once your code has been reviewed and approved by the requisite number of team members, it will be merged into the master branch. Once merged, your PR will be automatically closed.",No categories identified.
+git checkout -b my-dev-branch,No categories identified.
+?????,No categories identified.
+"If you find a bug in twa, please open an issue (or a PR!). At the minimum, please include
+the following:",No categories identified.
+"If you have an idea for a new feature or a suggestion how to improve an existing feature, let us know!",No categories identified.
+Please make sure that we are using the next branch for active development. So your branches must be created from next and not from ~~master~~. Here is a short step-by-step guide on how to get started:,No categories identified.
+Git Commit Guidelines,No categories identified.
+Running tests,No categories identified.
+Reference is organized by APIs rather than concepts. It is intended to be exhaustive. Any corner cases or recommendations that were skipped for brevity in Main Concepts or Advanced Guides should be mentioned in the reference documentation for the corresponding APIs.,No categories identified.
+"- Ensure your code respect our coding standards (cf. .eslintrc.json).
+To do so, you can run:",No categories identified.
+Run code checks and fix any issues:,No categories identified.
+"- Git itself uses the imperative whenever it creates a commit on your behalf, so it makes sense
+for you to use it too",No categories identified.
+Pull Requests,No categories identified.
+"- helping other users on the community forum.
+Join the list of nice people helping other
+plotly users :-).",No categories identified.
+"One may ask you to squash your
+commits
+too. This is used to ""clean"" your Pull Request before merging it (we don't want
+commits such as fix tests, fix 2, fix 3, etc.).",No categories identified.
+Submitting a Pull Request,No categories identified.
+- Follow the commit message guidelines,No categories identified.
+... where you should give your branch a more descriptive name than my-dev-branch,No categories identified.
+You can create a binary that you can sideload to your VS Code installation.,No categories identified.
+- Create topic branches - Don't ask us to pull from your master branch.,No categories identified.
+The current stable major version is v5. The v6 is under active development.,No categories identified.
+"Working on your first Pull Request? You can learn how from this free series
+How to Contribute to an Open Source Project on GitHub",No categories identified.
+- Fork the repo.,No categories identified.
+- Use $(...) instead of back-ticks.,No categories identified.
+"When contributing to Yii you have to follow some conventions and a simple
+workflow. It allows us to handle the requests quickly and ensure best quality
+for the Yii core code.",No categories identified.
+Automatically fixing coding style with PHP-CS-Fixer,No categories identified.
+"npm test
+npm version patch
+git push --follow-tags",No categories identified.
+"3.  If not found, create example on jsbin.com (draft) and describe the problem.",No categories identified.
+- Suggest your change in the Trailblazer Gitter Room and start writing code.,No categories identified.
+C:\> $PSVersionTable.BuildVersion,No categories identified.
+"Contributions of Algorithm Framework Modules needs to follow certain extra patterns, since QuantConnect users can use them in their algorithms.",No categories identified.
+- [ ] create a commit only containing above edit ;,No categories identified.
+"$ git clone git@github.com:YourLogin/saws.git
+$ cd saws",No categories identified.
+Contributing,No categories identified.
+"9.  Wait for a maintainer to review your PR, make changes if it's being
+recommended, and get it merged.",No categories identified.
+Commit Message Format,No categories identified.
+Small issues that do not require a spec will be labelled Issue-Bug or Issue-Task.,No categories identified.
+- Document your changes in the README if it's needed,No categories identified.
+"4.  Optionally, follow the instruction to build the server.",No categories identified.
+Troubleshooting,No categories identified.
+"<type>(<scope>): <subject>
+<BLANK LINE>
+<body>
+<BLANK LINE>
+<footer>",No categories identified.
+Must be one of the following:,No categories identified.
+- npm run test => ????,No categories identified.
+- We MUCH prefer text command-line script than screenshots of command-line script.,No categories identified.
+Don't use features that aren't standardized yet.,No categories identified.
+"When you'd like the team to take a look, (even if the work is not yet fully-complete), mark the PR as 'Ready For Review' so that the team can review your work and provide comments, suggestions, and request changes. It may take several cycles, but the end result will be solid, testable, conformant code that is safe for us to merge.",No categories identified.
+"In general, this is the most important task.
+To see all the issues already labeled as bugs, you can use this query",No categories identified.
+2.  Use 2-space instead of a tab;,No categories identified.
+"Feature's variables (flag, symbol, color) should use $pure_<type>_<feature> naming pattern:",No categories identified.
+"Here are some things to keep in mind as you file pull requests to fix bugs, add new features, etc.:",No categories identified.
+* See the License for the specific language governing permissions and,No categories identified.
+Contributing,No categories identified.
+"Thank you for contributing to plotly.py! We are actively looking for
+diverse contributors, with diverse background and skills.",No categories identified.
+3.  Submit updates and improvements to the documentation.,No categories identified.
+"If your contribution requires significant or breaking changes, or if you plan to propose a major new feature,
+we recommend you to create an issue on the GitHub with
+a brief proposal and discuss it with us first.",No categories identified.
+- Got a great idea for a new feature? File an issue/request/idea,No categories identified.
+Here are a few simple rules and suggestions to remember when contributing to MonoGame.,No categories identified.
+1.  Fork the material-ui-pickers repository on Github,No categories identified.
+Contributions are welcome and will be fully credited.,No categories identified.
+Thank you,No categories identified.
+"Good pull requests - patches, improvements, new features - are a fantastic
+help. They should remain focused in scope and avoid containing unrelated
+commits.",No categories identified.
+Breaking Changes should start with the word BREAKING CHANGE: with a space or two newlines. The rest of the commit message is then used for this.,No categories identified.
+Code contributions,No categories identified.
+- Please be sure to state which version of node and npm you're using,No categories identified.
+See the introduction for contributors and Contributing Guidelines.,No categories identified.
+Keep in mind the final directories will look like:,No categories identified.
+"- Each time a MAJOR or MINOR version number of a Leon package is increased, then the MINOR version number of the project should also be increased.",No categories identified.
+Issue,No categories identified.
+"You may also want to take a look at our commit & pull request guide and style guides for instructions on how to maintain your fork and submit your code. Before we can merge any pull request, we'll also need you to sign our contributor license agreement.",No categories identified.
+*/,No categories identified.
+Reporting Bugs,No categories identified.
+"* Licensed under the Apache License, Version 2.0 (the ""License"");",No categories identified.
+- package/package_name,No categories identified.
+"Videos demonstrating different ways to use Remmina, the more the merrier!
+The original video is needed, as it will be uploaded to video streaming services, if you need support let us know.
+These would make good topics for videos:",No categories identified.
+"Please do not report security vulnerabilities through public GitHub issues. Instead, please report them to the Microsoft Security Response Center (MSRC). See SECURITY.md for more information.",No categories identified.
+"Whether you're creating a new guide or adding to an existing one, you can
+reference the template guide if you're unsure where to put
+things.",No categories identified.
+"- Get all the latest work from the upstream nltk/nltk repository
+(git pull upstream develop);",No categories identified.
+- Use @since 5.0 instead of @since 5.0.0.,No categories identified.
+Ensure the directory looks like:,No categories identified.
+???????????????????? lerna ????????????????????,No categories identified.
+"cd graphql-php
+composer install",No categories identified.
+"To release a new version on NPM, first ensure all tests pass with npm test,
+then use npm version patch|minor|major in order to increment the version in
+package.json and tag and commit a release. Then git push && git push --tags
+this change so Travis CI can deploy to NPM. Do not run npm publish directly.
+Once published, add release notes.
+Use semver to determine which version part to increment.",No categories identified.
+"$ yarn dev
+# Open a browser on http://localhost:3000.
+# If you change source code, automatically reload your page.",No categories identified.
+"If you have discovered a security issue, do not create a pull request or open a public bug report. Instead, disclose the details of the potential problem to us privately.",No categories identified.
+"- GitHub Actions are used to make sure that the project builds packages as expected on the
+supported platforms, using supported Node.js versions, and that the project conforms to the
+configured coding standards.",No categories identified.
+Stack Overflow is a much better place to ask questions since:,No categories identified.
+"- design-kit
+templates to help bootstrap your design process.",No categories identified.
+$ cd /path/to/your/www/root/,No categories identified.
+"2.  Check if the issue has been fixed — try to reproduce it using the
+latest commits on master in the repository.",No categories identified.
+? Tip: Run the following in PowerShell Core,No categories identified.
+- filename: _pure_my_private_file.fish,No categories identified.
+Test a part of test,No categories identified.
+- void inline node: <img>,No categories identified.
+Contributing should stay up-to-date and be friendly to relatively experienced developers.,No categories identified.
+- general hipster code,No categories identified.
+"(c) The contribution was provided directly to me by some other person
+who certified (a), (b) or (c) and I have not modified it.",No categories identified.
+"When adding or fixing functionality, tests should be added to help reduce future regressions and breakage. All tests are ran automatically when new commits are pushed to a branch. Pull requests with broken/missing tests are not likely to be merged.",No categories identified.
+- test ????,No categories identified.
+"- How you made the change is visible in the code and is therefore rarely necessary to include
+in the commit body message, but why you made the change is often harder to guess and is
+therefore useful to include in the commit body message",No categories identified.
+Contributing,No categories identified.
+5.  #text and void inline node doesn't have children.,No categories identified.
+"Insert here a brief summary of the problem. A good bug summary is ""Chart should render the scales when there's no data"" or ""Errors are visible in the console"". Try to narrow down the bug's circumstances by isolating the relevant factors (does this only happen for a specific type of data, or when using the directive in specific conditions ?)",No categories identified.
+1.  This is the first step,No categories identified.
+"If you're adding new features to Leon, please include tests.",No categories identified.
+8.  Choose a descriptive title and describe your changes briefly.,No categories identified.
+Submitting a Great Patch,No categories identified.
+git branch -D my-fix-branch,No categories identified.
+Pull requests,No categories identified.
+$pure_threshold_command_duration,No categories identified.
+- hotword,No categories identified.
+Generating pacapt script,No categories identified.
+- ???,No categories identified.
+"- When submitting an issue, please follow the guidelines. Especially important is to make sure Yeoman is up-to-date, and providing the command or commands that cause the issue.",No categories identified.
+"Below is our guidance for how to report issues, propose new features, and submit contributions via Pull Requests (PRs).",No categories identified.
+- Maintainability: Helping maintainers understand more about the software they depend upon and the consumers of their software.,No categories identified.
+Running the Tests,No categories identified.
+Coding convention,No categories identified.
+- avoid-semicolon-at-all-cost stupidity,No categories identified.
+Issues,No categories identified.
+- ??????istanbul,No categories identified.
+"- In the vast majority of cases, you should test your bug fix/feature.",No categories identified.
+"-t ""extraResources - one-package"" globTest.js",No categories identified.
+6.  Visit GitHub and make your pull request.,No categories identified.
+"2.  What you expected it to do (""I expected it to audit google.com and www.google.com"")",No categories identified.
+"If you encounter a problem and know it is caused by eclipse.jdt.ls, then please open a bug report over there.
+In doubt, you can report issues in the vscode-java issue tracker.",No categories identified.
+Contact coreteam@pfsense.org with any additional questions or concerns.,No categories identified.
+- ?? TSLint ??????,No categories identified.
+"(plotly_dev) $ pip install -r packages/python/plotly/requirements.txt
+(plotly_dev) $ conda install fiona
+(plotly_dev) $ pip install -r packages/python/plotly/optional-requirements.txt",No categories identified.
+"- If the commit is non-trivial, please provide more detailed information in the commit body
+message",No categories identified.
+Please note that we will flag the issue as feature request and then close it. We check requests on regular base and when we decide to implement a feature we set a milestone and re-open the ticket.,No categories identified.
+"This is thrown whenever your session is invalid.
+You can fix it by not loading the session/cookies.
+Most of the time you'll face another error afterwards.",No categories identified.
+- Levels defined in JUnit's Logger fa,No categories identified.
+result.filter(function () { /* ... */ });,No categories identified.
+Submitting Changes,No categories identified.
+To build project: yarn && yarn compile,No categories identified.
+"- In general, logging should be used sparingly.",No categories identified.
+"- Open a pull request that relates to only one subject with a clear title
+and description in grammatically correct, complete sentences.",No categories identified.
+"In particular, you should prefer named function declarations over const myFunction = () => ... arrows for top-level functions. However, you should use arrow functions where they provide a tangible improvement (such as preserving this context inside a component). Consider both sides of the tradeoff when deciding whether to use a new feature.",No categories identified.
+Pull Request When Ready,No categories identified.
+"Once your code has been reviewed and approved by the requisite number of team members, it will be merged into the master branch. Once merged, your PR will be automatically closed.",No categories identified.
+Determining your branch,No categories identified.
+develop,No categories identified.
+"First of all, thank you for using n3-charts ! And thank you too for contributing, this is an open-source, community driven project that couldn't exist without, well, the community. That means you ! However, as any project that involves more than one person, there are rules to follow in order to make everyone happy. Please read them carefully, and feel free to ask about them (here).",No categories identified.
+- Use either Mockito or hand-written test doubles.,No categories identified.
+... or Cmd:,No categories identified.
+"(plotly_dev) $ pip install -e packages/python/plotly/
+(plotly_dev) $ pip install -e packages/python/chart-studio/
+(plotly_dev) $ pip install -e packages/python/plotly-geo/",No categories identified.
+Git and our Branching model,No categories identified.
+We try to use the following channels accordingly:,No categories identified.
+Pull-requests,No categories identified.
+"The pfSense project welcomes contributions, big or small. Members of the pfSense community frequently contribute bug fixes, enhancements, and documentation changes to improve the functionality and usability of the software.",No categories identified.
+"*Optional:
+You can run faster server builds during development by calling ./node_modules/.bin/gulp dev_server script instead, this will build server binaries that are required by your host OS only. You can also use npm run watch-server which will build and place them on the extension for Java changes. These commands run Maven in offline mode, so you might need to run build-server at least once, to fetch all the dependencies.",No categories identified.
+How To Contribute,No categories identified.
+"- Currently, the only proxy able to decrypt TLS  1.3 is Burp 1.7.x
+(use version 1.7 although it's outdated, 2.x won't work) with Java 11 or above.",No categories identified.
+This is based on information seen here.,No categories identified.
+"- You grant Forge a license to use your code contributed to the primary codebase (everything not under patches) in Forge, under the LGPLv2.1 license.",No categories identified.
+"conda create -n plotly-dev python
+conda activate plotly-dev",No categories identified.
+- install section,No categories identified.
+- origin - Your fork of the official repository on GitHub (what is on your GitHub account),No categories identified.
+Or you can create Node.js run configuration manually:,No categories identified.
+Development,No categories identified.
+- You can test your code locally along with your changes using: yarn storybook or npm run storybook. This will open the storybook in your browser .,No categories identified.
+"Therefore, if you do file issues, or create PRs, please keep an eye on your GitHub notifications. If you do not respond to requests for information, your issues/PRs may be closed automatically.",No categories identified.
+- upstream/master - This is the where main development takes place,No categories identified.
+New features that introduce some breaking changes or incomplete code should be committed in a separate feature-{name} branch.,No categories identified.
+Code Guidelines,No categories identified.
+3.  Run npm i in the local repo,No categories identified.
+"- Update @API.since. Please note since describes the version when the
+status was changed and not the introduction of the element.",No categories identified.
+"# Clone your fork of the repo into the current directory
+git clone https://github.com/<your-username>/server-configs-apache.git
+# Navigate to the newly cloned directory
+cd server-configs-apache
+# Assign the original repo to a remote called ""upstream""
+git remote add upstream https://github.com/h5bp/server-configs-apache",No categories identified.
+"Contributor License Agreement (""CLA"")",No categories identified.
+- Run cd nltk to get to the root directory of the nltk code base;,No categories identified.
+When submitting an issue include the following:,No categories identified.
+$ cd jquery-mobile,No categories identified.
+"- block node: <div>, <p>, <li>, <h1>, <table>",No categories identified.
+Don't use ES6 features when equivalent ES5 features have no downsides.,No categories identified.
+Footer,No categories identified.
+Git Commit Messages,No categories identified.
+"If you would like to run some part of your test codes, use the watch mode.",No categories identified.
+- Frontend (Javascript-related) errors: in your browser's Javascript console. See this guide to using your browser console.,No categories identified.
+- 2 spaces for indentation (no tabs),No categories identified.
+"- Ensure no coding standards violations - Please run PHP Code Sniffer using the PSR-2 standard before submitting your pull request. A violation will cause the build to fail, so please make sure there are no violations. We can't accept a patch if the build fails.",No categories identified.
+Contributing to twa,No categories identified.
+How do I verify and test my changes?,No categories identified.
+"This guide start by a general description of the different ways to contribute
+to plotly.py, then we explain some technical aspects of preparing your
+contribution.",No categories identified.
+C:\> ver,No categories identified.
+"- Before opening a pull request for a bug fix or new feature, make sure there is a ticket for it (don't include a bug report in a pull request)",No categories identified.
+"In order to accept your pull request, we need you to submit a CLA. You only need
+to do this once to work on any of Facebook's open source projects.",No categories identified.
+- Use semicolons;,No categories identified.
+"(b) The contribution is based upon previous work that, to the best of my
+knowledge, is covered under an appropriate open source license and I
+have the right under that license to submit that work with
+modifications, whether created in whole or in part by me, under the same
+open source license (unless I am permitted to submit under a different
+license), as indicated in the file; or",No categories identified.
+Code of Conduct,No categories identified.
+Developer Certificate of Origin Version 1.1,No categories identified.
+This is because the WordPress export produces a pretty messed up export file when it comes to line endings.,No categories identified.
+"- Dev documentation
+Commenting the source code and writing checks is also an ongoing process.",No categories identified.
+"- Use ""fix"", ""add"", ""change"" instead of ""fixed"", ""added"", ""changed"" in your commit messages.",No categories identified.
+"Including this information in a submission will help us test the problem and
+ensure that the bug is both reproduced and corrected on the platforms /
+versions that you are having issues with.",No categories identified.
+"Decisions about which libraries to use should live in template projects such as
+Suspenders.",No categories identified.
+"- Make a note in the CHANGELOG.md file with a brief summary of your change under the heading ""Unreleased"" at the top of the file. If that heading does not exist, you should add it.",No categories identified.
+Contributing to WarriorJS,No categories identified.
+"The team triages new issues several times a week. During triage, the team uses labels to categorize, manage, and drive the project workflow.",No categories identified.
+"git clone https://github.com/nltk/nltk.git
+cd nltk
+pipenv install -r pip-req.txt
+pipenv install tox
+tox -e py37",No categories identified.
+"Financial contributions help make Remmina a lot.
+More info to be found on the Remmina website donation page.
+List of all the great supporters.",No categories identified.
+"Be mindful that if you move some code in an example with highlighting, you also need to update the highlighting.",No categories identified.
+or for a specfic test function,No categories identified.
+"- Have a question that you don't see answered in docs, videos, etc.? File an issue",No categories identified.
+- Social media,No categories identified.
+"- Backwards compatible: Expo CLI should work with every currently supported Expo SDK version. If the code you're adding depends on a feature only present in newer or unreleased SDK versions, it needs to check which SDK version is being used and not assume the latest version is being used.",No categories identified.
+"- Do many small commits on that branch locally (git add files-changed,
+git commit -m ""Add some change"");",No categories identified.
+Repo Bot,No categories identified.
+"* distributed under the License is distributed on an ""AS IS"" BASIS,",No categories identified.
+2.  This is the second step,No categories identified.
+Contributing guide,No categories identified.
+"For changes to the website (electronforge.io), please file
+issues/pull requests at its separate repository.",No categories identified.
+"- Trolling, insulting/derogatory comments, and personal or political attacks",No categories identified.
+$ grunt,No categories identified.
+"- Unless your contributions fall under the trivial exemption policy (below), contributors must sign our Contributor License Agreement (CLA) to be eligible to contribute. Read more in section is below.",No categories identified.
+- fix: A bug fix,No categories identified.
+How to contribute,No categories identified.
+We employ a bot engine to help us automate common processes within our workflow.,No categories identified.
+Here is a quick guide to doing code contributions to the library.,No categories identified.
+"If you wish to publish a canary version, please run:",No categories identified.
+"Report bugs, ideas, issues",No categories identified.
+- Follow the Coding Rules.,No categories identified.
+Branches,No categories identified.
+"The MonoGame project follows standard GitHub flow.  You should learn and be familiar with how to use Git, how to create a fork of MonoGame, and how to submit a Pull Request.",No categories identified.
+Documentation changes,No categories identified.
+If you're still thinking about that killer feature that no one else is thinking about then please create an issue for it using the template.,No categories identified.
+- up-for-grabs: Theses issues have not yet been assigned to anybody. Look for theses when you want to start working on a new issue.,No categories identified.
+1.  This is the first step,No categories identified.
+Support,No categories identified.
+*,No categories identified.
+"- nltk/nltk_data, repository with data
+related to corpora, taggers and other useful data that are not shipped by
+default with the library, which can be downloaded by nltk.downloader;",No categories identified.
+A few things we will not accept,No categories identified.
+The Anatomy of a Guide,No categories identified.
+"Please ask first before embarking on any significant pull request (e.g.
+implementing features, refactoring code), otherwise you risk spending a lot of
+time working on something that the project's developers might not want to merge
+into the project.",No categories identified.
+- DO NOT surprise us with new APIs or big new features. Open an issue to discuss your ideas first.,No categories identified.
+"When submitting your pull request, you need to determine whether to base off
+next or master:",No categories identified.
+C:\> $PSVersionTable.OS,No categories identified.
+Asking for Help,No categories identified.
+1.  Setup Instagram on your phone like this,No categories identified.
+"Currently, the only way of capturing these packets is using another proxy.",No categories identified.
+- Avoid using force push when addressing comments and review items.,No categories identified.
+"- Put a comment block over your methods, describing what they do, their parameters, and their results.",No categories identified.
+"- Unless it's impractical, please write tests for your changes. This will help us so that we can
+spot regressions much easier.",No categories identified.
+2.  Clone this copy to your local disk:,No categories identified.
+Development,No categories identified.
+For smaller contributions just use this workflow:,No categories identified.
+git pull [--rebase] upstream master,No categories identified.
+"There are many video editors for Linux|GNU. OpenShot is good.
+To produce good looking videos choose a 1080p profile.",No categories identified.
+Issues,No categories identified.
+"Additionally, the learn repository can have dev-* for learn specific features and fixes.",No categories identified.
+6.  Platforms/browsers (including version) and devices tested,No categories identified.
+Who is a Collaborator?,No categories identified.
+Value should be a boolean.,No categories identified.
+"The support from the user community has been amazing.  Your passion for creating PySimpleGUI applications is infectious.  Every ""thank you"" is noticed and appreciated!  Your passion for wanting to see PySimpleGUI improve is neither ignored nor unappreciated.",No categories identified.
+"- Please do not use the issue tracker for personal support requests (use
+Stack Overflow or IRC).",No categories identified.
+"NLTK consists of the functionality that the Python/NLP community is motivated to contribute.
+Some priority areas for development are listed in the NLTK Wiki",No categories identified.
+$ yarn test:grep LinkDialog,No categories identified.
+Topic branches should exist in your local and origin repositories only. Submitting a pull request will request a merge from your topic branch to our upstream/master branch.,No categories identified.
+CAUTION Please note that once you have pushed your branch remotely you MUST NOT rebase!,No categories identified.
+1.  Don't use tab or smart tab;,No categories identified.
+"To submit a feature request, create an issue. Include the following:",No categories identified.
+Reporting a bug,No categories identified.
+Donate,No categories identified.
+Background Info,No categories identified.
+Coding Style,No categories identified.
+$pure_begin_prompt_with_current_directory = true,No categories identified.
+"? If you have a question, think you've discovered an issue, would like to propose a new feature, etc., then find/file an issue BEFORE starting work to fix/implement it.",No categories identified.
+- perf: A code change that improves performance,No categories identified.
+- DO give priority to the existing style of the file you're changing.,No categories identified.
+"By contributing your code, you agree to license your contribution under the terms of the APLv2: https://github.com/JessYanCoding/MVPArms/blob/master/LICENSE",No categories identified.
+Apply automatic code style fixes:,No categories identified.
+Setting up a Development Environment,No categories identified.
+6.  Push your topic branch up to your fork:,No categories identified.
+- Run yarn install to make sure you have all Marionette dependencies locally.,No categories identified.
+Grommet Projects,No categories identified.
+What should I know Before I get started?,No categories identified.
+"Now that you've defined the remote upstream branch, you can refresh your local copy of master with the following commands:",No categories identified.
+- version of LCUI used,No categories identified.
+"- Have a question that you don't see answered in docs, videos, etc.? File an issue",No categories identified.
+3.  Reading the Signature Key,No categories identified.
+- Don't know whether you're reporting an issue or requesting a feature? File an issue,No categories identified.
+"- Download the datasets for running tests
+(python -m nltk.downloader all);",No categories identified.
+"Because Windows requires Visual Studio libraries to compile some of the optional dependencies, follow these steps to
+complete installation and avoid gdal-config errors.",No categories identified.
+Occurs as the name suggests after a large amount of requests (in a short amount of time).,No categories identified.
+How can I contribute?,No categories identified.
+"Consider for example a use case needing to support an HTTP URL. Calling the method
+getHTTPURL() is absolutely horrible in terms of usability; whereas, getHttpUrl() is
+great in terms of usability. The same applies for types HTTPURLProvider vs
+HttpUrlProvider, etc.",No categories identified.
+2.  Coding style,No categories identified.
+- Grunt (install with: npm install -g grunt-cli),No categories identified.
+References,No categories identified.
+Coding Rules,No categories identified.
+- install tox for testing,No categories identified.
+You're strongly encouraged to write tests that check your added functionality.,No categories identified.
+Contributing,No categories identified.
+If it is possible to comment your contribution,No categories identified.
+- Buying me a fruit juice.,No categories identified.
+- Rafael Auler (rafaelauler),No categories identified.
+"karma will run test and keep waiting other test requests. And then, run test:grep in another terminal. Below shows how to run LinkDialog related tests only.",No categories identified.
+- should end with a period,No categories identified.
+... or even more granular by running something like:,No categories identified.
+Step by step guide,No categories identified.
+Test page,No categories identified.
+"By contributing to the project, you agree that your contributions will be licensed
+under the LICENSE file in the root directory of this source tree.",No categories identified.
+"# build full version of summernote: dist/summernote.js
+$ yarn build",No categories identified.
+- Documentation,No categories identified.
+1.  Clone the repository.,No categories identified.
+Before opening bug reports/technical issues,No categories identified.
+"2.  If you cloned a while ago, get the latest changes from upstream:",No categories identified.
+????????,No categories identified.
+Need More Help?,No categories identified.
+- Regenerate README: php php-cs-fixer readme > README.rst (Windows php.exe php-cs-fixer readme > README.rst). Do not modify README.rst manually!,No categories identified.
+- Any un-confirmed issue needs a failing test case before being accepted,No categories identified.
+"Just as in the subject, use the imperative, present tense: ""change"" not ""changed"" nor ""changes"".
+The body should include the motivation for the change and contrast this with previous behavior.",No categories identified.
+"- Trailing commas,",No categories identified.
+- The project will follow strict object calisthenics,No categories identified.
+- test: Adding missing tests or correcting existing tests,No categories identified.
+"If you file an Issue for a bug, have located the bug, and found a fix in 10 lines of code or less.... and you wish to share your fix with the community, then feel free to include it with the filed Issue.  If it's longer than 10 lines and wish to discuss it, then send an email to help@PySimpleGUI.org.",No categories identified.
+We accept contributions via Pull Requests on Github.,No categories identified.
+Contributing,No categories identified.
+- Pull requests are welcome,No categories identified.
+"We'll even accept a failing test pasted into the ticket description instead of a
+PR. That would at least get us started on creating the failing test in the code.",No categories identified.
+Please make sure to add new type to README (both menu and description). When providing description make sure to leave a resulting type in a comment like:,No categories identified.
+- All test classes must end with a Tests suffix.,No categories identified.
+"We expect that iperf3 interactions via the issue tracker, mailing
+lists, and so forth will be conducted civilly.  Language that is
+deemed appropriate or abusive may be removed, and we reserve the right
+to ban users from accessing the project for repeated offense.",No categories identified.
+All files are released with the Apache 2.0 license.,No categories identified.
+Additionally for this generator:,No categories identified.
+- Cration of and connection to a VNC server.,No categories identified.
+5.  Ensure all tests pass,No categories identified.
+- Backbone version #.,No categories identified.
+If there isn't already an issue for a feature then go ahead and create a new issue for it using the template. If you'd like to work on the enhancement then just mention it in a comment and check out our workflow.,No categories identified.
+git push origin my-fix-branch,No categories identified.
+"2.  If you cloned a while ago, get the latest changes from upstream:",No categories identified.
+"Tickets are labeled by size, skills required and to indicate workflow. Details can be found in our labelling policy.",No categories identified.
+Changing the Code,No categories identified.
+"To get you started you might want to check out issues concerning documentation, user experience, visual design or perhaps something already awaiting help. You may find the following useful:",No categories identified.
+"- Favor literals (e.g., {@literal @}) over HTML entities.",No categories identified.
+$ git clone git://github.com/Ocramius/PackageVersions.git,No categories identified.
+"PROJECT_FOLDER/
+|
+|--- vscode-java/
+|--- eclipse.jdt.ls/",No categories identified.
+????,No categories identified.
+"By default production code should be silent unless there is a fatal exception. Because of this, logging or debugging is not allowed inside LEAN framework modules. Additional charting inside the module consumes the resources and should not be included in a module as well.",No categories identified.
+"1.  Fork this repo by using the ""Fork"" button in the upper-right",No categories identified.
+"- If we can
+steps required to reproduce the issue.",No categories identified.
+"- use the imperative, present tense: ""change"" not ""changed"" nor ""changes""",No categories identified.
+The first of these problems is our focus for Libraries.io. The other two we are trying to tackle at Tidelift.,No categories identified.
+- Setup a GitHub account,No categories identified.
+"- If you are new to contributing code or content to jQuery projects, read the information at contribute.jquery.org first",No categories identified.
+"5.  Don't forget to run npm test just right before submitting, it also checks for code styling issues.",No categories identified.
+"When you write a new test anywhere under the tests directory, if your PR gets accepted, that test will run in a virtual machine to ensure that future changes don't break your contributions!",No categories identified.
+"The Windows Terminal team is VERY active in this GitHub Repo. In fact, we live in it all day long and carry out all our development in the open!",No categories identified.
+"By contributing to graphql-js, you agree that your contributions will be
+licensed under its MIT license.",No categories identified.
+????,No categories identified.
+"At this point, you should now have a dist/ directory populated with everything you need to use summernote.",No categories identified.
+"Also, while creating your Pull Request on GitHub, you MUST write a description
+which gives the context and/or explains why you are creating it.",No categories identified.
+$ yarn install,No categories identified.
+- Do not use org.junit.Assert or junit.framework.Assert.,No categories identified.
+1.  Fork the main repository.  Click on the 'Fork' button near the top of the page.  This creates a copy of the code under your account on the GitHub server.,No categories identified.
+"- Go to Proxy > External proxy settings..., enable it and forward HTTP and HTTPS to 127.0.0.1:{BURP_PORT}.",No categories identified.
+- Question or Problem?,No categories identified.
+Code Review,No categories identified.
+Our Standards,No categories identified.
+"4.  We try to follow the convention from:
+https://github.com/icy/bash-coding-style.",No categories identified.
+Issues,No categories identified.
+- Push your branch (git push origin my-new-feature).,No categories identified.
+- Showing empathy towards other community members,No categories identified.
+"You'll need to export an environment variable for each tox environment you wish to test with. For example, if you want to test with Python 2.7 and
+Python 3.6, but only care to check the core specs, you would need to ensure that the following variables are exported:",No categories identified.

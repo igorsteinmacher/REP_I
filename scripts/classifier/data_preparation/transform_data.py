@@ -9,14 +9,14 @@ import pandas
 
 def transform_spreadsheets_in_dataframe(spreadsheets_dir, text_column, 
                                         classes_columns, label_column):
-    """Transforms annotated spreadsheets in a dataframe.
+    """Transforms annotated spreadsheets in a dataframe structure.
 
     Args:
-        spreadsheets_dir: A string representing the path to the directory where the
+        spreadsheets_dir (String): Represents the path to the directory where the
                         spreadsheets are located.
 
     Returns:
-        A dataframe containing spreadsheets data.
+        Dataframe: Contains the parsed spreadsheets in a dataframe structure.
     """
     dataframe = pandas.DataFrame()
 
@@ -35,12 +35,12 @@ def parse_spreadsheet_file(filepath, text_column, classes_columns, label_column)
     """Extracts the annotated data from one spreadsheet file.
 
     Args:
-        filepath: A string representing the path to the spreadsheet.
-        classes: A list of strings containing the columns that should be extracted
+        filepath (String): Represents the path to a spreadsheet.
+        classes (List of strings): Contains the columns that should be extracted
                 from the spreadsheet as classes of the classifier.
 
     Returns:
-        A dataframe containing the data from the spreadsheet.
+       Dataframe: Contains the data from the spreadsheet.
     """
     spreadsheet = pandas.ExcelFile(filepath, engine='openpyxl')
     dataframe = pandas.DataFrame()

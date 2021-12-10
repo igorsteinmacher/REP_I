@@ -4,25 +4,44 @@
 __author__ = 'Felipe Fronchetti'
 __contact__ = 'fronchetti@usp.br'
 
+# General modules
 import os
 import random
 import shutil
-from matplotlib.pyplot import text
-
 import pandas
+import pickle
 from scipy.sparse import vstack
+
+# Final estimator 
+from sklearn.svm import LinearSVC
+
+# Data preparation
 from data_preparation.import_data import import_data_for_classification, import_data_for_prediction
+
+# Model selection
 from model_selection.evaluate_estimators import evaluate_estimators_performance
+
+# Classification
 from classification.train_model import train_classifier
 from classification.explore_model import export_classification_report
-from classification.explore_model import export_confusion_matrix 
-from classification.explore_model import export_learning_curve 
-from sklearn.svm import LinearSVC
-import pickle
+from classification.explore_model import export_confusion_matrix
+from classification.explore_model import export_learning_curve
 
 def find_best_estimator(X_train, y_train, results_dir):
-    # Classifiers available:
-    # 'svc' for Support Vector Classifier
+    """Tests a list of pre-defined algorithms with the 
+    training samples provided in order to find
+    the one that best fits the given problem.
+
+    Args:
+        X_train (Dataframe): Training features
+        y_train (Series): Training labels
+        results_dir (String): Folder were the
+        performance results are supposed to be
+        stored.
+    """
+
+    # Algorithms implemented:
+    # 'svc' for Support Vector 
     # 'mnb' for Multinomial Naive Bayes
     # 'knn' for K-nearest Neighbors
     # 'lr' for Logistic Regression
@@ -30,10 +49,12 @@ def find_best_estimator(X_train, y_train, results_dir):
     # 'dmr' for Dummy Classifier (Random)
     # 'dmf' for Dummy Classifier (Always the most frequent)
     classifiers = ['dmr', 'svc', 'mnb', 'knn', 'lr', 'rf', 'dmf'] # 
+
     # Strategies available:
     # 'ovr' for OneVsRest
     # 'ovo' for OneVsOne
     strategies = ['ovr', 'ovo']
+
     # Oversampling:
     # True to apply SMOTE
     # False to not apply SMOTE
@@ -43,6 +64,23 @@ def find_best_estimator(X_train, y_train, results_dir):
                                     X_train, y_train, results_dir)
 
 def evaluate_final_estimator_on_unseen_data(X_train, y_train, X_test, y_test, results_dir):
+    """After identifying the algorithm that provides the best
+    performance (See method find_best_estimator), this method
+    evaluates such algorithm on unseen data (test instances), 
+    providing a classification report, learning curves and 
+    a confusing matrix.
+
+    Args:
+        X_train (Dataframe): Training features
+        y_train (Series): Training labels
+        X_test (Dataframe): Test features
+        y_test (Series): Test labels
+        results_dir (String): Folder where results
+        should be saved.
+    """
+
+    # Based on the current tests, LinearSVC with the following arguments
+    # is the estimator that provides the best performance for the training instances.
     selected_classifier = LinearSVC(tol=0.001, C=1, max_iter=500)
 
     training_args = {
@@ -54,13 +92,26 @@ def evaluate_final_estimator_on_unseen_data(X_train, y_train, X_test, y_test, re
     }
 
     model = train_classifier(**training_args)
+
     export_classification_report(model, X_test, y_test, results_dir)
     export_confusion_matrix(model, X_test, y_test)
     export_learning_curve(**training_args)
 
 def train_final_estimator(X_train, y_train, X_test, y_test):
-    selected_classifier = LinearSVC(tol=0.001, C=1, max_iter=500)
+    """After identifying the algorithm that provides the best
+    performance (See method find_best_estimator), this method
+    trains such estimator using all train and test instances, 
+    and dumps a final model for prediction.
 
+    Args:
+        X_train (Dataframe): Training features
+        y_train (Series): Training labels
+        X_test (Dataframe): Test features
+        y_test (Series): Test labels
+    """
+    selected_classifier = LinearSVC(tol=0.001, C=1.5, max_iter=500)
+
+    # Merges training and test samples/labels
     X_train = vstack((X_train, X_test))
     y_train = pandas.concat([y_train, y_test])
 
@@ -73,9 +124,33 @@ def train_final_estimator(X_train, y_train, X_test, y_test):
     }
 
     model = train_classifier(**training_args)
+
+    # Dumps the model to a file for future predictions.
     pickle.dump(model, open('final_estimator.sav', 'wb'))
 
 def predict_using_final_estimator(spreadsheets_dir, predict_spreadsheets_dir, results_dir, n_samples):
+    """Using the final version of the best estimator (See train_final_estimator), 
+    this method is used to predict the classes of new data samples.
+
+    This method is used in our survey where participants evaluate
+    if our classifications make sense or not.
+
+    Args:
+        spreadsheets_dir (String): Folder where spreadsheets are located.
+        Notice that such spreadsheets should not be used to train the
+        classifier in the previous steps. In other works, they should
+        be unknown to the final estimator.
+        predict_spreadsheets_dir (String): Folder where a copy
+        of such spreadsheets will be saved. 
+        results_dir (String): Folder where the predictions will
+        be saved.
+        n_samples (Integer): Number of spreadsheets to be predicted.
+    """
+
+    # Finds a spreadsheet in the spreadsheet folder that is not
+    # being used, and copies it to a new folder of spreadsheets
+    # to be predicted. The outer loop stops when a number of
+    # n_samples is satisfied.
 
     for i in range(0, n_samples):
         while True:
@@ -86,16 +161,28 @@ def predict_using_final_estimator(spreadsheets_dir, predict_spreadsheets_dir, re
             if os.path.isfile(filepath) and not os.path.exists(copy_filepath):
                 shutil.copyfile(filepath, copy_filepath)
                 break
-            
+
+    # We use the same method using during the training process of an estimator
+    # to parse the data from the spreadsheets to be predicted.
     X_train, _, X_test, _, train_text_column, test_text_column = import_data_for_prediction(predict_spreadsheets_dir, data_dir)
+
+    # Merge training and test samples. Notice that this data
+    # will not be used for training but only for prediction.
+    # We just need to merge "training and test samples" because
+    # we use the method import_data_for_prediction to parse the
+    # data, which is also used in training.
     X_predict = vstack((X_train, X_test))
     text_column = pandas.concat([train_text_column, test_text_column], ignore_index = True)
 
+    # Loads the final estimator (See predict_using_final_estimator).
     model = pickle.load(open('final_estimator.sav', 'rb'))
+
+    # Using the final estimator, predicts the classes for the unknown
+    # spreadsheets.
     y_predict = model.predict(X_predict)
 
+    # Saves predictions in a CSV file.
     with open(os.path.join(results_dir, 'predictions.csv'), 'w') as predictions_file:
-
         classes = ['No categories identified.',
                     'CF - Contribution flow',
                     'CT – Choose a task',
@@ -107,14 +194,11 @@ def predict_using_final_estimator(spreadsheets_dir, predict_spreadsheets_dir, re
         for predicted_class in classes:
             predictions_file.write('Paragraph, Predicted Class\n')
 
-            samples_per_class = 5
             instances = [i for i, item in enumerate(y_predict) if item.startswith(predicted_class[:2])]
 
-            if len(instances) < samples_per_class:
-                print("Insufficient items for class: " + predicted_class)
-
-            for i in range(0, samples_per_class):
-                predictions_file.write("\"%s\", %s\n" % (text_column[instances[i]], y_predict[instances[i]]))
+            for i in range(0, len(instances)):
+                if len(text_column[instances[i]]) > 100:
+                    predictions_file.write("\"%s\", %s\n" % (text_column[instances[i]], y_predict[instances[i]]))
 
             predictions_file.write('\n')
 
@@ -139,7 +223,12 @@ if __name__ == '__main__':
 
     X_train, y_train, X_test, y_test, _, _ = import_data_for_classification(valid_spreadsheets_dir, data_dir)
 
-    find_best_estimator(X_train, y_train, results_dir)
+    # Stage 1: Estimating performance of classification algorithms
+    # find_best_estimator(X_train, y_train, results_dir)
+
+    # Stage 2: Train and evaluate the final estimator (i.e. estimator that best fits the problem)
     # evaluate_final_estimator_on_unseen_data(X_train, y_train, X_test, y_test, results_dir)
     # train_final_estimator(X_train, y_train, X_test, y_test)
-    # predict_using_final_estimator(spreadsheets_dir, predict_spreadsheets_dir, results_dir, 75)
+
+    # Stage 3: Predict data using the final estimator
+    predict_using_final_estimator(spreadsheets_dir, predict_spreadsheets_dir, results_dir, 75)

@@ -30,7 +30,23 @@ from sklearn.dummy import DummyClassifier
 
 def evaluate_estimators_performance(classifiers, strategies, oversample, 
                                     X_train, y_train, results_dir):
+    """For a set of pre-defined estimators, evaluate
+    their performance on training instances.
 
+    Args:
+        classifiers (List of strings): The list of classifiers
+        which performance should be estimated. 
+        strategies (List of strings): The list of multiclass
+        estrategies that should be used during estimation.
+        oversample (Boolean): The possibility (or not) of
+        using an oversampling technique on training data.
+        X_train (Dataframe): Training features
+        y_train (Series): Training labels
+        results_dir (String): Folder where results
+        should be saved.
+    """
+
+    # Dictionary of classification algorithms available
     classifiers_available = {
         'rf': RandomForestClassifier(n_jobs=-1),
         'svc': LinearSVC(),
@@ -41,6 +57,8 @@ def evaluate_estimators_performance(classifiers, strategies, oversample,
         'dmf': DummyClassifier(strategy='most_frequent')
     }
 
+    # Dictionary of hyperpameters tested for each
+    # classification algorithm above.
     hyperparameters_available = {
         'rf': {'clf__estimator__n_estimators': [75, 100, 125]},
         'svc': {'clf__estimator__tol': [1e-3, 1e-4, 1e-5],
@@ -51,15 +69,20 @@ def evaluate_estimators_performance(classifiers, strategies, oversample,
         'knn': {'clf__estimator__n_neighbors': [3, 5, 7]},
         'lr': {'clf__estimator__tol': [1e-3, 1e-4, 1e-5],
                'clf__estimator__C': [0.5, 1, 1.5]},
-        'dmr': {}, # This is a dummy classifier
-        'dmf': {}  # This is a dummy classifier
+        'dmr': {}, # This is a dummy classifier, no hyperparameters are used.
+        'dmf': {}  # This is a dummy classifier, no hyperparameters are used.
     }
 
+    # Dictionary of multiclass strategies used
+    # during training.
     strategies_available = {
         'ovr': 'one_vs_rest',
         'ovo': 'one_vs_one'
     }
 
+    # Identifies which resources the user decided to use.
+    # Resources here mean: classification algorithms, different
+    # hyperparameters and training strategies (including oversampling).
     selected_classifiers = [classifiers_available[classifier]
                             for classifier in classifiers]
 
@@ -69,6 +92,8 @@ def evaluate_estimators_performance(classifiers, strategies, oversample,
     selected_strategies = [strategies_available[strategy]
                             for strategy in strategies]
 
+    # For all the selected resources, estimate the performance and
+    # export the results.
     for classifier, hyperparameters in zip(selected_classifiers, selected_hyperparameters):
         classifier_name = type(classifier).__name__
         print("Evaluating estimator: " + classifier_name)
@@ -93,32 +118,38 @@ def evaluate_estimators_performance(classifiers, strategies, oversample,
 
                 export_estimator_results(estimator_args, internal_evaluation, 
                                          f1_weighted_scores_means, results_dir)
-    
+
+
 def nested_cross_validation(classifier, hyperparameters, strategy, 
                             oversample, X_train, y_train):
-
     """Computes a multiclass nested ten-fold cross-validation.
 
     To better evaluate how each algorithm performs in our data,
     a nested stratified k-folding cross-validation approach was applied.
 
     Args:
-        classifier: An instance of a scikit-learn classifier.
-        hyperparameters: Hyperparameters to be used in Gridsearch.
-        strategy: A string defining which strategies will be used for training.
-        oversample: A boolean variable that defines if SMOTE oversampling is applied.
-        X: A matrix containing features.
-        y: A column containing labels.
+        classifier (Class): An instance of a scikit-learn classifier.
+        hyperparameters (Dictionary): Hyperparameters to be used in GridSearch.
+        strategy (String): Defines which strategies will be used during training.
+        oversample (Boolean): Defines if smote oversampling should be applied.
+        X_train: Training features.
+        y_train: Training labels.
 
     Returns:
-        Mean of F1 scores from the nested cross-validation.
+        F1 weighted scores from cross-validation.
     """
+
+    # Selected resources are used
+    # in a scikit-learn pipeline
     pipeline_args = []
 
+    # IF oversample is selected
     if oversample:
         oversample = ('smt', SMOTE())
         pipeline_args.append(oversample)
 
+    # If one of the following multiclass
+    # strategies is elected.
     if strategy == 'one_vs_rest':
         strategy_arg = ('clf', OneVsRestClassifier(classifier))
         pipeline_args.append(strategy_arg)
@@ -144,7 +175,7 @@ def nested_cross_validation(classifier, hyperparameters, strategy,
     num_times = 1
 
     if strategy == 'one_vs_rest':
-        num_times = 1
+        num_times = 10
     elif strategy == 'one_vs_one':
         num_times = 1
 
@@ -158,11 +189,21 @@ def nested_cross_validation(classifier, hyperparameters, strategy,
     return internal_evaluation, f1_weighted_scores_means
 
 def export_estimator_results(estimator_args, internal_evaluation, f1_weighted_scores_means, results_dir):
+    """Exports a estimators performance to a text file.
+
+    Args:
+        estimator_args (Dictionary): Arguments used to train the classifier (e.g. training strategy)
+        internal_evaluation (Class): GridSearch results
+        f1_weighted_scores_means (List): F1 weighted scores (mean)
+        results_dir (String): Folder whre results should be saved.
+    """
+
     filename = type(estimator_args['classifier']).__name__ + '_strategy_' + \
                estimator_args['strategy'] + '_oversample_' + str(estimator_args['oversample']).lower()
 
     filepath = os.path.join(results_dir, filename)
     
+    # If file already exists, don't replace it.
     if os.path.exists(filepath):
         num_attempts = 1
 

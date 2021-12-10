@@ -19,19 +19,18 @@ def create_train_and_test_sets(spreadsheets_dir, text_column, classes_columns,
         qualitative analysis.
 
     Args:
-        spreadsheets_dir: A string representing the path to the spreadsheets folder
-        text_column: A string representing what is the column containing the paragraphs
+        spreadsheets_dir (String): Represents the path to the spreadsheets folder
+        text_column (String): Represents the column containing the paragraphs
             in each spreadsheet
-        classes_columns: A list of strings representing what are the columns representing
+        classes_columns (List of strings): Represent the columns representing
             classes in each spreadsheet
-        train_filepath: A string representing the filepath where the train set should be
-            saved as a .csv file
-        test_filepath: A string representing the filepath where the test set should be
-            saved as a .csv file
-        label_column: A string representing the label that will be given to a new column that
-            will be used to represent the label of each paragraph.
+        train_filepath (String): Represents the filepath where the train set should be
+            saved as a CSV file
+        test_filepath (String): Represents the filepath where the test set should be
+            saved as a CSV file
+        label_column (String): Represents the name given to a new column that
+            will be used to store the label of each paragraph.
     """
-
     dataframe = transform_spreadsheets_in_dataframe(spreadsheets_dir,
                                                     text_column,
                                                     classes_columns,
@@ -52,14 +51,14 @@ def import_sets(train_filepath, test_filepath, text_column, label_column, is_pre
     """Imports train and test sets and applies the text preprocessing techniques when necessary
     
     Args:
-        text_column: A string representing what is the column containing the paragraphs
-        in each spreadsheet
-        train_filepath: A string representing the filepath where the train set should be
-            saved as a .csv file
-        test_filepath: A string representing the filepath where the test set should be
-            saved as a .csv file
-        label_column: A string representing the label that will be given to a new column that
-            will be used to represent the label of each paragraph.
+        text_column (String): Represents the column containing the paragraphs
+            in each spreadsheet
+        train_filepath (String): Represents the filepath where the train instances are
+            saved as a CSV file
+        test_filepath (String): Represents the filepath where the test instances are
+            saved as a CSV file
+        label_column (String): Represents the name given to a new column that
+            will be used to store the label of each paragraph.
     """
     print("Importing training and test sets.")
     train_data = pandas.read_csv(train_filepath)

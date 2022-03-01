@@ -203,7 +203,7 @@ def predict_using_final_estimator(spreadsheets_dir, predict_spreadsheets_dir, re
             predictions_file.write('\n')
 
 if __name__ == '__main__':
-    # Folders used during the classification process:
+    # Folders used during the whole process:
     # repository/scripts/classifier/
     classifier_dir = os.getcwd()
     # repository/scripts/
@@ -221,14 +221,31 @@ if __name__ == '__main__':
     # repository/data/documentation/spreadsheets/for-prediction
     predict_spreadsheets_dir = os.path.join(spreadsheets_dir, 'for-prediction')
 
-    X_train, y_train, X_test, y_test, _, _ = import_data_for_classification(valid_spreadsheets_dir, data_dir, features='statistic')
-
-    # Stage 1: Estimating performance of classification algorithms
+    ###########
+    # Stage 1 #
+    ###########
+    # Estimating performance of classification algorithms
+    # X_train, y_train, X_test, y_test, _, _ = import_data_for_classification(valid_spreadsheets_dir, data_dir, features='all')
     # find_best_estimator(X_train, y_train, results_dir)
 
-    # Stage 2: Train and evaluate the final estimator (i.e. estimator that best fits the problem)
-    evaluate_final_estimator_on_unseen_data(X_train, y_train, X_test, y_test, results_dir)
-    # train_final_estimator(X_train, y_train, X_test, y_test)
+    ###########
+    # Stage 2 #
+    ###########
+    # Evaluate the final estimator (i.e. estimator that best fits the problem)
+    # X_train, y_train, X_test, y_test, _, _ = import_data_for_classification(valid_spreadsheets_dir, data_dir, features='all')
+    # evaluate_final_estimator_on_unseen_data(X_train, y_train, X_test, y_test, results_dir)
 
-    # Stage 3: Predict data using the final estimator
+    # Using only statistic features
+    # X_train, y_train, X_test, y_test, _, _ = import_data_for_classification(valid_spreadsheets_dir, data_dir, features='statistic')
+    # evaluate_final_estimator_on_unseen_data(X_train, y_train, X_test, y_test, results_dir)
+
+    # Using only heuristic features
+    # X_train, y_train, X_test, y_test, _, _ = import_data_for_classification(valid_spreadsheets_dir, data_dir, features='heuristic')
+    # evaluate_final_estimator_on_unseen_data(X_train, y_train, X_test, y_test, results_dir)
+
+    ###########
+    # Stage 3 #
+    ###########
+    # Predict data using the final estimator
+    # train_final_estimator(X_train, y_train, X_test, y_test)
     # predict_using_final_estimator(spreadsheets_dir, predict_spreadsheets_dir, results_dir, 75)

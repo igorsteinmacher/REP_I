@@ -15,8 +15,10 @@ def create_statistic_features(X_train, X_test, is_predict = False):
     as heuristic features.
 
     Args:
-        X: A string column containing paragraphs.
-
+        X_train: String columns containing paragraphs.
+        X_test: String column containing features
+        is_predict: Boolean defining if features should
+        be fitted before transformation.
     Returns:
         A sparse matrix of TF-IDF features.
     """

@@ -1,7 +1,7 @@
 import os
 from data_preparation.prepare_data import create_train_and_test_sets, import_sets
 
-def import_data_for_classification(spreadsheets_dir, data_dir):
+def import_data_for_classification(spreadsheets_dir, data_dir, features = 'all'):
     """Imports and parses spreadsheets as data structures for classification
     and save them as CSV files.
 
@@ -37,7 +37,7 @@ def import_data_for_classification(spreadsheets_dir, data_dir):
                                    classes_columns, train_filepath, test_filepath,
                                    label_column)
 
-    return import_sets(train_filepath, test_filepath, text_column, label_column)
+    return import_sets(train_filepath, test_filepath, text_column, label_column, features=features)
 
 def import_data_for_prediction(spreadsheets_dir, data_dir):
     """Imports and parses spreadsheets as data structures for prediction.
@@ -48,7 +48,6 @@ def import_data_for_prediction(spreadsheets_dir, data_dir):
         spreadsheets_dir (String): Folder where spreadsheets
         are located.
         data_dir (String): Folder where parsed data is saved.
-
     Returns:
         Dataframes: Training and test samples (See import_sets in prepare_data.py)
     """

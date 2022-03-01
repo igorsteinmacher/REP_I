@@ -13,7 +13,7 @@ def transform_spreadsheets_in_dataframe(spreadsheets_dir, text_column,
 
     Args:
         spreadsheets_dir (String): Represents the path to the directory where the
-                        spreadsheets are located.
+            spreadsheets are located.
 
     Returns:
         Dataframe: Contains the parsed spreadsheets in a dataframe structure.
@@ -37,7 +37,7 @@ def parse_spreadsheet_file(filepath, text_column, classes_columns, label_column)
     Args:
         filepath (String): Represents the path to a spreadsheet.
         classes (List of strings): Contains the columns that should be extracted
-                from the spreadsheet as classes of the classifier.
+            from the spreadsheet as classes of the classifier.
 
     Returns:
        Dataframe: Contains the data from the spreadsheet.
@@ -79,7 +79,7 @@ def define_label(row, classes_columns):
     Args:
         row: A pandas dataframe row. 
         classes: A list of strings containing the columns that should be extracted
-                from the spreadsheet as classes of the classifier.
+            from the spreadsheet as classes of the classifier.
     
     Returns:
         A string representing the label for the respective row.

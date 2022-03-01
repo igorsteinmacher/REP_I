@@ -47,7 +47,7 @@ def create_train_and_test_sets(spreadsheets_dir, text_column, classes_columns,
     train_data.to_csv(train_filepath, index=False, encoding='utf-8-sig')
     test_data.to_csv(test_filepath, index=False, encoding='utf-8-sig')
 
-def import_sets(train_filepath, test_filepath, text_column, label_column, is_predict = False):
+def import_sets(train_filepath, test_filepath, text_column, label_column, is_predict = False, features='all'):
     """Imports train and test sets and applies the text preprocessing techniques when necessary
     
     Args:
@@ -59,6 +59,10 @@ def import_sets(train_filepath, test_filepath, text_column, label_column, is_pre
             saved as a CSV file
         label_column (String): Represents the name given to a new column that
             will be used to store the label of each paragraph.
+        is_predict (Bool, optional): If the purpose of
+            feature selection is prediction, it loads the
+            feature selector used during training to avoid
+            overfitting. Defaults to False.
     """
     print("Importing training and test sets.")
     train_data = pandas.read_csv(train_filepath)
@@ -73,15 +77,25 @@ def import_sets(train_filepath, test_filepath, text_column, label_column, is_pre
     preprocessing_techniques = ['remove-stopwords', 'remove-punctuations', 'lemmatization']
     X_train = text_preprocessing(X_train, preprocessing_techniques)
     X_test = text_preprocessing(X_test, preprocessing_techniques)
-    
+
     print("Converting paragraphs into statistic features.")
     train_statistic_features, test_statistic_features = create_statistic_features(X_train, X_test, is_predict)
 
     print("Converting paragraphs into heuristic features.")
     train_heuristic_features, test_heuristic_features = create_heuristic_features(X_train, X_test)
 
-    X_train = hstack([train_statistic_features, train_heuristic_features])
-    X_test = hstack([test_statistic_features, test_heuristic_features])
+    if features == 'all':
+        X_train = hstack([train_statistic_features, train_heuristic_features])
+        X_test = hstack([test_statistic_features, test_heuristic_features])
+    elif features == 'heuristic':
+        X_train = train_heuristic_features
+        X_test = test_heuristic_features
+    elif features == 'statistic':
+        X_train = train_statistic_features
+        X_test = test_statistic_features
+    else:
+        print('The type of features you aim to use does not exist.')
+        raise ValueError
 
     print("Selecting features with SelectPercentile (chi2).")
     X_train, X_test = select_features(X_train, y_train, X_test, is_predict)

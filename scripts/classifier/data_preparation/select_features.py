@@ -12,7 +12,6 @@ def select_features(X_train, y_train, X_test, is_predict = False):
             feature selection is prediction, it loads the
             feature selector used during training to avoid
             overfitting. Defaults to False.
-
     Returns:
         Dataframe, Dataframe: Training and test features selected
             using SelectPercentile (chi-square)

@@ -85,8 +85,8 @@ def import_sets(train_filepath, test_filepath, text_column, label_column, is_pre
     train_heuristic_features, test_heuristic_features = create_heuristic_features(X_train, X_test)
 
     if features == 'all':
-        X_train = hstack([train_statistic_features, train_heuristic_features])
-        X_test = hstack([test_statistic_features, test_heuristic_features])
+        X_train = pandas.concat([train_statistic_features, train_heuristic_features], axis=1)
+        X_test = pandas.concat([test_statistic_features, test_heuristic_features], axis=1)
     elif features == 'heuristic':
         X_train = train_heuristic_features
         X_test = test_heuristic_features

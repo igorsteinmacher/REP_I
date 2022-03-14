@@ -1,11 +1,16 @@
 import os
 import pickle
+from functools import partial
 import pandas
 # Heuristic
 from spacy.lang.en import English
 from sklearn.feature_selection import VarianceThreshold
 # Statistic
 from sklearn.feature_extraction.text import TfidfVectorizer
+
+def add_column_name_prefix(column_name, prefix):
+    return prefix + column_name
+
 
 def create_statistic_features(X_train, X_test, is_predict = False):
     """Converts paragraphs into TF-IDF features.
@@ -33,13 +38,20 @@ def create_statistic_features(X_train, X_test, is_predict = False):
 
     if is_predict:
         vectorizer = pickle.load(open('tf-idf.sav', 'rb'))
-        train_statistic_features = vectorizer.transform(X_train)
-        test_statistic_features = vectorizer.transform(X_test)   
+        train_features = vectorizer.transform(X_train)
+        test_features = vectorizer.transform(X_test)
+        train_statistic_features = pandas.DataFrame(train_features.toarray(), columns=vectorizer.get_feature_names())
+        test_statistic_features = pandas.DataFrame(test_features.toarray(), columns=vectorizer.get_feature_names())
     else:
         vectorizer = TfidfVectorizer(**vect_args)
-        train_statistic_features = vectorizer.fit_transform(X_train)
-        test_statistic_features = vectorizer.transform(X_test)
+        train_features = vectorizer.fit_transform(X_train)
+        test_features = vectorizer.transform(X_test)
+        train_statistic_features = pandas.DataFrame(train_features.toarray(), columns=vectorizer.get_feature_names())
+        test_statistic_features = pandas.DataFrame(test_features.toarray(), columns=vectorizer.get_feature_names())
         pickle.dump(vectorizer, open('tf-idf.sav', 'wb'))
+
+    train_statistic_features = train_statistic_features.rename(mapper=partial(add_column_name_prefix, prefix="stat_"), axis="columns")
+    test_statistic_features = test_statistic_features.rename(mapper=partial(add_column_name_prefix, prefix="stat_"), axis="columns")
 
     return train_statistic_features, test_statistic_features
 
@@ -93,5 +105,8 @@ def create_heuristic_features(X_train, X_test):
 
     train_heuristic_features.drop('Paragraph', axis=1, inplace=True)
     test_heuristic_features.drop('Paragraph', axis=1, inplace=True)
+
+    train_heuristic_features = train_heuristic_features.rename(mapper=partial(add_column_name_prefix, prefix="heur_"), axis="columns")
+    test_heuristic_features = test_heuristic_features.rename(mapper=partial(add_column_name_prefix, prefix="heur_"), axis="columns")
 
     return train_heuristic_features, test_heuristic_features

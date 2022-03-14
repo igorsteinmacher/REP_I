@@ -22,7 +22,7 @@ from data_preparation.import_data import import_data_for_classification, import_
 from model_selection.evaluate_estimators import evaluate_estimators_performance
 
 # Classification
-from classification.train_model import train_classifier
+from classification.train_model import train_classifier, features_cross_validation
 from classification.explore_model import export_classification_report
 from classification.explore_model import export_confusion_matrix
 from classification.explore_model import export_learning_curve
@@ -96,6 +96,22 @@ def evaluate_final_estimator_on_unseen_data(X_train, y_train, X_test, y_test, re
     export_classification_report(model, X_test, y_test, results_dir)
     export_confusion_matrix(model, X_test, y_test)
     export_learning_curve(**training_args)
+
+def evaluate_usefulness_of_characteristics(X_train, y_train, X_test, y_test, results_dir):
+
+    # Based on the current tests, LinearSVC with the following arguments
+    # is the estimator that provides the best performance for the training instances.
+    selected_classifier = LinearSVC(tol=0.001, C=1, max_iter=500)
+
+    training_args = {
+        'classifier': selected_classifier,
+        'strategy': 'one_vs_rest',
+        'oversample': False,
+        'X_train': X_train,
+        'y_train': y_train
+    }
+
+    features_cross_validation(**training_args, results_dir=results_dir)
 
 def train_final_estimator(X_train, y_train, X_test, y_test):
     """After identifying the algorithm that provides the best
@@ -185,12 +201,12 @@ def predict_using_final_estimator(spreadsheets_dir, predict_spreadsheets_dir, re
     with open(os.path.join(results_dir, 'predictions.csv'), 'w') as predictions_file:
         classes = ['No categories identified.',
                     'CF - Contribution flow',
-                    'CT – Choose a task',
-                    'TC – Talk to the community',
-                    'BW – Build local workspace',
-                    'DC – Deal with the code',
-                    'SC – Submit the changes']
-        
+                    'CT - Choose a task',
+                    'TC - Talk to the community',
+                    'BW - Build local workspace',
+                    'DC - Deal with the code',
+                    'SC - Submit the changes']
+
         for predicted_class in classes:
             predictions_file.write('Paragraph, Predicted Class\n')
 
@@ -243,9 +259,13 @@ if __name__ == '__main__':
     # X_train, y_train, X_test, y_test, _, _ = import_data_for_classification(valid_spreadsheets_dir, data_dir, features='heuristic')
     # evaluate_final_estimator_on_unseen_data(X_train, y_train, X_test, y_test, results_dir)
 
+    # Evaluate usefulness of characteristics
+    X_train, y_train, X_test, y_test, _, _ = import_data_for_classification(valid_spreadsheets_dir, data_dir, features='all')
+    evaluate_usefulness_of_characteristics(X_train, y_train, X_test, y_test, results_dir)
+
     ###########
     # Stage 3 #
     ###########
-    # Predict data using the final estimator
+    # Train the final classification, dump the model and predict data using it
     # train_final_estimator(X_train, y_train, X_test, y_test)
     # predict_using_final_estimator(spreadsheets_dir, predict_spreadsheets_dir, results_dir, 75)

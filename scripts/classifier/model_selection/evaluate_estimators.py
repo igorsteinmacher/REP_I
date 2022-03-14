@@ -161,7 +161,7 @@ def nested_cross_validation(classifier, hyperparameters, strategy,
 
     # The internal cross-validation is used for hyperparameter optimization.
     print('Running hyperparameter optimization.')
-    internal_cv = StratifiedKFold(n_splits=3)
+    internal_cv = StratifiedKFold(n_splits=10)
     internal_evaluation = GridSearchCV(pipeline, hyperparameters, cv=internal_cv)
     internal_evaluation.fit(X_train, y_train)
 
@@ -170,14 +170,15 @@ def nested_cross_validation(classifier, hyperparameters, strategy,
     f1_weighted_scores_means = []
 
     # We perform the external cross-validation `num` times to 
-    # mitigate wrong assumptions of the average scores of each model.
+    # evaluate difference of the average scores of each model
+    # in OneVsRest strategy. The result will be always the same
+    # for OneVsOne.
+    # See thread: https://stats.stackexchange.com/questions/91091/one-vs-all-and-one-vs-one-in-svm
 
     num_times = 1
 
     if strategy == 'one_vs_rest':
         num_times = 10
-    elif strategy == 'one_vs_one':
-        num_times = 1
 
     for times in range(0, num_times):
         print('Running model selection cross-validation (' + str(times + 1) + ' out of ' + str(num_times) + ')')

@@ -30,4 +30,4 @@ def select_features(X_train, y_train, X_test, is_predict = False):
 
         pickle.dump(selector, open('feature_selector.sav', 'wb'))
 
-    return X_train, X_test
+    return X_train, X_test, selector.get_feature_names_out()

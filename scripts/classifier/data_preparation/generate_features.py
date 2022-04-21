@@ -4,7 +4,6 @@ from functools import partial
 import pandas
 # Heuristic
 from spacy.lang.en import English
-from sklearn.feature_selection import VarianceThreshold
 # Statistic
 from sklearn.feature_extraction.text import TfidfVectorizer
 

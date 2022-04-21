@@ -98,6 +98,6 @@ def import_sets(train_filepath, test_filepath, text_column, label_column, is_pre
         raise ValueError
 
     print("Selecting features with SelectPercentile (chi2).")
-    X_train, X_test = select_features(X_train, y_train, X_test, is_predict)
+    X_train, X_test, selected_feature_names = select_features(X_train, y_train, X_test, is_predict)
 
-    return X_train, y_train, X_test, y_test, train_text_column, test_text_column
+    return X_train, y_train, X_test, y_test, train_text_column, test_text_column, selected_feature_names

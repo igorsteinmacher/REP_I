@@ -10,6 +10,7 @@ import random
 import shutil
 import pandas
 import pickle
+import numpy as np
 from scipy.sparse import vstack
 
 # Final estimator 
@@ -20,6 +21,7 @@ from data_preparation.import_data import import_data_for_classification, import_
 
 # Model selection
 from model_selection.evaluate_estimators import evaluate_estimators_performance
+from sklearn.ensemble import RandomForestClassifier as RClf
 
 # Classification
 from classification.train_model import train_classifier, features_cross_validation
@@ -97,7 +99,7 @@ def evaluate_final_estimator_on_unseen_data(X_train, y_train, X_test, y_test, re
     export_confusion_matrix(model, X_test, y_test)
     export_learning_curve(**training_args)
 
-def evaluate_usefulness_of_characteristics(X_train, y_train, X_test, y_test, results_dir):
+def evaluate_particular_features(X_train, y_train, selected_feature_names, results_dir):
 
     # Based on the current tests, LinearSVC with the following arguments
     # is the estimator that provides the best performance for the training instances.
@@ -111,7 +113,7 @@ def evaluate_usefulness_of_characteristics(X_train, y_train, X_test, y_test, res
         'y_train': y_train
     }
 
-    features_cross_validation(**training_args, results_dir=results_dir)
+    features_cross_validation(**training_args, feature_names=selected_feature_names, results_dir=results_dir)
 
 def train_final_estimator(X_train, y_train, X_test, y_test):
     """After identifying the algorithm that provides the best
@@ -248,21 +250,21 @@ if __name__ == '__main__':
     # Stage 2 #
     ###########
     # Evaluate the final estimator (i.e. estimator that best fits the problem)
-    # X_train, y_train, X_test, y_test, _, _ = import_data_for_classification(valid_spreadsheets_dir, data_dir, features='all')
+    # X_train, y_train, X_test, y_test, _, _, _ = import_data_for_classification(valid_spreadsheets_dir, data_dir, features='all')
     # evaluate_final_estimator_on_unseen_data(X_train, y_train, X_test, y_test, results_dir)
 
     # Using only statistic features
-    # X_train, y_train, X_test, y_test, _, _ = import_data_for_classification(valid_spreadsheets_dir, data_dir, features='statistic')
+    # X_train, y_train, X_test, y_test, _, _, _ = import_data_for_classification(valid_spreadsheets_dir, data_dir, features='statistic')
     # evaluate_final_estimator_on_unseen_data(X_train, y_train, X_test, y_test, results_dir)
 
     # Using only heuristic features
-    # X_train, y_train, X_test, y_test, _, _ = import_data_for_classification(valid_spreadsheets_dir, data_dir, features='heuristic')
+    # X_train, y_train, X_test, y_test, _, _, _ = import_data_for_classification(valid_spreadsheets_dir, data_dir, features='heuristic')
     # evaluate_final_estimator_on_unseen_data(X_train, y_train, X_test, y_test, results_dir)
 
     # Evaluate usefulness of characteristics
-    X_train, y_train, X_test, y_test, _, _ = import_data_for_classification(valid_spreadsheets_dir, data_dir, features='all')
-    evaluate_usefulness_of_characteristics(X_train, y_train, X_test, y_test, results_dir)
-
+    X_train, y_train, _, _, _, _, selected_feature_names = import_data_for_classification(valid_spreadsheets_dir, data_dir, features='all')
+    evaluate_particular_features(X_train, y_train, selected_feature_names, results_dir)
+ 
     ###########
     # Stage 3 #
     ###########

@@ -5,7 +5,7 @@ __author__ = 'Felipe Fronchetti'
 __contact__ = 'fronchetti@usp.br'
 
 import os
-import csv
+import pandas
 
 # Classifier training
 from sklearn.multiclass import OneVsRestClassifier
@@ -13,8 +13,7 @@ from sklearn.multiclass import OneVsOneClassifier
 from imblearn.over_sampling import SMOTE
 
 # Cross-validation
-from sklearn.model_selection import StratifiedKFold
-from sklearn.feature_selection import RFECV, RFE
+from sklearn.model_selection import cross_validate
 
 def train_classifier(classifier, strategy, oversample, X_train, y_train):
     """Computes a multiclass classification.
@@ -45,35 +44,31 @@ def train_classifier(classifier, strategy, oversample, X_train, y_train):
 
     return model
 
-def features_cross_validation(classifier, strategy, oversample, X_train, y_train, results_dir):
-    print("Running feature selection")
+def features_cross_validation(classifier, strategy, oversample, X_train, y_train, feature_names, results_dir):
+    print("Getting feature coefficients from LinearSVC")
+    folds = None
 
     if strategy == 'one_vs_rest':
         model = OneVsRestClassifier(classifier)
     if strategy == 'one_vs_one':
         model = OneVsOneClassifier(classifier)
 
-    cv = StratifiedKFold(n_splits=2)
-
     if oversample:
         X_resampled, y_resampled = SMOTE().fit_resample(X_train, y_train)
-
-        with open(os.path.join(results_dir, 'usefulness_of_features.txt'), 'w') as usefulness_file:
-            # selector = RFECV(model, cv=cv, n_jobs=-1, min_features_to_select=10)
-            selector = RFE(model, n_features_to_select=10)
-            selector = selector.fit(X_resampled, y_resampled)
-            print(selector.ranking_)
-            print(selector.n_features_in_)
-            usefulness_file.write("Usefulness of features:\n")
-            usefulness_file.write(str(selector.feature_names_in_))
-            usefulness_file.write(str(selector.ranking_))
+        folds = cross_validate(model, X_resampled, y_resampled, cv = 10, return_estimator=True)
     else:
-        with open(os.path.join(results_dir, 'usefulness_of_features.txt'), 'w') as usefulness_file:
-            # selector = RFECV(model, cv=cv, n_jobs=-1, min_features_to_select=10)
-            selector = RFE(model, n_features_to_select=10)
-            selector = selector.fit(X_train, y_train)
-            print(selector.ranking_)
-            print(selector.n_features_in_)
-            usefulness_file.write("Usefulness of features:\n")
-            usefulness_file.write(str(selector.n_features_in_))
-            usefulness_file.write(str(selector.ranking_))
+        folds = cross_validate(model, X_train, y_train, cv = 10, return_estimator=True)
+    
+    folds_concat = pandas.DataFrame()
+
+    for estimator in folds['estimator']:
+        weights = pandas.DataFrame(estimator.coef_, index=estimator.classes_.tolist(), columns=feature_names)
+        folds_concat = pandas.concat((folds_concat, weights))
+    
+    ordered_folds = folds_concat.sort_index()
+    ordered_folds.to_csv(os.path.join(results_dir, 'features_weights.csv'))
+    by_category = folds_concat.groupby(folds_concat.index)
+    weights_mean = by_category.mean()
+    best_features_per_class = weights_mean.apply(lambda s, n: pandas.Series(s.nlargest(n).index), axis=1, n=5)
+    weights_mean.to_csv(os.path.join(results_dir, 'features_weights_mean.csv'))
+    best_features_per_class.to_csv(os.path.join(results_dir, 'best_features_per_class.csv'))

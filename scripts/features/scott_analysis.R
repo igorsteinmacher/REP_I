@@ -1,0 +1,6 @@
+library(ScottKnottESD)
+help(sk_)
+BW <- read.csv("~/GitHub/USP-2020/results/feature_analysis/BW.csv", row.names=1)
+sk_BW <- sk_esd(BW)
+print(sk_BW)
+plot(sk_BW)

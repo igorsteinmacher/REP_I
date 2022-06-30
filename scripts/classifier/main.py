@@ -99,7 +99,7 @@ def evaluate_final_estimator_on_unseen_data(X_train, y_train, X_test, y_test, re
     export_confusion_matrix(model, X_test, y_test)
     export_learning_curve(**training_args)
 
-def evaluate_particular_features(X_train, y_train, selected_feature_names, results_dir):
+def evaluate_usefulness_of_features(X_train, y_train, selected_feature_names, results_dir):
 
     # Based on the current tests, LinearSVC with the following arguments
     # is the estimator that provides the best performance for the training instances.
@@ -146,7 +146,7 @@ def train_final_estimator(X_train, y_train, X_test, y_test):
     # Dumps the model to a file for future predictions.
     pickle.dump(model, open('final_estimator.sav', 'wb'))
 
-def predict_using_final_estimator(spreadsheets_dir, predict_spreadsheets_dir, results_dir, n_samples):
+def predict_survey_spreadsheets(spreadsheets_dir, predict_spreadsheets_dir, results_dir, n_samples):
     """Using the final version of the best estimator (See train_final_estimator), 
     this method is used to predict the classes of new data samples.
 
@@ -235,39 +235,40 @@ if __name__ == '__main__':
     # repository/data/documentation/spreadsheets/
     spreadsheets_dir = os.path.join(data_dir, 'documentation', 'spreadsheets')
     # repository/data/documentation/spreadsheets/valid
-    valid_spreadsheets_dir = os.path.join(spreadsheets_dir, 'valid')
+    training_spreadsheets_dir = os.path.join(spreadsheets_dir, 'for-training')
     # repository/data/documentation/spreadsheets/for-prediction
-    predict_spreadsheets_dir = os.path.join(spreadsheets_dir, 'for-prediction')
+    survey_spreadsheets_dir = os.path.join(spreadsheets_dir, 'for-survey')
 
     ###########
     # Stage 1 #
     ###########
-    # Estimating performance of classification algorithms
-    # X_train, y_train, X_test, y_test, _, _ = import_data_for_classification(valid_spreadsheets_dir, data_dir, features='all')
+    # Estimates the performance of different classification algorithms on training data
+    # X_train, y_train, X_test, y_test, _, _ = import_data_for_classification(training_spreadsheets_dir, data_dir, features='all')
     # find_best_estimator(X_train, y_train, results_dir)
 
     ###########
     # Stage 2 #
     ###########
-    # Evaluate the final estimator (i.e. estimator that best fits the problem)
-    # X_train, y_train, X_test, y_test, _, _, _ = import_data_for_classification(valid_spreadsheets_dir, data_dir, features='all')
+    # Evaluates the final estimator on unseen data (i.e. estimator that best fits the problem)
+    # X_train, y_train, X_test, y_test, _, _, _ = import_data_for_classification(training_spreadsheets_dir, data_dir, features='all')
     # evaluate_final_estimator_on_unseen_data(X_train, y_train, X_test, y_test, results_dir)
 
     # Using only statistic features
-    # X_train, y_train, X_test, y_test, _, _, _ = import_data_for_classification(valid_spreadsheets_dir, data_dir, features='statistic')
+    # X_train, y_train, X_test, y_test, _, _, _ = import_data_for_classification(training_spreadsheets_dir, data_dir, features='statistic')
     # evaluate_final_estimator_on_unseen_data(X_train, y_train, X_test, y_test, results_dir)
 
     # Using only heuristic features
-    # X_train, y_train, X_test, y_test, _, _, _ = import_data_for_classification(valid_spreadsheets_dir, data_dir, features='heuristic')
+    # X_train, y_train, X_test, y_test, _, _, _ = import_data_for_classification(training_spreadsheets_dir, data_dir, features='heuristic')
     # evaluate_final_estimator_on_unseen_data(X_train, y_train, X_test, y_test, results_dir)
 
     # Evaluate usefulness of characteristics
-    X_train, y_train, _, _, _, _, selected_feature_names = import_data_for_classification(valid_spreadsheets_dir, data_dir, features='all')
-    evaluate_particular_features(X_train, y_train, selected_feature_names, results_dir)
+    X_train, y_train, _, _, _, _, selected_feature_names = import_data_for_classification(training_spreadsheets_dir, data_dir, features='all')
+    evaluate_usefulness_of_features(X_train, y_train, selected_feature_names, results_dir)
  
     ###########
     # Stage 3 #
     ###########
-    # Train the final classification, dump the model and predict data using it
+    # Train the final classification with all data and dump the model
     # train_final_estimator(X_train, y_train, X_test, y_test)
-    # predict_using_final_estimator(spreadsheets_dir, predict_spreadsheets_dir, results_dir, 75)
+    # Predict samples using the final model for the survey evaluation
+    # predict_survey_spreadsheets(spreadsheets_dir, survey_spreadsheets_dir, results_dir, 75)

@@ -3,9 +3,6 @@
 {"label": "GIT", "pattern": [{"LOWER": "committer"}], "id": "committer"}
 {"label": "GIT", "pattern": [{"LOWER": "branch"}], "id": "branch"}
 {"label": "GIT", "pattern": [{"LOWER": "rebase"}], "id": "rebase"}
-{"label": "GIT", "pattern": [{"LOWER": "clone"}], "id": "clone"}
-{"label": "GIT", "pattern": [{"LOWER": "push"}], "id": "push"}
-{"label": "GIT", "pattern": [{"LOWER": "merge"}], "id": "merge"}
 {"label": "GIT", "pattern": [{"LOWER": "diff"}], "id": "diff"}
 {"label": "GIT", "pattern": [{"LOWER": "checkout"}], "id": "checkout"}
 {"label": "GIT", "pattern": [{"LOWER": "sync"}], "id": "sync"}
@@ -16,21 +13,16 @@
 {"label": "GIT", "pattern": [{"LOWER": "revert"}], "id": "revert"}
 {"label": "GIT", "pattern": [{"LOWER": "log"}], "id": "log"}
 {"label": "GIT", "pattern": [{"LOWER": "fetch"}], "id": "fetch"}
-{"label": "GIT", "pattern": [{"LOWER": "title"}], "id": "title"}
 {"label": "GIT", "pattern": [{"LOWER": "author"}], "id": "author"}
 {"label": "GIT", "pattern": [{"LOWER": "message"}], "id": "message"}
 
-{"label": "GITHUB", "pattern": [{"LOWER": "github"}], "id": "github"}
-{"label": "GITHUB", "pattern": [{"LOWER": "fork"}], "id": "fork"}
-{"label": "GITHUB", "pattern": [{"LOWER": "release"}], "id": "release"}
-{"label": "GITHUB", "pattern": [{"LOWER": "label"}], "id": "label"}
-{"label": "GITHUB", "pattern": [{"LOWER": "pull"}], "id": "pull-request"}
-{"label": "GITHUB", "pattern": [{"LOWER": "pull"}, {"LOWER": "request"}], "id": "pull-request"}
-{"label": "GITHUB", "pattern": [{"LOWER": "pull"}, {"IS_PUNCT": true}, {"LOWER": "request"}], "id": "pull-request"}
-{"label": "GITHUB", "pattern": [{"LOWER": "issue"}], "id": "issue"}
-{"label": "GITHUB", "pattern": [{"LOWER": "tracker"}], "id": "issue-tracker"}
-{"label": "GITHUB", "pattern": [{"LOWER": "issue"}, {"LOWER": "tracker"}], "id": "issue-tracker"}
-{"label": "GITHUB", "pattern": [{"LOWER": "issue"}, {"IS_PUNCT": true}, {"LOWER": "tracker"}], "id": "issue-tracker"}
+{"label": "TASK", "pattern": [{"LOWER": "fork"}], "id": "fork"}
+{"label": "TASK", "pattern": [{"LOWER": "issue"}], "id": "issue"}
+{"label": "TASK", "pattern": [{"LOWER": "tracker"}], "id": "issue-tracker"}
+{"label": "TASK", "pattern": [{"LOWER": "issue"}, {"LOWER": "tracker"}], "id": "issue-tracker"}
+{"label": "TASK", "pattern": [{"LOWER": "issue"}, {"IS_PUNCT": true}, {"LOWER": "tracker"}], "id": "issue-tracker"}
+{"label": "TASK", "pattern": [{"LOWER": "label"}], "id": "label"}
+{"label": "TASK", "pattern": [{"LOWER": "title"}], "id": "title"}
 
 {"label": "COMMUNITY", "pattern": [{"LOWER": "code"}, {"IS_STOP": true}, {"LOWER": "conduct"}], "id": "code-of-conduct"}
 {"label": "COMMUNITY", "pattern": [{"LOWER": "mailing"}, {"IS_PUNCT": true}, {"LOWER": "list"}], "id": "mailing-list"}
@@ -132,8 +124,16 @@
 {"label": "SETUP", "pattern": [{"LOWER": "ls"}], "id": "shell-command"}
 {"label": "SETUP", "pattern": [{"LOWER": "dir"}], "id": "shell-command"}
 
-{"label": "CONTRIBUTION", "pattern": [{"LOWER": "flow"}], "id": "flow"}
-{"label": "CONTRIBUTION", "pattern": [{"LOWER": "contribution"}, {"LOWER": "flow"}], "id": "contribution-flow"}
+{"label": "FLOW", "pattern": [{"LOWER": "flow"}], "id": "flow"}
+{"label": "FLOW", "pattern": [{"LOWER": "contribution"}, {"LOWER": "flow"}], "id": "contribution-flow"}
+{"label": "FLOW", "pattern": [{"LOWER": "github"}], "id": "github"}
+{"label": "FLOW", "pattern": [{"LOWER": "release"}], "id": "release"}
+{"label": "FLOW", "pattern": [{"LOWER": "pull"}], "id": "pull-request"}
+{"label": "FLOW", "pattern": [{"LOWER": "pull"}, {"LOWER": "request"}], "id": "pull-request"}
+{"label": "FLOW", "pattern": [{"LOWER": "pull"}, {"IS_PUNCT": true}, {"LOWER": "request"}], "id": "pull-request"}
+{"label": "FLOW", "pattern": [{"LOWER": "clone"}], "id": "clone"}
+{"label": "FLOW", "pattern": [{"LOWER": "push"}], "id": "push"}
+{"label": "FLOW", "pattern": [{"LOWER": "merge"}], "id": "merge"}
 
 {"label": "SUBMISSION", "pattern": [{"LOWER": "changelog"}], "id": "changelog"}
 {"label": "SUBMISSION", "pattern": [{"LOWER": "ci"}], "id": "continuous-integration"}

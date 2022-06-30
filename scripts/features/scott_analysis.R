@@ -1,11 +1,13 @@
 library(ScottKnottESD)
 
-par(mar=c(5, 7, 4, 10))
-par(cex.axis=1.5)
+par(mar=c(5, 5, 1, 5))
+par(cex.axis=1.5, lwd=2)
+
+# Size 12 x 7
 
 BW <- read.csv("~/GitHub/USP-2020/results/feature_analysis/BW.csv", row.names=1)
 sk_BW <- sk_esd(BW)
-pdf(file = "~/GitHub/USP-2020/results/feature_analysis/BW.pdf", width=10, height=5)
+plot(sk_BW, col=c("#0F9D58", "#4285F4", "#F4B400", "#DB4437", "#AE00FF"), pch = 16, ylab="", xlab="", title="", cex=1.5)
 mtext("Means", side=2, line=3.5, cex=2)
 mtext("Top features grouped by color", side=1, line=3.5, cex=2)
 

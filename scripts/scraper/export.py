@@ -38,7 +38,7 @@ def create_analysis_file(worksheet_name, raw_filepath, spreadsheet_filepath):
     # Redefine this variable with your own filepath to cmark-gfm.exe
     cmark_gfm_exe_path = 'C:\\Users\\fronchettl\\Documents\\cmark-gfm-master\\cmark-gfm-master\\build\\src\\cmark-gfm.exe'
 
-    if cmark_gfm_exe_path:
+    if os.path.isfile(cmark_gfm_exe_path):
         plaintext = subprocess.run([cmark_gfm_exe_path, absolute_path, '--to', 'plaintext'], stdout=subprocess.PIPE)
     else:
         print('Please, update the filepath to the `cmark-gfm.exe` file inside the scripts/scraper/export.py file')

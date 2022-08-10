@@ -13,5 +13,9 @@ Our package is divided in folders and it is organized as follows:
 - **misc**: This folder contains miscellaneous files that were not used in this paper, but support the statements of it (e.g. a screenshot of the top ten languages used on GitHub from the Octoverse website).
 
 # Contact
-If you have any questions or are interested in contributing to this project, please don't hesitate to contact me at:
-fronchettl@vcu.edu
+If you have any questions or are interested in contributing to this project, please don't hesitate to contact us:
+
+* Felipe Fronchetti (fronchettl@vcu.edu)
+* Igor Steinmacher (igorfs@utfpr.edu.br)
+* Igor Wiese (igor@utfpr.edu.br)
+* Marco Gerosa (marco.gerosa@nau.edu)

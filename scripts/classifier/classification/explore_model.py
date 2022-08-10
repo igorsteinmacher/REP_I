@@ -1,3 +1,8 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+__author__ = 'Felipe Fronchetti'
+__contact__ = 'fronchetti@usp.br'
 
 import os
 import json

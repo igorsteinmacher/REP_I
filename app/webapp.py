@@ -1,8 +1,18 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import streamlit as page
 from about_section import write_about_section
 from analysis_section import write_contributing_analysis
 
-page.title("contributing.info")
+page.set_page_config(
+     page_title="Analysis of Contributing Files",
+     page_icon="📋",
+     layout="centered",
+     initial_sidebar_state="collapsed",
+ )
+
+page.markdown("### contributing.info")
 
 repository_url = page.text_input("What GitHub repository would you like to\
                  analyze?", help="Please provide a valid URL to the repository\

@@ -1,16 +1,15 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import os
 import pickle
-from functools import partial
-import pandas
-# Heuristic
-from spacy.lang.en import English
-# Statistic
-import pickle
-
-from nltk.stem.porter import PorterStemmer
-from nltk.stem import WordNetLemmatizer 
-from nltk.corpus import stopwords
 import string
+import pandas
+from functools import partial
+from spacy.lang.en import English
+from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer 
+from nltk.stem.porter import PorterStemmer
 
 def select_features(features):
     """Selects the best features to use before prediction
@@ -65,13 +64,17 @@ def create_heuristic_features(X):
     created in conjunction with the TF-IDF features.
 
     Each rule defines a new feature in X, and it is represented as a column in the dataframe. 
-    Each rule was manually defined by the researchers based on what they have learned during the qualitative analysis.
-    The row values of each rule (column) are defined based on the expression given by the respective rule. 
-    There is, for example, a rule in this study that verifies if the word "GitHub" appears in each paragraph.
-    If the word appears in a paragraph, it defines the row value of the rule's column as 1 or 0 otherwise.
+    Each rule was manually defined by the researchers based on what they have
+    learned during the qualitative analysis. The row values of each rule (column)
+    are defined based on the expression given by the respective rule. 
+    There is, for example, a rule in this study that verifies if the
+    word "GitHub" appears in each paragraph.
+    If the word appears in a paragraph, it defines the row value of the
+    rule's column as 1 or 0 otherwise.
 
-    All rules of this study are presented in the `patterns.jsonl` file inside the `classifier` folder.
-    Learn more about rule-based matching at: spacy.io/usage/rule-based-matching
+    All rules of this study are presented in the `patterns.jsonl` file inside
+    the `classifier` folder. Learn more about rule-based
+    matching at: spacy.io/usage/rule-based-matching
 
     Args:
         X: A string column containing paragraphs.
@@ -118,7 +121,6 @@ def text_preprocessing(X, techniques):
         techniques defined as input.
     """
 
-    print(X)
     X = X.dropna()
 
     def lowercase(paragraph):
@@ -168,17 +170,17 @@ def text_preprocessing(X, techniques):
 def convert_paragraphs_into_features(paragraphs):
     dataframe = pandas.Series(paragraphs)
 
-    print("Applying preprocessing techniques on paragraphs column.")
+    # print("Applying preprocessing techniques on paragraphs column.")
     preprocessing_techniques = ['remove-stopwords', 'remove-punctuations', 'lemmatization']
     paragraphs = text_preprocessing(dataframe, preprocessing_techniques)
 
-    print("Converting paragraphs into statistic features.")
+    # print("Converting paragraphs into statistic features.")
     statistic_features = create_statistic_features(dataframe)
 
-    print("Converting paragraphs into heuristic features.")
+    # print("Converting paragraphs into heuristic features.")
     heuristic_features = create_heuristic_features(dataframe)
 
-    print("Selecting features with SelectPercentile (chi2).")
+    # print("Selecting features with SelectPercentile (chi2).")
     best_features = select_features(pandas.concat([statistic_features, heuristic_features], axis=1))
 
     return best_features

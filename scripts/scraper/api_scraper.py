@@ -6,7 +6,6 @@ __contact__ = 'fronchetti@usp.br'
 
 import os
 import time
-import json
 import requests
 import logging
 from datetime import datetime

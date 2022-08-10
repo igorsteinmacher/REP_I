@@ -42,7 +42,6 @@ class Create:
         
         try:
             session = requests.Session()
-            print(os.getenv('GITHUB_USER'))
             session.auth = (os.getenv('GITHUB_USER'), os.getenv('GITHUB_TOKEN'))
             retries = Retry(total = 10)
             session.mount('https://', HTTPAdapter(max_retries=retries))
@@ -87,7 +86,7 @@ class Create:
             current_time = datetime.now().strftime(datetime_format)
             remaining_seconds = (datetime.fromtimestamp(self.rate_limit_reset) - datetime.now()).total_seconds() + 5
             
-            print('[API] Requests Remaining: {}'.format(self.rate_limit_remaining))
+            # print('[API] Requests Remaining: {}'.format(self.rate_limit_remaining))
 
             if self.rate_limit_remaining <= 1:
                 if reset_time > current_time:

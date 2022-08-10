@@ -1,3 +1,9 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+__author__ = 'Felipe Fronchetti'
+__contact__ = 'fronchetti@usp.br'
+
 import os
 from data_preparation.prepare_data import create_train_and_test_sets, import_sets
 

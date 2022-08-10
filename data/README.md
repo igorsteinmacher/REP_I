@@ -1,4 +1,4 @@
 # About
 This folder is organized as follows:
-- The `agreement` folder contains the initial qualitative analysis done by two authors of this paper. The spreadsheets available inside the inner folders were used to calculate the agreement between the authors so they could indenpendently analyse the remaining spreadsheets for classification.
+- The `agreement` folder contains the initial qualitative analysis done by two authors of this paper. The spreadsheets available inside this folder were used to calculate the agreement between the authors so they could indenpendently analyse the remaining spreadsheets for classification.
 - The `documentation` folder contains the documentation files of each project used in our analysis. You will noticed that there are folders for each stage of our methodology. Spreadsheets inside the `for-survey` folder, for example, were used to ask users about the quality of our predictions in an online questionnaire. The folder `for-training`, contains the spreadsheets used to train, validate and test the classifier. The `raw` folder contains the documentation files before they were converted to spreadsheets.

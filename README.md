@@ -5,7 +5,7 @@ Welcome to the replication package for the paper entitled "Exploring the automat
 
 # Repository Structure 
 Our package is divided in folders and it is organized as follows:
-- **app**: This folder contains the code used in our streamlit application, where we demonstrate capabilities of our final model. 
-- **data**: If you are looking for the data we have used during our classification process, this is the folder where it is located. 
-- **results**: This folder contains all the files related to our results section. From the analysis of our classification model to the results of our online questionnaire, they are all inside this folder.
-- **scripts**: If you want to see the code we have during the whole classification process, including but not limited to scraping, training and model selection, this is the folder you are looking for.
+- **app**: This folder contains the implementation of our streamlit application, used to demonstrate the capabilities of our classification model. 
+- **data**: If you are looking for the data we have used for classification, this is the folder where it is located. This folder also contains the raw contributing files of each project analyzed, and the spreadsheets qualitatively analyzed by the authors. 
+- **results**: This folder contains all the files related to our results section. From the analysis of our classification model to the results of our online questionnaire.
+- **scripts**: If you want to see the code we wrote during the whole classification process, including but not limited to the classification process, this is the folder you are looking for.

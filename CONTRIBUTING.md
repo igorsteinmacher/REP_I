@@ -6,7 +6,7 @@ If you found something wrong in our repository, don't hesitate to contact us or 
 If you are a researcher looking for collaborations, please do the same. 
 
 # Contact
-Felipe Fronchetti (fronchettl@vcu.edu)
-Igor Steinmacher (igorfs@utfpr.edu.br)
-Igor Wiese (igor@utfpr.edu.br)
-Marco Gerosa (marco.gerosa@nau.edu)
+- Felipe Fronchetti (fronchettl@vcu.edu)
+- Igor Steinmacher (igorfs@utfpr.edu.br)
+- Igor Wiese (igor@utfpr.edu.br)
+- Marco Gerosa (marco.gerosa@nau.edu)

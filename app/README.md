@@ -3,5 +3,5 @@ We believe that showing what our model is capable of doing is important. For thi
 
 If you are interested in our application, give it a look at: http://contributing.info/ (Last time available: 08/10/2022).
 
-This folder contains one of the first versions of our web application. Newer releases are being committed to: https://github.com/fronchetti/contributing.info
+This folder contains one of the first versions of our web application. Newer releases are being committed to: https://github.com/fronchetti/contributing.info/
 

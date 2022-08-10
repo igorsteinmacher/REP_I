@@ -11,3 +11,7 @@ Our package is divided in folders and it is organized as follows:
 - **scripts**: If you want to see the code we wrote during the whole classification process, including but not limited to the classification process, this is the folder you are looking for.
 - **qualification**: This folder contains the first set of data we tried to use to train our classifier. This data, analyzed by undegraduate students, was part of my masters qualification and wans't used or discussed in this paper. I just keep it here for recording purposes. 
 - **misc**: This folder contains miscellaneous files that were not used in this paper, but support the statements of it (e.g. a screenshot of the top ten languages used on GitHub from the Octoverse website).
+
+# Contact
+If you have any questions or are interested in contributing to this project, please don't hesitate to contact me at:
+fronchettl@vcu.edu

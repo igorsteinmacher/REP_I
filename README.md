@@ -13,7 +13,7 @@ Our package is divided in folders and it is organized as follows:
 - **misc**: This folder contains miscellaneous files that were not used in this paper, but support the statements of it (e.g. a screenshot of the top ten languages used on GitHub from the Octoverse website).
 
 # I want to use your model!
-We are glad you are interested in our classification model. The final model is available as a [`classification_model.sav`](https://github.com/fronchetti/ICSE-2023/tree/master/app/classifier) file inside the `app` folder that you can load using Pickle. If you are not familiar with Pickle or don't know how to use a saved model, we recommend you to take a look at our code implementation inside the [`app`](https://github.com/fronchetti/ICSE-2023/tree/master/app/classifier) folder.
+We are glad you are interested in our classification model. The final model is available as a [`classification_model.sav`](https://github.com/fronchetti/ICSE-2023/tree/master/app/classifier) file inside the [`app`](https://github.com/fronchetti/ICSE-2023/tree/master/app/classifier) folder that you can load using Pickle. If you are not familiar with Pickle or don't know how to use a saved model, we recommend you to take a look at our code implementation inside the [`app`](https://github.com/fronchetti/ICSE-2023/tree/master/app/classifier) folder.
 
 # Contact
 If you have any questions or are interested in contributing to this project, please don't hesitate to contact us:
